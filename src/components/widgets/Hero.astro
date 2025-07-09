@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+---
+
+<section class="bg-cover bg-no-repeat bg-scroll md:bg-fixed h-screen" style="background-image: linear-gradient(270deg,rgba(163, 233, 235, .16) 0%,rgba(163, 233, 235, .56) 18.45%,rgba(163, 233, 235, .8) 49.67%,rgba(163, 233, 235, .56) 82.52%,rgba(163, 233, 235, .196364) 99.7%,rgba(189, 40, 40, 0) 99.71%, rgba(203, 56, 55, 0) 99.72%,rgba(203, 56, 55, .16) 99.73%),url(herobackground.png)">
+	<div class="max-w-6xl mx-auto px-4 sm:px-6">
+		<div class="py-6 md:py-20">
+			<div class="text-center pb-20 md:pb-4 max-w-5xl mx-auto">
+				<Image
+					class="m-auto rounded-md md:w-[13rem] w-[10rem] md:my-6 my-1"
+					src={import('~/assets/images/hero_dev_thumb.webp')}
+					widths={[377, 516, 688, 900]}
+					sizes="100vw"
+					alt="Dev Thumb Icon"
+				/>
+				<h1 class="text-6xl md:text-[4.50rem] font-bold leading-tighter tracking-tighter mb-4 font-heading text-black">
+					Matthew Harvey
+				</h1>
+				<h2 class="text-3xl md:text-[2.50rem] font-bold leading-tighter tracking-tighter mb-4 font-heading">
+					<span
+						class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary sm:whitespace-nowrap"
+						>Software Developer
+					</span>
+				</h2>
+				<div class="max-w-3xl text-left mx-auto">
+					<div class="max-w-none px-6 flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4">
+						<div class="flex w-full sm:w-auto">
+							<a
+								class="btn text-white border border-gray-600 dark:bg-gray-70 bg-gray-900 hover:bg-gray-700 hover:border-gray-800 sm:mb-0 w-full"
+								href="https://www.linkedin.com/in/mtlh/" target="_blank"
+							>
+								Connect <Icon name="tabler:brand-linkedin" class="w-6 h-6 ml-1" />
+							</a>
+						</div>
+						<div class="flex w-full sm:w-auto">
+							<a
+								class="btn text-white border border-primary bg-primary hover:bg-primary hover:border-primary sm:mb-0 w-full"
+								href="#projects"
+							>
+								View Projects &DownArrow;
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

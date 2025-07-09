@@ -1,0 +1,32 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Skills from '~/components/widgets/Skills.astro';
+import MyWork from '~/components/widgets/MyWork.astro';
+import Projects from '~/components/widgets/Projects.astro';
+import Extras from '~/components/widgets/Extras.astro';
+
+const metadata = {
+  title: 'Matthew Harvey - Portfolio',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+	<Hero />
+	<Skills />
+	<MyWork />
+	<Projects />
+	<BlogLatestPosts
+    title="Find out more content in my Blog"
+    information={""}
+  />
+	<Stats/>
+	<Extras />
+	<CallToAction />
+</Layout>
