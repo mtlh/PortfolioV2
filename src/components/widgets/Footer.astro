@@ -1,26 +1,23 @@
 ---
 import { Icon } from 'astro-icon/components';
 import ToggleTheme from '../common/ToggleTheme.astro';
+import type { Widget } from '~/types';
+import { APP_BLOG } from 'astrowind:config';
+import { findLatestPosts } from '~/utils/blog';
 
-interface Link {
-  text?: string;
-  href?: string;
-  ariaLabel?: string;
-  icon?: string;
-}
-
-interface Links {
+export interface Props extends Widget {
   title?: string;
-  links: Array<Link>;
+  linkText?: string;
+  linkUrl?: string | URL;
+  information?: string;
+  count?: number;
 }
 
-export interface Props {
-  links: Array<Links>;
-  secondaryLinks: Array<Link>;
-  socialLinks: Array<Link>;
-  footNote?: string;
-  theme?: string;
-}
+const {
+  count = 3,
+} = Astro.props;
+
+const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
 
 ---
 
@@ -29,7 +26,7 @@ export interface Props {
 		<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 gap-y-4 sm:gap-8 py-6">
 			<div class="text-gray-800 dark:text-gray-300 mb-2 text-md">
 				<a href="/" class="underline" >Home</a>
-				<ul class="py-2">
+				<ul class="py-2 text-sm">
 					<li class="mb-2">
 						<a class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
 							href="#skills"
@@ -52,25 +49,17 @@ export interface Props {
 			</div>
 			<div class="text-gray-800 dark:text-gray-300 mb-2 text-md">
 				<a href="/blog" class="underline">Blog</a>
-				<ul class="py-2">
-					<li class="mb-2">
-						<a class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
-							href="/go-vercel-postgres"
-							>Go with Vercel and Postgres</a
-						>
-					</li>
-					<li class="mb-2">
-						<a class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
-							href="/what-impact-does-chatgpt-have"
-							>Impact of ChatGPT</a
-						>
-					</li>
-					<li class="mb-2">
-						<a class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
-							href="/spoura-why-i-love-svelte"
-							>Why I love Svelte</a
-						>
-					</li>
+				<ul class="py-2 text-sm">
+					{posts.map((post) => (
+						<li class="mb-2">
+							<a
+								class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
+								href={`/${post.slug}`}
+							>
+								{post.title}
+							</a>
+						</li>
+					))}
 				</ul>
 			</div>
 			<!-- <div class="text-gray-800 dark:text-gray-300 font-medium mb-2 text-lg"><a href="#contact">Contact</a></div> -->
