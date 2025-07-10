@@ -6,19 +6,18 @@ category: Casestudy
 title: 'Making Filmfront - Supabase is everything in one.'
 excerpt: 'Casestudy about building movies website with Typescript, Nextjs and Supabase.'
 image: '~/assets/images/filmfront_thumb.webp'
-tags: 
-    - casestudy
-    - filmfront
-    - nextjs
-    - supabase
-    - typescript
-    - react
-    - tailwind css
+tags:
+  - casestudy
+  - filmfront
+  - nextjs
+  - supabase
+  - typescript
+  - react
+  - tailwind css
 
 metadata:
-    canonical: https://mtlh.vercel.app/filmfront-casestudy
+  canonical: https://mtlh.vercel.app/filmfront-casestudy
 ---
-
 
 # Making Filmfront - Supabase is Everything in One
 

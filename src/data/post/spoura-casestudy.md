@@ -6,16 +6,16 @@ category: Casestudy
 title: 'Making Spoura - Why I love Svelte!'
 excerpt: 'Overview of Spoura and how it was made, details about how svelte is a joy to use.'
 image: '~/assets/images/spoura_portfolio.webp'
-tags: 
-    - svelte
-    - prisma
-    - planetScale
-    - typescript
-    - tailwind css
-    - googlepay
+tags:
+  - svelte
+  - prisma
+  - planetScale
+  - typescript
+  - tailwind css
+  - googlepay
 
 metadata:
-    canonical: https://mtlh.vercel.app/spoura-why-i-love-svelte
+  canonical: https://mtlh.vercel.app/spoura-why-i-love-svelte
 ---
 
 # Making Spoura - Why I Love Svelte!

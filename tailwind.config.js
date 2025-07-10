@@ -37,7 +37,7 @@ export default {
       addVariant('intersect', '&:not([no-intersect])');
     }),
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require("daisyui")
+    require('daisyui'),
   ],
   darkMode: 'class',
 };

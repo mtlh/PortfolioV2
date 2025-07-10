@@ -6,16 +6,16 @@ category: Tutorial
 title: 'API Layer: Go, Vercel and Postgres.'
 excerpt: 'Creating an API service hosted on Vercel, using Go and Postgres to manage dataflow.'
 image: '~/assets/images/go-vercel-postgres/GoVercelPostgres.webp'
-tags: 
-    - go
-    - postgres
-    - nextjs
-    - vercel
-    - api
-    - neon
+tags:
+  - go
+  - postgres
+  - nextjs
+  - vercel
+  - api
+  - neon
 
 metadata:
-    canonical: https://mtlh.vercel.app/go-vercel-postgres
+  canonical: https://mtlh.vercel.app/go-vercel-postgres
 ---
 
 Feel free to explore the [GitHub repository](https://github.com/mtlh/go-vercel-postgres) for the template project or [live demo](https://go-vercel-postgres.vercel.app/api) for hands-on experience and experimentation.
@@ -29,9 +29,9 @@ Feel free to explore the [GitHub repository](https://github.com/mtlh/go-vercel-p
 ### Walkthrough
 
 Lets look at the /api index route first, since it is a great example of the core endpoint structure you can expand upon. The important points within this file is the handler method is ran
- when a http(s) request is made to that endpoint, with the relevant request data being passed and an instance of the response writer as parameters, with the writer being used to return
- data back to the browser. We declare a type for the Message being returned to ensure a typesafe response and then assign it to the msg variable. After this it is about transforming
- the data via the marshal function and sending it back with attached http headers.
+when a http(s) request is made to that endpoint, with the relevant request data being passed and an instance of the response writer as parameters, with the writer being used to return
+data back to the browser. We declare a type for the Message being returned to ensure a typesafe response and then assign it to the msg variable. After this it is about transforming
+the data via the marshal function and sending it back with attached http headers.
 
 ```go
 package api
@@ -65,9 +65,9 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 ```
 
 Accessing a db in a cloud environment can be difficult to do, the first point is the use of environment variables. While this isnt strictly prohibited for key values,
- it can be easy to forget later when making changes or duplicating code. The code has a series of functions that are packaged in the db name which is accessable from all the api go files. 
- The InitDB function aims to actually open the direct connection with the credentials returned from GetConnectionString and ensure its valid. Secondly, the function GetDB is repeatedly used in
- other files as a reference back to a db variable after the connection is made, across the codebase.
+it can be easy to forget later when making changes or duplicating code. The code has a series of functions that are packaged in the db name which is accessable from all the api go files.
+The InitDB function aims to actually open the direct connection with the credentials returned from GetConnectionString and ensure its valid. Secondly, the function GetDB is repeatedly used in
+other files as a reference back to a db variable after the connection is made, across the codebase.
 
 ```go
 package db
@@ -160,6 +160,7 @@ func DBTestHandler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ### Try it yourself
+
 You will need a postgres instance setup prior to following the steps below. If you wish to use Neon for the free database instance, [click here](https://neon.tech/).
 
 ```bash
