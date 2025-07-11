@@ -66,7 +66,7 @@ import { Image } from 'astro:assets';
                   </div>
                 </div>
                 <div class="group cursor-pointer relative inline-block text-center">
-                  <svg viewBox="0 0 128 128"
+                  <svg viewBox="0 0 128 128" class="fill-black dark:fill-white"
                     ><path
                       d="M59.448 0h20.93v96.88c-10.737 2.04-18.62 2.855-27.181 2.855-25.551-.001-38.87-11.551-38.87-33.705 0-21.338 14.135-35.2 36.015-35.2 3.398 0 5.98.272 9.106 1.087zm0 48.765c-2.446-.815-4.485-1.086-7.067-1.086-10.6 0-16.717 6.523-16.717 17.939 0 11.145 5.845 17.26 16.582 17.26 2.309 0 4.212-.136 7.202-.542z"
                     ></path><path
@@ -537,11 +537,21 @@ import { Image } from 'astro:assets';
                   </div>
                 </div>
                 <div class="group cursor-pointer relative inline-block text-center">
-                  <img
+                  <Image
+                    src="https://astro.build/assets/press/logomark-light.svg"
+                    alt="Astro Logo Light"
+                    class="h-12 block w-full dark:hidden"
+                    width={100}
+                    height={100}
                     loading="lazy"
-                    src="https://astro.build/assets/press/astro-icon-dark.svg"
-                    width="100%"
-                    alt="Astro"
+                  />
+                  <Image
+                    src="https://astro.build/assets/press/astro-icon-light-gradient.svg"
+                    alt="Astro Logo Dark"
+                    class="h-12 w-4/5 hidden dark:block"
+                    width={100}
+                    height={100}
+                    loading="lazy"
                   />
                   <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
                     <span
