@@ -15,7 +15,7 @@ import { Image } from 'astro:assets';
       </p>
     </div>
     <div class="grid items-stretch gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 my-12 antialiased">
-      <div class="relative flex h-full flex-col p-2">
+      <div class="relative flex h-full flex-col p-2 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
         <div class="mockup-window border bg-slate-900 text-slate-100 dark:text-black">
           <Image
             class="flex justify-center w-full object-cover object-center rounded-lg shadow-md"
@@ -171,7 +171,7 @@ import { Image } from 'astro:assets';
           </div>
         </div>
       </div>
-      <div class="relative flex h-full flex-col p-2">
+      <div class="relative flex h-full flex-col p-2 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
         <div class="mockup-window border bg-slate-100 text-slate-900 dark:text-black">
           <Image
             class="flex justify-center w-full object-cover object-center rounded-lg shadow-md"
@@ -325,7 +325,7 @@ import { Image } from 'astro:assets';
         </div>
       </div>
       <div class="relative flex h-full flex-col p-2">
-        <div class="mockup-window border bg-zinc-900 text-slate-100 dark:text-black">
+        <div class="mockup-window border bg-zinc-900 text-slate-100 dark:text-black intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
           <Image
             class="flex justify-center w-full object-cover object-center rounded-lg shadow-md"
             src={import('~/assets/images/filmfront_thumb.webp')}
@@ -440,7 +440,7 @@ import { Image } from 'astro:assets';
           </div>
         </div>
       </div>
-      <div class="relative flex h-full flex-col p-2">
+      <div class="relative flex h-full flex-col p-2 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
         <div class="mockup-window border bg-slate-100 text-slate-900 dark:text-black">
           <Image
             class="flex justify-center w-full object-cover object-center rounded-lg shadow-md"
