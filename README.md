@@ -49,8 +49,6 @@ My Portfolio is made to highlight project work, made using both Astro + Tailwind
     style="margin-right:10px;"/>
 </span>
 
-
-
 ## Structure
 
 - ✨ Hero
@@ -75,7 +73,6 @@ All commands are run from the root of the project, from a terminal:
 | `npm run lint:eslint` | Run Eslint                                         |
 | `npm run check`       | Run Eslint & Prettier checks                       |
 | `npm run astro ...`   | Run CLI commands like `astro add`, `astro preview` |
-
 
 ### Deployments
 
