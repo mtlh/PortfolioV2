@@ -1,5 +1,77 @@
 ---
 import { Image } from 'astro:assets';
+
+// Local skill icon imports
+import html5 from '~/assets/skills/icons/html5-original.svg';
+import css3 from '~/assets/skills/icons/css3-original.svg';
+import jsIcon from '~/assets/skills/icons/javascript-plain.svg';
+import tsIcon from '~/assets/skills/icons/typescript-original.svg';
+import reactIcon from '~/assets/skills/icons/react-original.svg';
+import tailwind from '~/assets/skills/icons/tailwindcss-original.svg';
+import bootstrap from '~/assets/skills/icons/bootstrap-original.svg';
+import materialui from '~/assets/skills/icons/materialui-original.svg';
+import astroLight from '~/assets/skills/icons/astro-light.svg';
+import astroDark from '~/assets/skills/icons/astro-dark.svg';
+import sassIcon from '~/assets/skills/icons/sass-original.svg';
+
+import mysql from '~/assets/skills/icons/mysql-original.svg';
+import pythonIcon from '~/assets/skills/icons/python-original.svg';
+import nodejs from '~/assets/skills/icons/nodejs-original.svg';
+import javaIcon from '~/assets/skills/icons/java-original.svg';
+import scalaIcon from '~/assets/skills/icons/scala-original.svg';
+import prismaLight from '~/assets/skills/icons/prisma-light.svg';
+import prismaDark from '~/assets/skills/icons/prisma-dark.svg';
+import firebaseIcon from '~/assets/skills/icons/firebase-plain.svg';
+import nextjs from '~/assets/skills/icons/nextjs-original.svg';
+import csharpIcon from '~/assets/skills/icons/csharp-original.svg';
+import dotnetIcon from '~/assets/skills/icons/dotnetcore-original.svg';
+
+import gitIcon from '~/assets/skills/icons/git-original.svg';
+import markdownIcon from '~/assets/skills/icons/markdown-plain.svg';
+import npmIcon from '~/assets/skills/icons/npm-original-wordmark.svg';
+import webpackIcon from '~/assets/skills/icons/webpack-original.svg';
+import vscodeIcon from '~/assets/skills/icons/vscode-original.svg';
+import visualstudioIcon from '~/assets/skills/icons/visualstudio-plain.svg';
+import canvaIcon from '~/assets/skills/icons/canva-original.svg';
+import nugetIcon from '~/assets/skills/icons/nuget-original.svg';
+
+// Centralised skill data for easy editing
+const frontend = [
+  { src: html5, label: 'HTML', local: true },
+  { src: css3, label: 'CSS', local: true },
+  { src: jsIcon, label: 'JavaScript', local: true },
+  { src: tsIcon, label: 'TypeScript', local: true },
+  { src: reactIcon, label: 'React', local: true },
+  { src: tailwind, label: 'Tailwind', local: true },
+  { src: bootstrap, label: 'Bootstrap', local: true },
+  { src: materialui, label: 'MaterialUI', local: true },
+  { dual: true, srcLight: astroLight, srcDark: astroDark, label: 'Astro' },
+  { src: sassIcon, label: 'SASS', local: true },
+];
+
+const backend = [
+  { src: mysql, label: 'mySQL', local: true },
+  { src: pythonIcon, label: 'Python', local: true },
+  { src: nodejs, label: 'NodeJS', local: true },
+  { src: javaIcon, label: 'Java', local: true },
+  { src: scalaIcon, label: 'Scala', local: true },
+  { dual: true, srcLight: prismaLight, srcDark: prismaDark, label: 'Prisma' },
+  { src: firebaseIcon, label: 'Firebase', local: true },
+  { src: nextjs, label: 'Nextjs', local: true },
+  { src: csharpIcon, label: 'C#', local: true },
+  { src: dotnetIcon, label: '.NET', local: true },
+];
+
+const tools = [
+  { src: gitIcon, label: 'Git', local: true },
+  { src: markdownIcon, label: 'Markdown', local: true },
+  { src: npmIcon, label: 'NPM', local: true },
+  { src: webpackIcon, label: 'Webpack', local: true },
+  { src: vscodeIcon, label: 'VS Code', local: true },
+  { src: visualstudioIcon, label: 'Visual Studio', local: true },
+  { src: canvaIcon, label: 'Canva', local: true },
+  { src: nugetIcon, label: 'Nuget', local: true },
+];
 ---
 
 <section class="relative" id="skills" class="">
@@ -15,515 +87,67 @@ import { Image } from 'astro:assets';
       </div>
       <div class="relative mb-0 m-auto max-w-6xl">
         <a href="https://github.com/mtlh" target="_blank" class="cursor-pointer">
-          <img
+          <Image
             loading="lazy"
             class="mx-auto rounded-md w-full"
-            src="https://ghchart.rshah.org/mtlh"
+            src='https://ghchart.rshah.org/mtlh'
             alt="Matthew Harvey Github chart"
-            width="100%"
+            width={900}
+            height={120}
           />
         </a>
       </div>
       <div class="grid items-stretch gap-6 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 my-12 dark:text-white">
-        <div
-          class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-800 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-        >
-          <div class="flex items-center mb-4">
-            <div class="text-2xl font-bold">Frontend</div>
-          </div>
-          <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-                width="80%"
-                alt="HTML"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  HTML
-                </span>
-              </div>
+        {[
+          { title: 'Frontend', items: frontend },
+          { title: 'Backend', items: backend },
+          { title: 'Tools', items: tools },
+        ].map((section) => (
+          <div
+            class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-800 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+          >
+            <div class="flex items-center mb-4">
+              <div class="text-2xl font-bold">{section.title}</div>
             </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-                width="80%"
-                alt="CSS"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  CSS
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg"
-                width="80%"
-                alt="JavaScript"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  JavaScript
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-                width="80%"
-                alt="TypeScript"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  TypeScript
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                width="80%"
-                alt="React"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  React
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
-                width="80%"
-                alt="Tailwind"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Tailwind
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
-                width="80%"
-                alt="Bootstrap"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Bootstrap
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg"
-                width="80%"
-                alt="MaterialUI"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  MaterialUI
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <Image
-                src="https://astro.build/assets/press/logomark-light.svg"
-                alt="Astro Logo Light"
-                class="max-h-12 block w-4/5 dark:hidden"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-              <Image
-                src="https://astro.build/assets/press/astro-icon-light-gradient.svg"
-                alt="Astro Logo Dark"
-                class="max-h-12 w-4/5 hidden dark:block"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Astro
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"
-                width="80%"
-                alt="Sass"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  SASS
-                </span>
-              </div>
+            <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
+              {section.items.map((skill) => (
+                <div class="group cursor-pointer relative inline-block text-center">
+                  {skill.dual ? (
+                    <>
+                      <Image
+                        src={skill.srcLight}
+                        alt={`${skill.label} Light`}
+                        class="max-h-12 block w-4/5 dark:hidden"
+                        width={100}
+                        height={100}
+                        loading="lazy"
+                      />
+                      <Image
+                        src={skill.srcDark}
+                        alt={`${skill.label} Dark`}
+                        class="max-h-12 w-4/5 hidden dark:block"
+                        width={100}
+                        height={100}
+                        loading="lazy"
+                      />
+                    </>
+                  ) : skill.local ? (
+                    <Image loading="lazy" class="md:w-12 md:h-12 w-16 h-16" src={skill.src} alt={skill.label} width={100} height={100} />
+                  ) : (
+                    <img loading="lazy" src={skill.src} width="100%" alt={skill.label} />
+                  )}
+                  <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
+                    <span
+                      class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
+                    >
+                      {skill.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-        <div
-          class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-900 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-        >
-          <div class="flex items-center mb-4">
-            <div class="text-2xl font-bold">Backend</div>
-          </div>
-          <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-                width="80%"
-                alt="mySQL"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  mySQL
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                width="80%"
-                alt="Python"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Python
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-                width="80%"
-                alt="Nodejs"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  NodeJS
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-                width="80%"
-                alt="Java"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Java
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scala/scala-original.svg"
-                width="80%"
-                alt="Scala"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Scala
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <Image
-                src="https://raw.githubusercontent.com/prisma/presskit/main/Assets/Prisma-DarkSymbol.svg"
-                alt="Prisma Logo Light"
-                class="max-h-12 block w-4/5 dark:hidden"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-              <Image
-                src="https://raw.githubusercontent.com/prisma/presskit/main/Assets/Prisma-LightSymbol.svg"
-                alt="Prisma Logo Dark"
-                class="max-h-12 w-4/5 hidden dark:block"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Prisma
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
-                width="80%"
-                alt="Firebase"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Firebase
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
-                width="80%"
-                alt="Nextjs"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Nextjs
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
-                width="80%"
-                alt="C#"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  C#
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg"
-                width="80%"
-                alt=".NET"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  .NET
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-800 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-        >
-          <div class="flex items-center mb-4">
-            <div class="text-2xl font-bold">Tools</div>
-          </div>
-          <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
-                width="80%"
-                alt="Git"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Git
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <div class="md:w-12 md:h-12 w-16 h-16">
-                <svg class="fill-black dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"
-                  ><path
-                    style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1"
-                    d="M11.95 24.348c-5.836 0-10.618 4.867-10.618 10.681v57.942c0 5.814 4.782 10.681 10.617 10.681h104.102c5.835 0 10.617-4.867 10.617-10.681V35.03c0-5.814-4.783-10.681-10.617-10.681H14.898l-.002-.002H11.95zm-.007 9.543h104.108c.625 0 1.076.423 1.076 1.14v57.94c0 .717-.453 1.14-1.076 1.14H11.949c-.623 0-1.076-.423-1.076-1.14V35.029c0-.715.451-1.135 1.07-1.138z"
-                    color="#000"
-                    font-weight="400"
-                    font-family="sans-serif"
-                    overflow="visible"></path><path
-                    d="M20.721 84.1V43.9H32.42l11.697 14.78L55.81 43.9h11.696v40.2H55.81V61.044l-11.694 14.78-11.698-14.78V84.1H20.722zm73.104 0L76.28 64.591h11.697V43.9h11.698v20.69h11.698zm0 0"
-                  ></path></svg
-                >
-              </div>
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Markdown
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg"
-                width="80%"
-                alt="NPM"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  NPM
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg"
-                width="80%"
-                alt="Webpack"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Webpack
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"
-                width="80%"
-                alt="VS Code"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  VS Code
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg"
-                width="80%"
-                alt="Visual Studio"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Visual Studio
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg"
-                width="80%"
-                alt="Canva"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Canva
-                </span>
-              </div>
-            </div>
-            <div class="group cursor-pointer relative inline-block text-center">
-              <img
-                loading="lazy"
-                class="md:w-12 md:h-12 w-16 h-16"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuget/nuget-original.svg"
-                width="80%"
-                alt="Nuget"
-              />
-              <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                <span
-                  class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                >
-                  Nuget
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </div>

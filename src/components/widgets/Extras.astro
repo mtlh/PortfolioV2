@@ -1,6 +1,77 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from 'node_modules/astro-icon/components/Icon.astro';
+
+// Images
+import pokeThumb from '~/assets/images/poke_extra_thumb.webp';
+import orderMunchThumb from '~/assets/images/ordermunch_thumbnail.webp';
+import telemetryThumb from '~/assets/images/telemetry_thumbnail.webp';
+
+// Skill icons used in extras
+import html5 from '~/assets/skills/icons/html5-original.svg';
+import css3 from '~/assets/skills/icons/css3-original.svg';
+import jsIcon from '~/assets/skills/icons/javascript-plain.svg';
+import kotlinIcon from '~/assets/skills/icons/kotlin-original.svg';
+import androidStudio from '~/assets/skills/icons/androidstudio-original.svg';
+import sqliteIcon from '~/assets/skills/icons/sqlite-original.svg';
+import gradleIcon from '~/assets/skills/icons/gradle-original.svg';
+import phpIcon from '~/assets/skills/icons/php-plain.svg';
+import mariadbIcon from '~/assets/skills/icons/mariadb-plain.png';
+import slim4Icon from '~/assets/skills/icons/slim4-plain.jpg';
+import phpstormIcon from '~/assets/skills/icons/phpstorm-plain.svg';
+import filezillaIcon from '~/assets/skills/icons/filezilla-plain.svg';
+
+// Centralized extras data
+const extras = [
+  {
+    title: 'Pokécenter',
+    description:
+      "Pokémon website interacting with pokéapi, using standard HTML/CSS/JS only. University module - Frontend Web Development.",
+    image: pokeThumb,
+    imageAlt: 'Pokécenter',
+    imageClass: 'flex justify-center object-cover object-center rounded-lg w-[40%] h-full',
+    liveUrl: 'https://mtlh-frontend-ctec-3905.vercel.app/',
+    githubUrl: null, // https://github.com/mtlh/FrontendCTEC3905/
+    skills: [
+      { src: html5, label: 'HTML', local: true },
+      { src: css3, label: 'CSS', local: true },
+      { src: jsIcon, label: 'Javascript', local: true },
+    ],
+  },
+  {
+    title: 'OrderMunch',
+    description:
+      'Cafe application built using Kotlin and Android Studio with functional admin interface. University module - Mobile App Development.',
+    image: orderMunchThumb,
+    imageAlt: 'OrderMunch',
+    imageClass: 'flex justify-center object-cover object-center rounded-lg w-40 h-80',
+    liveUrl: null,
+    githubUrl: null, // https://github.com/mtlh/ordermunch/
+    skills: [
+      { src: kotlinIcon, label: 'Kotlin', local: true },
+      { src: androidStudio, label: 'Android Studio', local: true },
+      { src: sqliteIcon, label: 'SQLite', local: true },
+      { src: gradleIcon, label: 'Gradle', local: true },
+    ],
+  },
+  {
+    title: 'Telemetry',
+    description:
+      'Website accessing EE web service for phone messaging, featuring 2FA text verification. University module - Secure Web Development.',
+    image: telemetryThumb,
+    imageAlt: 'Telemetry',
+    imageClass: 'flex justify-center object-cover object-center rounded-lg w-40 h-80',
+    liveUrl: null,
+    githubUrl: null, // https://github.com/CTEC3110-BAM/Teledexpress
+    skills: [
+      { src: phpIcon, label: 'PHP', local: true },
+      { src: mariadbIcon, label: 'MariaDB', local: true },
+      { src: slim4Icon, label: 'SLIM4', local: true },
+      { src: phpstormIcon, label: 'PHPStorm', local: true },
+      { src: filezillaIcon, label: 'FileZilla', local: true },
+    ],
+  },
+];
 ---
 
 <section>
@@ -16,310 +87,82 @@ import Icon from 'node_modules/astro-icon/components/Icon.astro';
           </div>
           <div class="w-full px-0 sm:px-8">
             <ul class="grid lg:grid-cols-2 grid-cols-1 gap-y-6 lg:gap-y-0">
-              <li
-                class="flex col-span-2 lg:pb-10 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-              >
-                <div class="pr-4 sm:pl-4 hidden md:flex">
-                  <span
-                    class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-primary"
-                  >
-                    1</span
-                  >
-                </div>
-                <Image
-                  class="flex justify-center object-cover object-center rounded-lg w-[40%] h-full"
-                  src={import('~/assets/images/poke_extra_thumb.webp')}
-                  sizes="100vw"
-                  alt="Pokécenter"
-                  loading="lazy"
-                />
-                <div class="px-4">
-                  <a
-                    class="mb-4 text-xl font-semibold font-heading hover:underline cursor-pointer"
-                    href="https://github.com/mtlh/ordermunch/"
-                    target="_blank">Pokécenter</a
-                  >
-                  <p class="text-gray-500 dark:text-gray-400">
-                    Pokémon website interacting with pokéapi, using standard HTML/CSS/JS only. University module -
-                    Frontend Web Development.
-                  </p>
-                  <div class="grid max-w-none grid-cols-6 sm:flex-row sm:justify-center pt-4">
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-                        width="100%"
-                        alt="HTML"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          HTML
-                        </span>
-                      </div>
+              {extras.map((item, index) => (
+                <li
+                  class={`flex ${index === 0 ? 'col-span-2 lg:pb-10' : ''} intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade`}
+                >
+                  <div class="pr-4 sm:pl-4 hidden md:flex">
+                    <span
+                      class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-primary"
+                    >{index + 1}</span>
+                  </div>
+                  <Image
+                    class={item.imageClass}
+                    src={item.image}
+                    sizes="100vw"
+                    alt={item.imageAlt}
+                    loading="lazy"
+                  />
+                  <div class="px-4">
+                    {item.githubUrl || item.liveUrl ? (
+                      <a
+                        class="mb-4 text-xl font-semibold font-heading hover:underline cursor-pointer"
+                        href={item.githubUrl ?? item.liveUrl}
+                        target="_blank"
+                      >
+                        {item.title}
+                      </a>
+                    ) : (
+                      <div class="mb-4 text-xl font-semibold font-heading">{item.title}</div>
+                    )}
+                    <p class="text-gray-500 dark:text-gray-400">{item.description}</p>
+                    <div class="grid max-w-none grid-cols-6 sm:flex-row sm:justify-center pt-4">
+                      {item.skills.map((skill) => (
+                        <div class="group cursor-pointer relative inline-block text-center px-0.5">
+                          {skill.local ? (
+                            <Image loading="lazy" src={skill.src} alt={skill.label} width={100} height={100} />
+                          ) : (
+                            <img loading="lazy" src={skill.src} width="100%" alt={skill.label} />
+                          )}
+                          <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
+                            <span
+                              class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
+                            >
+                              {skill.label}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-                        width="100%"
-                        alt="CSS"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
+                    <div class="grid grid-cols-1 lg:gap-x-2 mt-6">
+                      {item.liveUrl ? (
+                        <a
+                          class="btn text-white border border-primary bg-primary hover:bg-primary hover:border-primary mb-4"
+                          href={item.liveUrl}
+                          target="_blank"
                         >
-                          CSS
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-                        width="100%"
-                        alt="Javascript"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
+                          <Icon name="tabler:external-link" class="w-5 h-5 mr-1 -ml-1.5" /> Live
+                        </a>
+                      ) : null}
+                      {item.githubUrl ? (
+                        <a
+                          class="btn text-white border bg-gray-900 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 mb-4"
+                          href={item.githubUrl}
+                          target="_blank"
                         >
-                          Javascript
-                        </span>
-                      </div>
+                          <Icon name="tabler:brand-github" class="w-5 h-5 mr-1 -ml-1.5" /> Github
+                        </a>
+                      ) : (
+                        <div
+                          class="btn text-white border bg-gray-600 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-800 mb-4"
+                        >
+                          <Icon name="tabler:lock" class="w-5 h-5 mr-1 -ml-1.5" /> Github
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <div class="grid grid-cols-1 lg:gap-x-2 mt-6">
-                    <a
-                      class="btn text-white border border-primary bg-primary hover:bg-primary hover:border-primary mb-4"
-                      href="https://mtlh-frontend-ctec-3905.vercel.app/"
-                      target="_blank"
-                    >
-                      <Icon name="tabler:pokeball" class="w-5 h-5 mr-1 -ml-1.5" /> Live
-                    </a>
-                    <div
-                      class="btn text-white border bg-gray-600 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-800 mb-4"
-                    >
-                      <!-- https://github.com/mtlh/FrontendCTEC3905/ private for now -->
-                      <Icon name="tabler:lock" class="w-5 h-5 mr-1 -ml-1.5" /> Github
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-              >
-                <div class="pr-4 sm:pl-4 hidden md:flex">
-                  <span
-                    class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-primary"
-                  >
-                    2</span
-                  >
-                </div>
-                <Image
-                  class="flex justify-center object-cover object-center rounded-lg w-40 h-80"
-                  src={import('~/assets/images/ordermunch_thumbnail.webp')}
-                  sizes="100vw"
-                  alt="OrderMunch"
-                  loading="lazy"
-                />
-                <div class="px-4">
-                  <a
-                    class="mb-4 text-xl font-semibold font-heading hover:underline cursor-pointer"
-                    href="https://github.com/mtlh/ordermunch/"
-                    target="_blank">OrderMunch</a
-                  >
-                  <p class="text-gray-500 dark:text-gray-400">
-                    Cafe application built using Kotlin and Android Studio with functional admin interface. University
-                    module - Mobile App Development.
-                  </p>
-                  <div class="grid max-w-none grid-cols-5 sm:flex-row sm:justify-center gap-4 pt-4">
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg"
-                        width="100%"
-                        alt="Kotlin"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          Kotlin
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg"
-                        width="100%"
-                        alt="Android Studio"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          Android Studio
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg"
-                        width="100%"
-                        alt="SQLite"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          SQLite
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gradle/gradle-original.svg"
-                        width="100%"
-                        alt="Gradle"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          Gradle
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:gap-x-2 mt-6">
-                    <div
-                      class="btn text-white border bg-gray-600 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-800 mb-4"
-                    >
-                      <!-- https://github.com/mtlh/ordermunch/ private for now -->
-                      <Icon name="tabler:lock" class="w-5 h-5 mr-1 -ml-1.5" /> Github
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li
-                class="flex intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-              >
-                <div class="pr-4 sm:pl-4 hidden md:flex">
-                  <span
-                    class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-primary"
-                  >
-                    3</span
-                  >
-                </div>
-                <Image
-                  class="flex justify-center object-cover object-center rounded-lg w-40 h-80"
-                  src={import('~/assets/images/telemetry_thumbnail.webp')}
-                  sizes="100vw"
-                  alt="Telemetry"
-                  loading="lazy"
-                />
-                <div class="px-4">
-                  <a
-                    class="mb-4 text-xl font-semibold font-heading hover:underline cursor-pointer"
-                    href="https://github.com/CTEC3110-BAM/Teledexpress"
-                    target="_blank">Telemetry</a
-                  >
-                  <p class="text-gray-500 dark:text-gray-400">
-                    Website accessing EE web service for phone messaging, featuring 2FA text verification. University
-                    module - Secure Web Development.
-                  </p>
-                  <div class="grid max-w-none grid-cols-5 sm:flex-row sm:justify-center gap-4 pt-4">
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg"
-                        width="100%"
-                        alt="PHP"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          PHP
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://avatars.githubusercontent.com/u/4739304?s=280&v=4"
-                        width="100%"
-                        alt="MariaDB"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          MariaDB
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://pbs.twimg.com/profile_images/710555987032350723/GDHlxO_z_400x400.jpg"
-                        width="100%"
-                        alt="SLIM4"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          SLIM4
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/phpstorm/phpstorm-original.svg"
-                        width="100%"
-                        alt="PHPStorm"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          PHPStorm
-                        </span>
-                      </div>
-                    </div>
-                    <div class="group cursor-pointer relative inline-block text-center">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/filezilla/filezilla-plain.svg"
-                        width="100%"
-                        alt="FileZilla"
-                      />
-                      <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                        <span
-                          class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                        >
-                          FileZilla
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:gap-x-2 mt-6">
-                    <div
-                      class="btn text-white border bg-gray-600 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-800 mb-4"
-                    >
-                      <!-- https://github.com/CTEC3110-BAM/Teledexpress private for now -->
-                      <Icon name="tabler:lock" class="w-5 h-5 mr-1 -ml-1.5" /> Github
-                    </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
