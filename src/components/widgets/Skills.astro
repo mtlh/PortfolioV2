@@ -90,7 +90,7 @@ const tools = [
           <Image
             loading="lazy"
             class="mx-auto rounded-md w-full"
-            src='https://ghchart.rshah.org/mtlh'
+            src="https://ghchart.rshah.org/mtlh"
             alt="Matthew Harvey Github chart"
             width={900}
             height={120}
@@ -98,56 +98,61 @@ const tools = [
         </a>
       </div>
       <div class="grid items-stretch gap-6 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 my-12 dark:text-white">
-        {[
-          { title: 'Frontend', items: frontend },
-          { title: 'Backend', items: backend },
-          { title: 'Tools', items: tools },
-        ].map((section) => (
-          <div
-            class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-800 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-          >
-            <div class="flex items-center mb-4">
-              <div class="text-2xl font-bold">{section.title}</div>
-            </div>
-            <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
-              {section.items.map((skill) => (
-                <div class="group cursor-pointer relative inline-block text-center">
-                  {skill.dual ? (
-                    <>
+        {
+          [
+            { title: 'Frontend', items: frontend },
+            { title: 'Backend', items: backend },
+            { title: 'Tools', items: tools },
+          ].map((section) => (
+            <div class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-800 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+              <div class="flex items-center mb-4">
+                <div class="text-2xl font-bold">{section.title}</div>
+              </div>
+              <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
+                {section.items.map((skill) => (
+                  <div class="group cursor-pointer relative inline-block text-center">
+                    {skill.dual ? (
+                      <>
+                        <Image
+                          src={skill.srcLight}
+                          alt={`${skill.label} Light`}
+                          class="max-h-12 block w-4/5 dark:hidden"
+                          width={100}
+                          height={100}
+                          loading="lazy"
+                        />
+                        <Image
+                          src={skill.srcDark}
+                          alt={`${skill.label} Dark`}
+                          class="max-h-12 w-4/5 hidden dark:block"
+                          width={100}
+                          height={100}
+                          loading="lazy"
+                        />
+                      </>
+                    ) : skill.local ? (
                       <Image
-                        src={skill.srcLight}
-                        alt={`${skill.label} Light`}
-                        class="max-h-12 block w-4/5 dark:hidden"
+                        loading="lazy"
+                        class="md:w-12 md:h-12 w-16 h-16"
+                        src={skill.src}
+                        alt={skill.label}
                         width={100}
                         height={100}
-                        loading="lazy"
                       />
-                      <Image
-                        src={skill.srcDark}
-                        alt={`${skill.label} Dark`}
-                        class="max-h-12 w-4/5 hidden dark:block"
-                        width={100}
-                        height={100}
-                        loading="lazy"
-                      />
-                    </>
-                  ) : skill.local ? (
-                    <Image loading="lazy" class="md:w-12 md:h-12 w-16 h-16" src={skill.src} alt={skill.label} width={100} height={100} />
-                  ) : (
-                    <img loading="lazy" src={skill.src} width="100%" alt={skill.label} />
-                  )}
-                  <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                    <span
-                      class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg"
-                    >
-                      {skill.label}
-                    </span>
+                    ) : (
+                      <img loading="lazy" src={skill.src} width="100%" alt={skill.label} />
+                    )}
+                    <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
+                      <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg">
+                        {skill.label}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </div>

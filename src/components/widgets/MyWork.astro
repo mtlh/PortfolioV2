@@ -61,108 +61,145 @@ const educationEntries = [
       'HTML - CSS - JavaScript - PHP - Scala - Java - SQL - Git<br/>Relevant Modules Include: Object Oriented, Agile Team Development, Data Structures and Algorithms, Web Applications...',
   },
 ];
-
 ---
 
 <section class="px-4 py-8 sm:px-6 mx-auto xl:px-8 xl:py-10 max-w-6xl" id="history">
   <div class="grid gap-6 row-gap-10 xl:grid-cols-1">
     <div class="xl:pb-6">
       <h2 class="mb-8 text-3xl xl:text-4xl">Work History</h2>
-      {workEntries.map((entry, i) => (
-        <div class="flex">
-          <div class="flex flex-col items-center mr-4">
-            <div>
-              <div
-                class={
-                  i === 0
-                    ? 'flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 border-2'
-                    : 'flex items-center justify-center w-10 h-10 rounded-full border-blue-500 border-2'
-                }
-              >
-                <Icon
-                  name={i === 0 ? 'tabler:at' : 'tabler:arrow-up'}
-                  class={i === 0 ? 'w-6 h-6 text-slate-200 icon-bold' : 'w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold'}
-                />
-              </div>
-            </div>
-            <div class="w-px h-full bg-gray-300 dark:bg-slate-500"></div>
-          </div>
-          <div class="pt-1 pb-8 grid grid-flow-col w-full xl:grid-cols-4 items-start xl:items-center">
-            <div class="col-span-4 xl:col-span-3 min-w-full">
-              <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{entry.title}</p>
-              {entry.image ? (
-                <Image class="visible xl:hidden w-60" src={entry.image} sizes="100vw" alt={entry.company ?? ''} loading="lazy" />
-              ) : null}
-              {entry.company ? (
-                <p class="mb-2 text-l font-medium text-blue-700 dark:text-blue-300 underline">
-                  <a href={entry.companyUrl} target="_blank">{entry.company}</a>
-                </p>
-              ) : null}
-              <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
-                <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
-                <p class="inline">{entry.dates}</p>
-              </span>
-              <br />
-              {entry.skills ? (
-                <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
-                  <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
-                  <p class="inline">{entry.skills}</p>
-                </span>
-              ) : null}
-              {entry.description ? (
-                <p class={entry.descriptionHidden ? 'py-2 max-w-2xl invisible' : 'py-2 max-w-2xl'}>{entry.description}</p>
-              ) : null}
-            </div>
-            {entry.image ? (
-              <div class="col-span-4 xl:col-span-1 ml-10">
-                <Image class="hidden xl:flex" src={entry.image} sizes="100vw" alt={entry.company ?? ''} loading="lazy" />
-              </div>
-            ) : null}
-          </div>
-        </div>
-      ))}
-      <div class="xl:pb-6 pt-6">
-        <h2 class="mb-8 text-3xl xl:text-4xl font-bold font-heading">Education</h2>
-        {educationEntries.map((ed) => (
+      {
+        workEntries.map((entry, i) => (
           <div class="flex">
             <div class="flex flex-col items-center mr-4">
               <div>
-                <div class="flex items-center justify-center w-10 h-10 rounded-full border-blue-500 border-2">
-                  <Icon name="tabler:arrow-up" class="w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold" />
+                <div
+                  class={
+                    i === 0
+                      ? 'flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 border-2'
+                      : 'flex items-center justify-center w-10 h-10 rounded-full border-blue-500 border-2'
+                  }
+                >
+                  <Icon
+                    name={i === 0 ? 'tabler:at' : 'tabler:arrow-up'}
+                    class={
+                      i === 0
+                        ? 'w-6 h-6 text-slate-200 icon-bold'
+                        : 'w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold'
+                    }
+                  />
                 </div>
               </div>
-              <div class="w-px h-full bg-gray-300 dark:bg-slate-500"></div>
+              <div class="w-px h-full bg-gray-300 dark:bg-slate-500" />
             </div>
             <div class="pt-1 pb-8 grid grid-flow-col w-full xl:grid-cols-4 items-start xl:items-center">
               <div class="col-span-4 xl:col-span-3 min-w-full">
-                <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{ed.title}</p>
-                {ed.image ? (
-                  <Image class="visible xl:hidden w-60" src={ed.image} sizes="100vw" alt={ed.institution ?? ''} loading="lazy" />
+                <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{entry.title}</p>
+                {entry.image ? (
+                  <Image
+                    class="visible xl:hidden w-60"
+                    src={entry.image}
+                    sizes="100vw"
+                    alt={entry.company ?? ''}
+                    loading="lazy"
+                  />
                 ) : null}
-                <p class="mb-2 text-l font-medium text-blue-700 dark:text-blue-300 underline">
-                  <a href={ed.institutionUrl} target="_blank">{ed.institution}</a>
-                </p>
-                <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
+                {entry.company ? (
+                  <p class="mb-2 text-l font-medium text-blue-700 dark:text-blue-300 underline">
+                    <a href={entry.companyUrl} target="_blank">
+                      {entry.company}
+                    </a>
+                  </p>
+                ) : null}
+                <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
                   <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
-                  <p class="inline">{ed.dates}</p>
+                  <p class="inline">{entry.dates}</p>
                 </span>
                 <br />
-                {ed.award ? (
-                  <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
-                    <Icon name="tabler:award" class="w-6 h-6 icon-bold inline" />
-                    <p class="inline">{ed.award}</p>
+                {entry.skills ? (
+                  <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
+                    <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
+                    <p class="inline">{entry.skills}</p>
                   </span>
                 ) : null}
-                {ed.description ? <p class="py-2 max-w-2xl">{ed.description}</p> : null}
+                {entry.description ? (
+                  <p class={entry.descriptionHidden ? 'py-2 max-w-2xl invisible' : 'py-2 max-w-2xl'}>
+                    {entry.description}
+                  </p>
+                ) : null}
               </div>
-              {ed.image ? (
+              {entry.image ? (
                 <div class="col-span-4 xl:col-span-1 ml-10">
-                  <Image class="hidden xl:flex" src={ed.image} sizes="100vw" alt={ed.institution ?? ''} loading="lazy" />
+                  <Image
+                    class="hidden xl:flex"
+                    src={entry.image}
+                    sizes="100vw"
+                    alt={entry.company ?? ''}
+                    loading="lazy"
+                  />
                 </div>
               ) : null}
             </div>
           </div>
-        ))}
+        ))
+      }
+      <div class="xl:pb-6 pt-6">
+        <h2 class="mb-8 text-3xl xl:text-4xl font-bold font-heading">Education</h2>
+        {
+          educationEntries.map((ed) => (
+            <div class="flex">
+              <div class="flex flex-col items-center mr-4">
+                <div>
+                  <div class="flex items-center justify-center w-10 h-10 rounded-full border-blue-500 border-2">
+                    <Icon name="tabler:arrow-up" class="w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold" />
+                  </div>
+                </div>
+                <div class="w-px h-full bg-gray-300 dark:bg-slate-500" />
+              </div>
+              <div class="pt-1 pb-8 grid grid-flow-col w-full xl:grid-cols-4 items-start xl:items-center">
+                <div class="col-span-4 xl:col-span-3 min-w-full">
+                  <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{ed.title}</p>
+                  {ed.image ? (
+                    <Image
+                      class="visible xl:hidden w-60"
+                      src={ed.image}
+                      sizes="100vw"
+                      alt={ed.institution ?? ''}
+                      loading="lazy"
+                    />
+                  ) : null}
+                  <p class="mb-2 text-l font-medium text-blue-700 dark:text-blue-300 underline">
+                    <a href={ed.institutionUrl} target="_blank">
+                      {ed.institution}
+                    </a>
+                  </p>
+                  <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
+                    <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
+                    <p class="inline">{ed.dates}</p>
+                  </span>
+                  <br />
+                  {ed.award ? (
+                    <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
+                      <Icon name="tabler:award" class="w-6 h-6 icon-bold inline" />
+                      <p class="inline">{ed.award}</p>
+                    </span>
+                  ) : null}
+                  {ed.description ? <p class="py-2 max-w-2xl">{ed.description}</p> : null}
+                </div>
+                {ed.image ? (
+                  <div class="col-span-4 xl:col-span-1 ml-10">
+                    <Image
+                      class="hidden xl:flex"
+                      src={ed.image}
+                      sizes="100vw"
+                      alt={ed.institution ?? ''}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>
