@@ -22,9 +22,26 @@ import iconTurso from '~/assets/skills/icons/turso-plain.png';
 import iconGo from '~/assets/skills/icons/go-plain.svg';
 import iconVite from '~/assets/skills/icons/vite-plain.svg';
 import iconPreact from '~/assets/skills/icons/preact-plain.svg';
+import type ImageMetadata from 'astro:assets';
+
+type Project = {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  imageBgClass: string;
+  liveUrl: string | null;
+  liveIcon?: string;
+  githubUrl: string | null;
+  skills: Skill[];
+};
+
+type Skill = {
+  src: ImageMetadata;
+  label: string;
+};
 
 // Centralised project data to make edits easy: title, description, images, links and skills.
-const projects = [
+const projects: Project[] = [
   {
     title: 'PremPredict',
     description:

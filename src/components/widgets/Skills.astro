@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import type ImageMetadata from 'astro:assets';
 
 // Local skill icon imports
 import html5 from '~/assets/skills/icons/html5-original.svg';
@@ -35,42 +36,50 @@ import visualstudioIcon from '~/assets/skills/icons/visualstudio-plain.svg';
 import canvaIcon from '~/assets/skills/icons/canva-original.svg';
 import nugetIcon from '~/assets/skills/icons/nuget-original.svg';
 
+type Skill = {
+  src?: ImageMetadata;
+  label: string;
+  dual?: boolean;
+  srcLight?: ImageMetadata;
+  srcDark?: ImageMetadata;
+};
+
 // Centralised skill data for easy editing
-const frontend = [
-  { src: html5, label: 'HTML', local: true },
-  { src: css3, label: 'CSS', local: true },
-  { src: jsIcon, label: 'JavaScript', local: true },
-  { src: tsIcon, label: 'TypeScript', local: true },
-  { src: reactIcon, label: 'React', local: true },
-  { src: tailwind, label: 'Tailwind', local: true },
-  { src: bootstrap, label: 'Bootstrap', local: true },
-  { src: materialui, label: 'MaterialUI', local: true },
+const frontend: Skill[] = [
+  { src: html5, label: 'HTML'},
+  { src: css3, label: 'CSS'},
+  { src: jsIcon, label: 'JavaScript'},
+  { src: tsIcon, label: 'TypeScript'},
+  { src: reactIcon, label: 'React'},
+  { src: tailwind, label: 'Tailwind'},
+  { src: bootstrap, label: 'Bootstrap'},
+  { src: materialui, label: 'MaterialUI'},
   { dual: true, srcLight: astroLight, srcDark: astroDark, label: 'Astro' },
-  { src: sassIcon, label: 'SASS', local: true },
+  { src: sassIcon, label: 'SASS'},
 ];
 
-const backend = [
-  { src: mysql, label: 'mySQL', local: true },
-  { src: pythonIcon, label: 'Python', local: true },
-  { src: nodejs, label: 'NodeJS', local: true },
-  { src: javaIcon, label: 'Java', local: true },
-  { src: scalaIcon, label: 'Scala', local: true },
+const backend: Skill[] = [
+  { src: mysql, label: 'mySQL'},
+  { src: pythonIcon, label: 'Python'},
+  { src: nodejs, label: 'NodeJS'},
+  { src: javaIcon, label: 'Java'},
+  { src: scalaIcon, label: 'Scala'},
   { dual: true, srcLight: prismaLight, srcDark: prismaDark, label: 'Prisma' },
-  { src: firebaseIcon, label: 'Firebase', local: true },
-  { src: nextjs, label: 'Nextjs', local: true },
-  { src: csharpIcon, label: 'C#', local: true },
-  { src: dotnetIcon, label: '.NET', local: true },
+  { src: firebaseIcon, label: 'Firebase'},
+  { src: nextjs, label: 'Nextjs'},
+  { src: csharpIcon, label: 'C#'},
+  { src: dotnetIcon, label: '.NET'},
 ];
 
-const tools = [
-  { src: gitIcon, label: 'Git', local: true },
-  { src: markdownIcon, label: 'Markdown', local: true },
-  { src: npmIcon, label: 'NPM', local: true },
-  { src: webpackIcon, label: 'Webpack', local: true },
-  { src: vscodeIcon, label: 'VS Code', local: true },
-  { src: visualstudioIcon, label: 'Visual Studio', local: true },
-  { src: canvaIcon, label: 'Canva', local: true },
-  { src: nugetIcon, label: 'Nuget', local: true },
+const tools: Skill[] = [
+  { src: gitIcon, label: 'Git'},
+  { src: markdownIcon, label: 'Markdown'},
+  { src: npmIcon, label: 'NPM'},
+  { src: webpackIcon, label: 'Webpack'},
+  { src: vscodeIcon, label: 'VS Code'},
+  { src: visualstudioIcon, label: 'Visual Studio'},
+  { src: canvaIcon, label: 'Canva'},
+  { src: nugetIcon, label: 'Nuget'},
 ];
 ---
 
@@ -111,7 +120,7 @@ const tools = [
               <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
                 {section.items.map((skill) => (
                   <div class="group cursor-pointer relative inline-block text-center">
-                    {skill.dual ? (
+                    {skill.dual && skill.srcLight && skill.srcDark ? (
                       <>
                         <Image
                           src={skill.srcLight}
@@ -130,7 +139,7 @@ const tools = [
                           loading="lazy"
                         />
                       </>
-                    ) : skill.local ? (
+                    ) : skill.src ? (
                       <Image
                         loading="lazy"
                         class="md:w-12 md:h-12 w-16 h-16"
@@ -139,9 +148,7 @@ const tools = [
                         width={100}
                         height={100}
                       />
-                    ) : (
-                      <img loading="lazy" src={skill.src} width="100%" alt={skill.label} />
-                    )}
+                    ) : null}
                     <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
                       <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg">
                         {skill.label}
