@@ -26,6 +26,7 @@ type EducationEntry = {
   image: ImageMetadata;
   dates: string;
   award: string;
+  skills: Array<string>;
   description: string;
 };
 
@@ -79,8 +80,9 @@ const educationEntries: EducationEntry[] = [
     image: dmu,
     dates: 'September 2020 - June 2024',
     award: '2023 Placement Student Of The Year',
+    skills: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Scala', 'Java', 'SQL', 'Git'],
     description:
-      'HTML - CSS - JavaScript - PHP - Scala - Java - SQL - Git<br/>Relevant Modules Include: Object Oriented, Agile Team Development, Data Structures and Algorithms, Web Applications...',
+      'Relevant Modules Include: Object Oriented, Agile Team Development, Data Structures and Algorithms, Web Applications...',
   },
 ];
 ---
@@ -88,7 +90,7 @@ const educationEntries: EducationEntry[] = [
 <section class="px-4 py-8 sm:px-6 mx-auto xl:px-8 xl:py-10 max-w-6xl" id="history">
   <div class="grid gap-6 row-gap-10 xl:grid-cols-1">
     <div class="xl:pb-6">
-      <h2 class="mb-8 text-3xl xl:text-4xl">Work History</h2>
+      <h2 class="mb-8 text-3xl xl:text-4xl font-bold font-heading">Work History</h2>
       {
         workEntries.map((entry, i) => (
           <div class="flex">
@@ -203,6 +205,13 @@ const educationEntries: EducationEntry[] = [
                     <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
                       <Icon name="tabler:award" class="w-6 h-6 icon-bold inline" />
                       <p class="inline">{ed.award}</p>
+                    </span>
+                  ) : null}
+                  <br />
+                  {ed.skills ? (
+                    <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
+                      <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
+                      <p class="inline">{ed.skills}</p>
                     </span>
                   ) : null}
                   {ed.description ? <p class="py-2 max-w-2xl">{ed.description}</p> : null}
