@@ -21,32 +21,19 @@ export const trim = (str = '', ch?: string) => {
 export const toUiAmount = (amount: number) => {
   if (!amount) return 0;
 
-  let value: string;
+  const thresholds = [
+    { value: 1000000000, suffix: 'B' },
+    { value: 1000000, suffix: 'M' },
+    { value: 1000, suffix: 'K' },
+  ];
 
-  if (amount >= 1000000000) {
-    const formattedNumber = (amount / 1000000000).toFixed(1);
-    if (Number(formattedNumber) === parseInt(formattedNumber)) {
-      value = parseInt(formattedNumber) + 'B';
-    } else {
-      value = formattedNumber + 'B';
+  for (const { value: threshold, suffix } of thresholds) {
+    if (amount >= threshold) {
+      const formattedNumber = (amount / threshold).toFixed(1);
+      const intValue = parseInt(formattedNumber);
+      return Number(formattedNumber) === intValue ? `${intValue}${suffix}` : `${formattedNumber}${suffix}`;
     }
-  } else if (amount >= 1000000) {
-    const formattedNumber = (amount / 1000000).toFixed(1);
-    if (Number(formattedNumber) === parseInt(formattedNumber)) {
-      value = parseInt(formattedNumber) + 'M';
-    } else {
-      value = formattedNumber + 'M';
-    }
-  } else if (amount >= 1000) {
-    const formattedNumber = (amount / 1000).toFixed(1);
-    if (Number(formattedNumber) === parseInt(formattedNumber)) {
-      value = parseInt(formattedNumber) + 'K';
-    } else {
-      value = formattedNumber + 'K';
-    }
-  } else {
-    value = Number(amount).toFixed(0);
   }
 
-  return value;
+  return Number(amount).toFixed(0);
 };

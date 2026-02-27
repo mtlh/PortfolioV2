@@ -90,7 +90,7 @@ const tools: Skill[] = [
       <div class="mb-8 text-center">
         <p class="text-base text-primary dark:text-primary font-semibold tracking-wide uppercase">Skills</p>
         <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 font-heading">What I Know</h2>
-        <p class="max-w-3xl mx-auto text-center text-xl text-gray-600 dark:text-slate-400">
+        <p class="max-w-3xl mx-auto text-center text-xl text-muted dark:text-muted">
           From frontend to backend and additional tools. Below is a selection of the technologies I regularly work with.
         </p>
       </div>
@@ -149,10 +149,11 @@ const tools: Skill[] = [
                         height={100}
                       />
                     ) : null}
-                    <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
+                    <div class="absolute bottom-0 flex-col items-center hidden mb-8 group-hover:flex z-10">
                       <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg">
                         {skill.label}
                       </span>
+                      <div class="w-3 h-3 -mt-2 rotate-45 bg-gradient-to-r from-blue-500 to-blue-600" />
                     </div>
                   </div>
                 ))}

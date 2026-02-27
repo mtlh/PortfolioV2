@@ -1,0 +1,51 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const socialLinks = [
+  {
+    ariaLabel: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/mtlh/',
+    icon: 'tabler:brand-linkedin',
+  },
+  {
+    ariaLabel: 'GitHub',
+    href: 'https://github.com/mtlh/',
+    icon: 'tabler:brand-github',
+  },
+  {
+    ariaLabel: 'Email',
+    href: 'mailto:matthewtlharvey@gmail.com',
+    icon: 'tabler:mail-forward',
+  },
+  {
+    ariaLabel: 'CV',
+    href: '/MatthewHarveyCV.pdf',
+    icon: 'tabler:file-info',
+    isExternal: false,
+  },
+];
+---
+
+<ul class:list={['flex items-center', className]}>
+  {
+    socialLinks.map((link) => (
+      <li class="mb-1">
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded-lg text-sm p-2.5 inline-flex items-center"
+          aria-label={link.ariaLabel}
+          href={link.href}
+          target={link.isExternal !== false ? '_blank' : undefined}
+          rel={link.isExternal !== false ? 'noopener noreferrer' : undefined}
+        >
+          <Icon name={link.icon} class="w-5 h-5" />
+        </a>
+      </li>
+    ))
+  }
+</ul>

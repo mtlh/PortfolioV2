@@ -128,7 +128,7 @@ const educationEntries: EducationEntry[] = [
                   />
                 ) : null}
                 {entry.company ? (
-                  <p class="mb-2 text-l font-medium text-blue-700 dark:text-blue-300 underline">
+                  <p class="mb-2 text-l font-medium text-primary dark:text-primary underline">
                     <a href={entry.companyUrl} target="_blank">
                       {entry.company}
                     </a>
@@ -145,8 +145,8 @@ const educationEntries: EducationEntry[] = [
                     <p class="inline">{entry.skills}</p>
                   </span>
                 ) : null}
-                {entry.description ? (
-                  <p class={entry.descriptionHidden ? 'py-2 max-w-2xl invisible' : 'py-2 max-w-2xl'}>
+                {entry.description && !entry.descriptionHidden ? (
+                  <p class="py-2 max-w-2xl">
                     {entry.description}
                   </p>
                 ) : null}
@@ -154,7 +154,7 @@ const educationEntries: EducationEntry[] = [
               {entry.image ? (
                 <div class="col-span-4 xl:col-span-1 ml-10">
                   <Image
-                    class="hidden xl:flex"
+                    class="hidden xl:flex w-full"
                     src={entry.image}
                     sizes="100vw"
                     alt={entry.company ?? ''}
@@ -191,7 +191,7 @@ const educationEntries: EducationEntry[] = [
                       loading="lazy"
                     />
                   ) : null}
-                  <p class="mb-2 text-l font-medium text-blue-700 dark:text-blue-300 underline">
+                  <p class="mb-2 text-l font-medium text-primary dark:text-primary underline">
                     <a href={ed.institutionUrl} target="_blank">
                       {ed.institution}
                     </a>
@@ -219,7 +219,7 @@ const educationEntries: EducationEntry[] = [
                 {ed.image ? (
                   <div class="col-span-4 xl:col-span-1 ml-10">
                     <Image
-                      class="hidden xl:flex"
+                      class="hidden xl:flex w-full"
                       src={ed.image}
                       sizes="100vw"
                       alt={ed.institution ?? ''}
