@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 import premThumb from '~/assets/images/prempredictions_thumb.webp';
 import spouraThumb from '~/assets/images/spoura_portfolio.webp';
 import filmfrontThumb from '~/assets/images/filmfront_thumb.webp';
-import drawdowndeskThumb from '~/assets/images/drawdowndesk_thumb.webp';
+import umbrisThumb from '~/assets/images/umbrisThumb.webp';
 
 import iconTailwind from '~/assets/skills/icons/tailwindcss-original.svg';
 import iconDjango from '~/assets/skills/icons/django-plain.svg';
@@ -23,6 +23,8 @@ import iconVite from '~/assets/skills/icons/vite-plain.svg';
 import iconPreact from '~/assets/skills/icons/preact-plain.svg';
 import iconElectron from '~/assets/skills/icons/electron-colour.svg';
 import iconConvex from '~/assets/skills/icons/convex-colour.svg';
+import iconWorkOS from '~/assets/skills/icons/workos.webp';
+import iconTanstackStart from '~/assets/skills/icons/tanstack-start.png';
 import type ImageMetadata from 'astro:assets';
 
 type Project = {
@@ -96,21 +98,22 @@ const projects: Project[] = [
     ],
   },
   {
-    title: 'DrawdownDesk',
+    title: 'Umbris',
     description:
       'A personal finance webapp for investment portfolio tracking, Monte Carlo simulations, and retirement income calculations.',
-    image: drawdowndeskThumb,
-    imageBgClass: 'bg-[#2e1065] text-white',
-    liveUrl: 'https://drawdowndesk.vercel.app/',
+    image: umbrisThumb,
+    imageBgClass: 'bg-[#0b3d2c] text-white',
+    liveUrl: 'https://umbris.vercel.app/',
     liveIcon: 'tabler:tool',
-    githubUrl: 'https://github.com/mtlh/drawdowndesk',
+    githubUrl: null, // private for now
     skills: [
+      { src: iconTanstackStart, label: 'Tanstack Start' },
+      { src: iconReact, label: 'React' },
+      { src: iconConvex, label: 'Convex' },
+      { src: iconWorkOS, label: 'WorkOS' },
+      { src: iconElectron, label: 'Electron' },
       { src: iconTailwind, label: 'Tailwind' },
       { src: iconTypescript, label: 'TypeScript' },
-      { src: iconReact, label: 'React' },
-      { src: iconNext, label: 'Next.js' },
-      { src: iconElectron, label: 'Electron' },
-      { src: iconConvex, label: 'Convex' },
     ],
   },
 ];
