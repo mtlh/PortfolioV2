@@ -128,19 +128,19 @@ const educationEntries: EducationEntry[] = [
                   />
                 ) : null}
                 {entry.company ? (
-                  <p class="mb-2 text-l font-medium text-primary dark:text-primary underline">
+                  <p class="mb-2 text-lg font-medium text-primary dark:text-primary underline">
                     <a href={entry.companyUrl} target="_blank">
                       {entry.company}
                     </a>
                   </p>
                 ) : null}
-                <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
+                <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
                   <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
                   <p class="inline">{entry.dates}</p>
                 </span>
                 <br />
                 {entry.skills ? (
-                  <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
+                  <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
                     <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
                     <p class="inline">{entry.skills}</p>
                   </span>
@@ -189,25 +189,25 @@ const educationEntries: EducationEntry[] = [
                       loading="lazy"
                     />
                   ) : null}
-                  <p class="mb-2 text-l font-medium text-primary dark:text-primary underline">
+                  <p class="mb-2 text-lg font-medium text-primary dark:text-primary underline">
                     <a href={ed.institutionUrl} target="_blank">
                       {ed.institution}
                     </a>
                   </p>
-                  <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
+                  <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300">
                     <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
                     <p class="inline">{ed.dates}</p>
                   </span>
                   <br />
                   {ed.award ? (
-                    <span class="inline text-l font-medium text-gray-900 dark:text-slate-300">
+                    <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300">
                       <Icon name="tabler:award" class="w-6 h-6 icon-bold inline" />
                       <p class="inline">{ed.award}</p>
                     </span>
                   ) : null}
                   <br />
                   {ed.skills ? (
-                    <span class="inline text-l font-medium text-gray-900 dark:text-slate-300 my-1">
+                    <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
                       <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
                       <p class="inline">{ed.skills.join(', ')}</p>
                     </span>

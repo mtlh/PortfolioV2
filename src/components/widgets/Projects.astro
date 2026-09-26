@@ -167,18 +167,26 @@ const projects: Project[] = [
                         <Icon name="tabler:brand-github" class="w-5 h-5 mr-1 -ml-1.5" /> GitHub
                       </a>
                     ) : (
-                      <div class="btn text-white border bg-gray-600 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-800 mb-4">
-                        <Icon name="tabler:lock" class="w-5 h-5 mr-1 -ml-1.5" /> GitHub
+                      <div
+                        class="inline-flex items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-600 dark:bg-slate-800 dark:text-slate-300 mb-4"
+                        aria-label="GitHub repository is private"
+                      >
+                        <Icon name="tabler:lock" class="w-4 h-4 mr-1.5" /> Private
                       </div>
                     )}
                   </div>
                   <p class="mb-4">{project.description}</p>
                   <div class="grid max-w-none grid-cols-6 lg:flex lg:flex-wrap lg:justify-center gap-4">
                     {project.skills.map((skill) => (
-                      <div class="group cursor-pointer relative inline-block text-center">
+                      <div
+                        class="group relative inline-block rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                        tabindex="0"
+                        role="group"
+                        aria-label={skill.label}
+                      >
                         <Image loading="lazy" src={skill.src} alt={skill.label} width={48} height={48} />
-                        <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
-                          <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-no-wrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg">
+                        <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex group-focus:flex">
+                          <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg">
                             {skill.label}
                           </span>
                         </div>

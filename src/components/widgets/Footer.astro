@@ -4,6 +4,7 @@ import SocialLinks from '../common/SocialLinks.astro';
 import type { Widget } from '~/types';
 import { APP_BLOG } from 'astrowind:config';
 import { findLatestPosts } from '~/utils/blog';
+import { getHomePermalink } from '~/utils/permalinks';
 
 export interface Props extends Widget {
   title?: string;
@@ -26,20 +27,20 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
         <ul class="py-2 text-sm">
           <li class="mb-2">
             <a
-              class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
-              href="#skills">Skills</a
+              class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
+              href={`${getHomePermalink()}#skills`}>Skills</a
             >
           </li>
           <li class="mb-2">
             <a
-              class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
-              href="#history">My Journey</a
+              class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
+              href={`${getHomePermalink()}#history`}>My Journey</a
             >
           </li>
           <li class="mb-2">
             <a
-              class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
-              href="#projects">Featured Projects</a
+              class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
+              href={`${getHomePermalink()}#projects`}>Featured Projects</a
             >
           </li>
         </ul>
@@ -51,7 +52,7 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
             posts.map((post) => (
               <li class="mb-2">
                 <a
-                  class="text-gray-600 hover:text-gray-700 dark:text-gray-400 transition duration-150 ease-in-out"
+                  class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
                   href={`/${post.slug}`}
                 >
                   {post.title}

@@ -24,10 +24,13 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
     {
       image &&
         (link ? (
-          <a href={link}>
+          <a
+            class="group block rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            href={link}
+          >
             <Image
               src={image}
-              class="w-full md:h-full rounded shadow-lg bg-gray-400 dark:bg-slate-700"
+              class="w-full md:h-full rounded shadow-lg bg-gray-400 dark:bg-slate-700 transition-opacity duration-200 hover:opacity-90 group-focus-visible:opacity-90"
               widths={[400, 900]}
               width={400}
               sizes="(max-width: 900px) 400px, 900px"
