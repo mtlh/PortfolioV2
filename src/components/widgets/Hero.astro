@@ -49,3 +49,35 @@ import { Image } from 'astro:assets';
     </div>
   </div>
 </section>
+
+<style>
+  @media (max-height: 600px) and (max-width: 639px) {
+    .hero-section > div > div {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .hero-section .text-center {
+      padding-bottom: 1rem;
+    }
+
+    .hero-section img {
+      width: 8rem;
+      margin: 0.25rem auto;
+    }
+
+    .hero-section h1 {
+      font-size: 2.75rem;
+      line-height: 1.05;
+    }
+
+    .hero-section h2 {
+      font-size: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-section .flex.flex-nowrap {
+      gap: 0.5rem;
+    }
+  }
+</style>

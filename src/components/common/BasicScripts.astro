@@ -54,6 +54,14 @@ import { UI } from 'astrowind:config';
       document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
     });
 
+    attachEvent([document], 'keydown', function (event) {
+      const menuToggle = document.querySelector('[data-aw-toggle-menu]');
+      if (event.key === 'Escape' && menuToggle?.classList.contains('expanded')) {
+        menuToggle.click();
+        menuToggle.focus();
+      }
+    });
+
     attachEvent('[data-aw-toggle-menu]', 'click', function (_, elem) {
       elem.classList.toggle('expanded');
       document.body.classList.toggle('overflow-hidden');
