@@ -173,7 +173,7 @@ const projects: Project[] = [
                     )}
                   </div>
                   <p class="mb-4">{project.description}</p>
-                  <div class="grid max-w-none grid-cols-6 lg:grid-cols-8 sm:flex-row sm:justify-center gap-4">
+                  <div class="grid max-w-none grid-cols-6 lg:flex lg:flex-wrap lg:justify-center gap-4">
                     {project.skills.map((skill) => (
                       <div class="group cursor-pointer relative inline-block text-center">
                         <Image loading="lazy" src={skill.src} alt={skill.label} width={48} height={48} />

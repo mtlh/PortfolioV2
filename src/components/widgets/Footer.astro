@@ -61,8 +61,8 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
           }
         </ul>
       </div>
-      <div class="text-gray-800 dark:text-gray-300 mb-1">
-        <div class="flex items-center gap-2 mb-4">
+      <div class="text-gray-800 dark:text-gray-300 mb-1 sm:col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2 mb-4 sm:justify-end md:justify-start">
           <SocialLinks />
           <ToggleTheme />
         </div>

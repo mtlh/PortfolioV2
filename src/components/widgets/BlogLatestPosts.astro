@@ -55,9 +55,17 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
         {information && <p class="text-muted dark:text-muted lg:text-sm lg:max-w-md" set:html={information} />}
       </div>
 
-      <Grid posts={posts} />
+      <div class="latest-posts-grid">
+        <Grid posts={posts} />
+      </div>
     </WidgetWrapper>
   ) : (
     <Fragment />
   )
 }
+
+<style>
+  .latest-posts-grid :global(article) {
+    margin-inline: 0;
+  }
+</style>
