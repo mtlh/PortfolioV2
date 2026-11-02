@@ -39,6 +39,7 @@ const socialLinks = [
         class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded-lg text-sm p-2.5 inline-flex items-center"
         aria-label={link.ariaLabel}
         href={link.href}
+        data-astro-prefetch={link.href.endsWith('.pdf') ? 'false' : undefined}
         target={link.isExternal !== false ? '_blank' : undefined}
         rel={link.isExternal !== false ? 'noopener noreferrer' : undefined}
       >

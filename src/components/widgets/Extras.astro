@@ -33,6 +33,7 @@ type Extra = {
   image: ImageMetadata;
   imageAlt: string;
   imageClass: string;
+  imageSizes: string;
   liveUrl: string | null;
   githubUrl: string | null;
   skills: Skill[];
@@ -47,6 +48,7 @@ const extras: Extra[] = [
     image: pokeThumb,
     imageAlt: 'Pokécenter',
     imageClass: 'flex justify-center object-cover object-center rounded-lg w-full h-48 md:w-[40%] md:h-full',
+    imageSizes: '(min-width: 768px) 320px, 100vw',
     liveUrl: 'https://mtlh-frontend-ctec-3905.vercel.app/',
     githubUrl: null, // https://github.com/mtlh/FrontendCTEC3905/
     skills: [
@@ -62,6 +64,7 @@ const extras: Extra[] = [
     image: orderMunchThumb,
     imageAlt: 'OrderMunch',
     imageClass: 'flex justify-center object-cover object-center rounded-lg w-full h-48 md:w-40 md:h-80',
+    imageSizes: '(min-width: 768px) 160px, 100vw',
     liveUrl: null,
     githubUrl: null, // https://github.com/mtlh/ordermunch/
     skills: [
@@ -78,6 +81,7 @@ const extras: Extra[] = [
     image: telemetryThumb,
     imageAlt: 'Telemetry',
     imageClass: 'flex justify-center object-cover object-center rounded-lg w-full h-48 md:w-40 md:h-80',
+    imageSizes: '(min-width: 768px) 160px, 100vw',
     liveUrl: null,
     githubUrl: null, // https://github.com/CTEC3110-BAM/Teledexpress
     skills: [
@@ -113,7 +117,13 @@ const extras: Extra[] = [
                       {index + 1}
                     </span>
                   </div>
-                  <Image class={item.imageClass} src={item.image} sizes="100vw" alt={item.imageAlt} loading="lazy" />
+                  <Image
+                    class={item.imageClass}
+                    src={item.image}
+                    sizes={item.imageSizes}
+                    alt={item.imageAlt}
+                    loading="lazy"
+                  />
                   <div class="px-4 pt-4 md:pt-0">
                     {item.githubUrl || item.liveUrl ? (
                       <a
