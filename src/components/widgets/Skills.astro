@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import type ImageMetadata from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 // Local skill icon imports
 import html5 from '~/assets/skills/icons/html5-original.svg';
@@ -155,10 +155,10 @@ const tools: Skill[] = [
                       />
                     ) : null}
                     <div class="absolute bottom-0 flex-col items-center hidden mb-8 group-hover:flex group-focus:flex z-10">
-                      <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg">
+                      <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">
                         {skill.label}
                       </span>
-                      <div class="w-3 h-3 -mt-2 rotate-45 bg-gradient-to-r from-blue-500 to-blue-600" />
+                      <div class="w-3 h-3 -mt-2 rotate-45 bg-linear-to-r from-blue-500 to-blue-600" />
                     </div>
                   </div>
                 ))}

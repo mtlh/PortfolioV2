@@ -31,57 +31,165 @@ export interface Props {
 }
 ---
 
-<header
-  class="sticky top-0 z-40 mx-auto w-full backdrop-blur-sm hover:dark:bg-gray-900 hover:bg-white transition ease-in-out"
-  id="header"
->
-  <div class="py-2 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4">
-    <div class="flex justify-between">
-      <a class="flex items-center" href={getHomePermalink()}>
-        <Logo />
-      </a>
-      <div class="flex items-center md:hidden">
-        <ToggleTheme />
-        <SocialLinks class="max-[360px]:[&_a]:p-1" />
-        <ToggleMenu />
-      </div>
-    </div>
-    <nav
-      class="items-center w-full md:w-auto hidden md:flex text-muted dark:text-slate-200 h-screen md:h-auto"
-      aria-label="Main navigation"
-    >
-      <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
-        <li>
-          <a
-            class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center transition ease-in-out scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
-            href={getHomePermalink() + '#skills'}>Skills</a
-          >
-        </li>
-        <li>
-          <a
-            class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center transition ease-in-out scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
-            href={getHomePermalink() + '#projects'}>Projects</a
-          >
-        </li>
-        <li>
-          <a
-            class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
-            href={getBlogPermalink()}>Blog</a
-          >
-        </li>
-        <li>
-          <a
-            class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center transition ease-in-out scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
-            href={getHomePermalink() + '#contact'}>Contact</a
-          >
-        </li>
-      </ul>
-      <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
-        <div class="hidden items-center md:flex">
-          <ToggleTheme iconClass="w-5 h-5" />
-          <SocialLinks />
+<aw-header transition:persist="header">
+  <header
+    class="sticky top-0 z-40 mx-auto w-full backdrop-blur-sm hover:dark:bg-gray-900 hover:bg-white transition ease-in-out"
+    id="header"
+  >
+    <div class="py-2 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4">
+      <div class="flex justify-between">
+        <a class="flex items-center" href={getHomePermalink()}>
+          <Logo />
+        </a>
+        <div class="flex items-center md:hidden">
+          <ToggleTheme />
+          <SocialLinks class="max-[360px]:[&_a]:p-1" />
+          <ToggleMenu />
         </div>
       </div>
-    </nav>
-  </div>
-</header>
+      <nav
+        class="items-center w-full md:w-auto hidden md:flex text-muted dark:text-slate-200 h-screen md:h-auto"
+        aria-label="Main navigation"
+      >
+        <ul class="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-base">
+          <li>
+            <a
+              class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center transition ease-in-out scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
+              href={getHomePermalink() + '#skills'}>Skills</a
+            >
+          </li>
+          <li>
+            <a
+              class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center transition ease-in-out scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
+              href={getHomePermalink() + '#projects'}>Projects</a
+            >
+          </li>
+          <li>
+            <a
+              class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
+              href={getBlogPermalink()}>Blog</a
+            >
+          </li>
+          <li>
+            <a
+              class="font-small hover:text-gray-900 dark:hover:text-white px-4 py-3 items-center transition ease-in-out scroll-smooth flex focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded"
+              href={getHomePermalink() + '#contact'}>Contact</a
+            >
+          </li>
+        </ul>
+        <div class="md:self-center flex items-center mb-4 md:mb-0 ml-2">
+          <div class="hidden items-center md:flex">
+            <ToggleTheme iconClass="w-5 h-5" />
+            <SocialLinks />
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+</aw-header>
+
+<style>
+  aw-header {
+    display: contents;
+  }
+</style>
+
+<script>
+  class AwHeader extends HTMLElement {
+    private onScroll?: () => void;
+    private mql?: MediaQueryList;
+    private onMqlChange?: () => void;
+    private onPageLoad = () => {
+      this.updateActiveLinks();
+      this.closeOpenDropdown();
+    };
+
+    connectedCallback() {
+      const header = this.querySelector<HTMLElement>('#header');
+      const toggle = this.querySelector<HTMLElement>('[data-aw-toggle-menu]');
+      const nav = this.querySelector<HTMLElement>('#header nav');
+      const lastChild = this.querySelector<HTMLElement>('#header > div > div:last-child');
+
+      this.updateActiveLinks();
+      document.addEventListener('astro:page-load', this.onPageLoad);
+
+      const closeMenu = () => {
+        toggle?.classList.remove('expanded');
+        toggle?.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('overflow-hidden');
+        header?.classList.remove('h-screen', 'expanded', 'bg-page');
+        nav?.classList.add('hidden');
+        lastChild?.classList.add('hidden');
+      };
+
+      // Mobile menu toggle.
+      toggle?.addEventListener('click', () => {
+        const expanded = toggle.classList.toggle('expanded');
+        toggle.setAttribute('aria-expanded', String(expanded));
+        document.body.classList.toggle('overflow-hidden');
+        header?.classList.toggle('h-screen');
+        header?.classList.toggle('expanded');
+        header?.classList.toggle('bg-page');
+        nav?.classList.toggle('hidden');
+        lastChild?.classList.toggle('hidden');
+      });
+
+      // Close the mobile menu when a nav link is clicked.
+      nav?.addEventListener('click', closeMenu);
+
+      // Blur a clicked dropdown link so the persisted header doesn't keep it open.
+      nav?.addEventListener('click', (e) => {
+        const link = (e.target as HTMLElement)?.closest<HTMLElement>('.dropdown-menu a');
+        if (link) link.blur();
+      });
+
+      // Close the menu when leaving the mobile breakpoint.
+      this.mql = window.matchMedia('(max-width: 767px)');
+      this.onMqlChange = () => closeMenu();
+      this.mql.addEventListener('change', this.onMqlChange);
+
+      // Sticky header: toggle the `scroll` class past a small threshold.
+      if (header?.hasAttribute('data-aw-sticky-header')) {
+        let ticking = false;
+        const applyStyles = () => {
+          if (window.scrollY > 60) header.classList.add('scroll');
+          else header.classList.remove('scroll');
+          ticking = false;
+        };
+        this.onScroll = () => {
+          if (!ticking) {
+            window.requestAnimationFrame(applyStyles);
+            ticking = true;
+          }
+        };
+        applyStyles();
+        document.addEventListener('scroll', this.onScroll, { passive: true });
+      }
+
+      document.documentElement.classList.add('motion-safe:scroll-smooth');
+    }
+
+    disconnectedCallback() {
+      if (this.onScroll) document.removeEventListener('scroll', this.onScroll);
+      if (this.mql && this.onMqlChange) this.mql.removeEventListener('change', this.onMqlChange);
+      document.removeEventListener('astro:page-load', this.onPageLoad);
+    }
+
+    private closeOpenDropdown() {
+      const active = document.activeElement as HTMLElement | null;
+      if (active && this.contains(active) && active.closest('.dropdown')) active.blur();
+    }
+
+    private updateActiveLinks() {
+      const norm = (p: string) => '/' + p.replace(/^\/+|\/+$/g, '');
+      const current = norm(window.location.pathname);
+      this.querySelectorAll<HTMLAnchorElement>('nav a[href]').forEach((a) => {
+        a.classList.toggle('aw-link-active', norm(new URL(a.href).pathname) === current);
+      });
+    }
+  }
+
+  if (!customElements.get('aw-header')) {
+    customElements.define('aw-header', AwHeader);
+  }
+</script>
