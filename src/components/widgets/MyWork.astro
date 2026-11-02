@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
-import type ImageMetadata from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 import access from '~/assets/work/access.svg';
 import lcc from '~/assets/work/lcc.svg';
@@ -99,7 +99,7 @@ const educationEntries: EducationEntry[] = [
                 <div
                   class={
                     i === 0
-                      ? 'flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 border-2'
+                      ? 'flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-r from-blue-500 to-blue-600 border-2'
                       : 'flex items-center justify-center w-10 h-10 rounded-full border-blue-500 border-2'
                   }
                 >

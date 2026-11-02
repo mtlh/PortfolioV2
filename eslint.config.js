@@ -1,4 +1,4 @@
-import astroEslintParser from 'astro-eslint-parser';
+import * as astroEslintParser from 'astro-eslint-parser';
 import eslintPluginAstro from 'eslint-plugin-astro';
 import globals from 'globals';
 import js from '@eslint/js';
@@ -51,6 +51,13 @@ export default [
         },
       ],
       '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
+  {
+    files: ['src/components/common/Analytics.astro', 'src/components/common/Analytics.astro/**'],
+    rules: {
+      'prefer-rest-params': 'off',
+      'no-var': 'off',
     },
   },
   {
