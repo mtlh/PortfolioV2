@@ -2,6 +2,9 @@
 dist/
 .output/
 
+# pulse-audit reports and baseline
+.pulse/
+
 # dependencies
 node_modules/
 
