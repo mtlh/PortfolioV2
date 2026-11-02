@@ -19,15 +19,13 @@ const {
 } = Astro.props;
 ---
 
-{
-  !(UI.theme && UI.theme.endsWith(':only')) && (
-    <aw-theme-toggle>
-      <button type="button" class={className} aria-label={label} data-aw-toggle-color-scheme>
-        <Icon name={iconName} class={iconClass} />
-      </button>
-    </aw-theme-toggle>
-  )
-}
+{!(UI.theme && UI.theme.endsWith(':only')) && (
+  <aw-theme-toggle>
+    <button type="button" class={className} aria-label={label} data-aw-toggle-color-scheme>
+      <Icon name={iconName} class={iconClass} />
+    </button>
+  </aw-theme-toggle>
+)}
 
 <style>
   aw-theme-toggle {

@@ -23,43 +23,51 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 gap-y-4 sm:gap-8 py-6">
       <div class="text-gray-800 dark:text-gray-300 mb-2 text-md">
-        <a href="/" class="underline">Home</a>
+        <a href="/" class="underline">
+          Home
+        </a>
         <ul class="py-2 text-sm">
           <li class="mb-2">
             <a
               class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
-              href={`${getHomePermalink()}#skills`}>Skills</a
+              href={`${getHomePermalink()}#skills`}
             >
+              Skills
+            </a>
           </li>
           <li class="mb-2">
             <a
               class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
-              href={`${getHomePermalink()}#history`}>My Journey</a
+              href={`${getHomePermalink()}#history`}
             >
+              My Journey
+            </a>
           </li>
           <li class="mb-2">
             <a
               class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
-              href={`${getHomePermalink()}#projects`}>Featured Projects</a
+              href={`${getHomePermalink()}#projects`}
             >
+              Featured Projects
+            </a>
           </li>
         </ul>
       </div>
       <div class="text-gray-800 dark:text-gray-300 mb-2 text-md">
-        <a href="/blog" class="underline">Blog</a>
+        <a href="/blog" class="underline">
+          Blog
+        </a>
         <ul class="py-2 text-sm">
-          {
-            posts.map((post) => (
-              <li class="mb-2">
-                <a
-                  class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
-                  href={`/${post.slug}`}
-                >
-                  {post.title}
-                </a>
-              </li>
-            ))
-          }
+          {posts.map((post) => (
+            <li class="mb-2">
+              <a
+                class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-slate-100 transition duration-150 ease-in-out"
+                href={`/${post.slug}`}
+              >
+                {post.title}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <div class="text-gray-800 dark:text-gray-300 mb-1 sm:col-span-2 md:col-span-1">
