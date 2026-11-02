@@ -17,35 +17,18 @@ const image = await findImage(post.image);
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
 ---
 
-<article
-  class="mb-6 mx-4 transition intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
->
+<article class="mb-6 mx-4 transition intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
   <div class="relative mb-2">
     <div class="relative aspect-video overflow-hidden rounded shadow-lg">
-      {
-        image &&
-          (link ? (
-            <a
-              class="group block h-full rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-              href={link}
-            >
-              <Image
-                src={image}
-                class="block h-full w-full object-cover transition-opacity duration-200 hover:opacity-90 group-focus-visible:opacity-90"
-                widths={[400, 900]}
-                width={900}
-                height={506}
-                sizes="(max-width: 900px) 400px, 900px"
-                alt={post.title}
-                format="webp"
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          ) : (
+      {image &&
+        (link ? (
+          <a
+            class="group block h-full rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            href={link}
+          >
             <Image
               src={image}
-              class="block h-full w-full object-cover"
+              class="block h-full w-full object-cover transition-opacity duration-200 hover:opacity-90 group-focus-visible:opacity-90"
               widths={[400, 900]}
               width={900}
               height={506}
@@ -55,21 +38,32 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
               loading="lazy"
               decoding="async"
             />
-          ))
-      }
+          </a>
+        ) : (
+          <Image
+            src={image}
+            class="block h-full w-full object-cover"
+            widths={[400, 900]}
+            width={900}
+            height={506}
+            sizes="(max-width: 900px) 400px, 900px"
+            alt={post.title}
+            format="webp"
+            loading="lazy"
+            decoding="async"
+          />
+        ))}
     </div>
   </div>
 
   <h3 class="text-xl sm:text-2xl font-bold leading-tight mb-1 font-heading dark:text-slate-300">
-    {
-      link ? (
-        <a class="inline-block hover:text-primary dark:hover:text-primary transition ease-in duration-100" href={link}>
-          {post.title}
-        </a>
-      ) : (
-        post.title
-      )
-    }
+    {link ? (
+      <a class="inline-block hover:text-primary dark:hover:text-primary transition ease-in duration-100" href={link}>
+        {post.title}
+      </a>
+    ) : (
+      post.title
+    )}
   </h3>
 
   <p class="text-muted dark:text-muted text-lg">{post.excerpt}</p>
