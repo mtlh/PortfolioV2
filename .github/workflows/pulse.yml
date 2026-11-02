@@ -1,0 +1,168 @@
+name: Pulse audit
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pulse-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  PULSE_VERSION: "0.1.0"
+  PULSE_URL: "http://127.0.0.1:4321/"
+  PULSE_SUMMARY: ".pulse/summary.md"
+
+jobs:
+  audit:
+    name: Performance, accessibility and weight
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Serve the production build
+        run: |
+          npm run preview -- --port 4321 --host 127.0.0.1 &
+          for _ in $(seq 1 30); do
+            if curl -fsS "$PULSE_URL" > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Preview server did not start at $PULSE_URL" >&2
+          exit 1
+
+      - name: Restore baseline
+        uses: actions/cache/restore@v4
+        with:
+          path: .pulse/baseline.json
+          key: pulse-baseline-${{ github.sha }}
+          restore-keys: |
+            pulse-baseline-
+
+      - name: Audit
+        id: audit
+        run: |
+          mkdir -p .pulse
+          npx --yes "@mtlh/pulse-audit@$PULSE_VERSION" audit "$PULSE_URL" \
+            --summary "$PULSE_SUMMARY" \
+            --github-output \
+            --no-fail \
+            ${{ github.ref == 'refs/heads/main' && '--update-baseline' || '' }}
+          cat "$PULSE_SUMMARY" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pulse-report
+          path: .pulse/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Comment on pull request
+        if: always() && github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        env:
+          PULSE_FAILED: ${{ steps.audit.outputs.failed }}
+          PULSE_URL: ${{ env.PULSE_URL }}
+          PULSE_SUMMARY: ${{ env.PULSE_SUMMARY }}
+        with:
+          script: |
+            const fs = require('fs');
+            const marker = '<!-- pulse-audit -->';
+            const summaryPath = process.env.PULSE_SUMMARY || '.pulse/summary.md';
+
+            let summary;
+            try {
+              summary = fs.readFileSync(summaryPath, 'utf8');
+            } catch {
+              summary = '## Pulse audit\n\nNo summary was produced. Check the workflow logs.';
+            }
+
+            // The audit runs against the production build served locally.
+            summary = summary.replaceAll(process.env.PULSE_URL, 'Production build');
+
+            const failed = process.env.PULSE_FAILED;
+            const status =
+              failed === '0'
+                ? '✅ all checks passed'
+                : `❌ ${failed || 'some'} check${failed === '1' ? '' : 's'} failed`;
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const guidance =
+              failed === '0'
+                ? ''
+                : '\n> Fix the regression above, or update the budget in `.pulse.json` when the new cost is intentional.';
+            const body = [
+              marker,
+              summary.trimEnd(),
+              guidance,
+              '',
+              `**Result:** ${status} · [workflow run](${runUrl}) · the HTML report is in the run's artifacts.`,
+              '',
+              '<sub>Budgets live in `.pulse.json`. Run `npm run pulse:local` after `npm run build && npm run preview` to reproduce.</sub>',
+            ].join('\n');
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+            const existing = comments.find((comment) => comment.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body,
+              });
+            }
+
+      - name: Save baseline
+        if: github.ref == 'refs/heads/main' && steps.audit.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: .pulse/baseline.json
+          key: pulse-baseline-${{ github.sha }}
+
+      - name: Fail when budgets regress
+        if: steps.audit.outputs.failed != '' && steps.audit.outputs.failed != '0'
+        run: |
+          echo "::error::Pulse reported ${{ steps.audit.outputs.failed }} failing check(s). See the pull request comment or the pulse-report artifact."
+          exit 1
