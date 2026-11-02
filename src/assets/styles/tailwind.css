@@ -161,3 +161,59 @@
 .dd *:first-child {
   margin-top: 0;
 }
+
+/*
+ * Skip layout and paint for sections below the fold until they approach the
+ * viewport. Per-section intrinsic sizes are initial estimates measured at
+ * 1440px and 412px; `auto` remembers the real size after the first render.
+ */
+main > section:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+#skills {
+  contain-intrinsic-size: auto 791px;
+}
+#history {
+  contain-intrinsic-size: auto 1240px;
+}
+#projects {
+  contain-intrinsic-size: auto 1562px;
+}
+#skills ~ section:nth-of-type(5) {
+  contain-intrinsic-size: auto 609px;
+}
+#links {
+  contain-intrinsic-size: auto 204px;
+}
+#skills ~ section:nth-of-type(7) {
+  contain-intrinsic-size: auto 989px;
+}
+#contact {
+  contain-intrinsic-size: auto 794px;
+}
+
+@media (max-width: 767px) {
+  #skills {
+    contain-intrinsic-size: auto 1174px;
+  }
+  #history {
+    contain-intrinsic-size: auto 1953px;
+  }
+  #projects {
+    contain-intrinsic-size: auto 2580px;
+  }
+  #skills ~ section:nth-of-type(5) {
+    contain-intrinsic-size: auto 1237px;
+  }
+  #links {
+    contain-intrinsic-size: auto 228px;
+  }
+  #skills ~ section:nth-of-type(7) {
+    contain-intrinsic-size: auto 1766px;
+  }
+  #contact {
+    contain-intrinsic-size: auto 847px;
+  }
+}
