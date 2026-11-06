@@ -15,6 +15,7 @@
     "astro": "astro",
     "pulse": "npx --yes @mtlh/pulse-audit@0.1.0 audit",
     "pulse:local": "npx --yes @mtlh/pulse-audit@0.1.0 audit http://127.0.0.1:4321/",
+    "pulse:production": "npx --yes @mtlh/pulse-audit@0.1.0 audit https://mtlh.vercel.app/ --baseline .pulse/production-baseline.json",
     "pulse:baseline": "npx --yes @mtlh/pulse-audit@0.1.0 audit --update-baseline",
     "check": "npm run check:astro && npm run check:eslint && npm run check:prettier",
     "check:astro": "astro check",

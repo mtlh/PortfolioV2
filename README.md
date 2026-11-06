@@ -63,26 +63,26 @@ My Portfolio is made to highlight project work, made using both Astro + Tailwind
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                  | Action                                             |
-| :----------------------- | :------------------------------------------------- |
-| `npm install`            | Installs dependencies                              |
-| `npm run dev`            | Starts local dev server at `localhost:3000`        |
-| `npm run build`          | Build your production site to `./dist/`            |
-| `npm run preview`        | Preview your build locally, before deploying       |
-| `npm run format`         | Format codes with Prettier                         |
-| `npm run lint:eslint`    | Run Eslint                                         |
-| `npm run check`          | Run Eslint & Prettier checks                       |
-| `npm run astro ...`      | Run CLI commands like `astro add`, `astro preview` |
-| `npm run pulse`          | Audit the deployed site against `.pulse.json`      |
-| `npm run pulse:local`    | Audit a local `npm run preview` on port 4321       |
-| `npm run pulse:baseline` | Save the current audit as the local baseline       |
+| Command                    | Action                                                     |
+| :------------------------- | :--------------------------------------------------------- |
+| `npm install`              | Installs dependencies                                      |
+| `npm run dev`              | Starts local dev server at `localhost:3000`                |
+| `npm run build`            | Build your production site to `./dist/`                    |
+| `npm run preview`          | Preview your build locally, before deploying               |
+| `npm run format`           | Format codes with Prettier                                 |
+| `npm run lint:eslint`      | Run Eslint                                                 |
+| `npm run check`            | Run Eslint & Prettier checks                               |
+| `npm run astro ...`        | Run CLI commands like `astro add`, `astro preview`         |
+| `npm run pulse`            | Audit the deployed site against `.pulse.json`              |
+| `npm run pulse:local`      | Audit a local `npm run preview` on port 4321               |
+| `npm run pulse:production` | Audit the live production deployment with its own baseline |
+| `npm run pulse:baseline`   | Save the current audit as the local baseline               |
 
 ### Quality gates
 
 Performance, accessibility and page weight are gated with
 [`pulse-audit`](https://github.com/mtlh/pulse-audit). The budgets live in
-[`.pulse.json`](./.pulse.json), measured from the deployed site and given headroom for
-CI variance.
+[`.pulse.json`](./.pulse.json) with headroom for CI variance.
 
 ```shell
 npm run build
@@ -91,15 +91,28 @@ npm run pulse:local    # terminal 2, writes .pulse/report.html
 ```
 
 Every pull request runs [`.github/workflows/pulse.yml`](./.github/workflows/pulse.yml): it
-builds the site, audits the production output on `http://127.0.0.1:4321/`, and posts the
-result as a sticky comment on the PR. The comment is updated in place on each push, so there
-is one comment per pull request rather than one per commit. The full HTML report and JSON are
-uploaded as the `pulse-report` artifact.
+builds the PR commit, audits the resulting production output on
+`http://127.0.0.1:4321/`, and posts the result as a sticky comment on the PR. Auditing the
+built artifact keeps the result tied to the exact commit under review, and using the same URL
+on `main` keeps Pulse's baseline key (the audited URL) comparable. Vercel preview URLs are not
+audited: they are SSO-protected and change per deployment.
 
-Pushes to `main` audit the same URL with `--update-baseline` and save `.pulse/baseline.json`
-to the Actions cache. Pull requests restore that baseline, so the comment calls out
-regressions and new accessibility violations instead of re-reporting inherited debt. A
-missing baseline is not fatal; the first run simply records absolute budgets.
+The comment is updated in place on each push, so there is one comment per pull request rather
+than one per commit. The full HTML report and JSON are uploaded as the `pulse-report`
+artifact.
+
+Pushes to `main` audit the same local URL with `--update-baseline` and cache
+`.pulse/baseline.json`. A failing run does not replace the cached baseline, so a regression
+never becomes the new normal. Pull requests restore that baseline and call out regressions
+and new accessibility violations instead of re-reporting inherited debt. A missing baseline
+is not fatal; the first run simply records absolute budgets.
+
+Production is audited separately: once Vercel reports a successful **Production**
+deployment, [`.github/workflows/pulse-production.yml`](./.github/workflows/pulse-production.yml)
+audits `https://mtlh.vercel.app/` against `.pulse/production-baseline.json`. That run covers
+the real CDN, headers and routing, and keeps its baseline separate from the local build. It
+runs after the deploy, so it reports rather than blocks a release. It can also be started
+manually from the Actions tab.
 
 ### Deployments
 
