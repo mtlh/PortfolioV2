@@ -1,0 +1,94 @@
+name: Pulse production audit
+
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pulse-production
+  cancel-in-progress: true
+
+env:
+  PULSE_VERSION: "0.1.0"
+  PULSE_URL: "https://mtlh.vercel.app/"
+  PULSE_BASELINE: ".pulse/production-baseline.json"
+  PULSE_SUMMARY: ".pulse/production-summary.md"
+  PULSE_SHA: ${{ github.event.deployment.sha || github.sha }}
+
+jobs:
+  audit:
+    name: Production performance, accessibility and weight
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PULSE_SHA }}
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Wait for the production alias
+        run: |
+          for _ in $(seq 1 30); do
+            if curl -fsS "$PULSE_URL" > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Production site did not respond at $PULSE_URL" >&2
+          exit 1
+
+      - name: Restore production baseline
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.PULSE_BASELINE }}
+          key: pulse-production-baseline-${{ env.PULSE_SHA }}
+          restore-keys: |
+            pulse-production-baseline-
+
+      - name: Audit production
+        id: audit
+        run: |
+          mkdir -p .pulse
+          npx --yes "@mtlh/pulse-audit@$PULSE_VERSION" audit "$PULSE_URL" \
+            --baseline "$PULSE_BASELINE" \
+            --summary "$PULSE_SUMMARY" \
+            --github-output \
+            --no-fail \
+            --update-baseline
+          cat "$PULSE_SUMMARY" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pulse-production-report
+          path: .pulse/
+          if-no-files-found: ignore
+          include-hidden-files: true
+          retention-days: 14
+
+      - name: Save production baseline
+        # Keep the last green production deployment as the comparison point.
+        if: steps.audit.outcome == 'success' && steps.audit.outputs.failed == '0'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.PULSE_BASELINE }}
+          key: pulse-production-baseline-${{ env.PULSE_SHA }}
+
+      - name: Fail when production budgets regress
+        if: steps.audit.outputs.failed != '' && steps.audit.outputs.failed != '0'
+        run: |
+          echo "::error::Pulse reported production regressions. See the pulse-production-report artifact."
+          exit 1

@@ -22,6 +22,9 @@ concurrency:
 
 env:
   PULSE_VERSION: "0.1.0"
+  # Audit the production build from this commit, not the Vercel deployment. The
+  # local URL is identical on main and pull requests, which keeps the baseline
+  # key (the audited URL) comparable and avoids Vercel preview authentication.
   PULSE_URL: "http://127.0.0.1:4321/"
   PULSE_SUMMARY: ".pulse/summary.md"
 
@@ -82,6 +85,7 @@ jobs:
           name: pulse-report
           path: .pulse/
           if-no-files-found: ignore
+          include-hidden-files: true
           retention-days: 14
 
       - name: Comment on pull request
@@ -155,7 +159,9 @@ jobs:
             }
 
       - name: Save baseline
-        if: github.ref == 'refs/heads/main' && steps.audit.outcome == 'success'
+        # Only a green main run becomes the baseline, so a regression that slips
+        # through is never silently adopted as the new "normal".
+        if: github.ref == 'refs/heads/main' && steps.audit.outcome == 'success' && steps.audit.outputs.failed == '0'
         uses: actions/cache/save@v4
         with:
           path: .pulse/baseline.json
