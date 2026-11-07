@@ -1,13 +1,17 @@
 ---
 interface Props {
   label: string;
+  class?: string;
 }
 
-const { label } = Astro.props;
+const { label, class: className = '' } = Astro.props;
 ---
 
 <div
-  class="group relative inline-block w-fit justify-self-center rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+  class:list={[
+    'group relative inline-block w-fit justify-self-center rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary',
+    className,
+  ]}
   tabindex="0"
   role="group"
   aria-label={label}
