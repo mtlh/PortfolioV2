@@ -17,6 +17,9 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
+  <Fragment slot="head">
+    <link rel="preload" as="image" href="/herobackground.webp" type="image/webp" fetchpriority="high" />
+  </Fragment>
   <!-- Hero Widget ******************* -->
   <Hero />
   <Skills />
