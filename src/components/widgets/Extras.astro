@@ -48,7 +48,8 @@ const extras: Extra[] = [
       'Pokémon website interacting with pokéapi, using standard HTML/CSS/JS only. University module - Frontend Web Development.',
     image: pokeThumb,
     imageAlt: 'Pokécenter',
-    imageClass: 'flex justify-center object-cover object-center rounded-lg w-full h-48 md:w-[40%] md:h-full',
+    imageClass:
+      'mx-auto h-80 w-full object-contain object-center rounded-lg md:mx-0 md:h-full md:w-[40%] md:object-cover',
     imageSizes: '(min-width: 768px) 320px, 100vw',
     liveUrl: 'https://mtlh-frontend-ctec-3905.vercel.app/',
     githubUrl: null, // https://github.com/mtlh/FrontendCTEC3905/
@@ -64,7 +65,7 @@ const extras: Extra[] = [
       'Cafe application built using Kotlin and Android Studio with functional admin interface. University module - Mobile App Development.',
     image: orderMunchThumb,
     imageAlt: 'OrderMunch',
-    imageClass: 'flex justify-center object-cover object-center rounded-lg w-full h-48 md:w-40 md:h-80',
+    imageClass: 'mx-auto h-80 w-40 object-contain object-center rounded-lg md:mx-0 md:object-cover',
     imageSizes: '(min-width: 768px) 160px, 100vw',
     liveUrl: null,
     githubUrl: null, // https://github.com/mtlh/ordermunch/
@@ -81,7 +82,7 @@ const extras: Extra[] = [
       'Website accessing EE web service for phone messaging, featuring 2FA text verification. University module - Secure Web Development.',
     image: telemetryThumb,
     imageAlt: 'Telemetry',
-    imageClass: 'flex justify-center object-cover object-center rounded-lg w-full h-48 md:w-40 md:h-80',
+    imageClass: 'mx-auto h-80 w-40 object-contain object-center rounded-lg md:mx-0 md:object-cover',
     imageSizes: '(min-width: 768px) 160px, 100vw',
     liveUrl: null,
     githubUrl: null, // https://github.com/CTEC3110-BAM/Teledexpress
@@ -137,7 +138,7 @@ const extras: Extra[] = [
                       <div class="mb-4 text-xl font-semibold font-heading">{item.title}</div>
                     )}
                     <p class="text-gray-500 dark:text-gray-400">{item.description}</p>
-                    <div class="grid max-w-none grid-cols-6 sm:flex-row sm:justify-center pt-4">
+                    <div class="flex flex-wrap justify-center gap-2 pt-4">
                       {item.skills.map((skill) => (
                         <div
                           class="group relative inline-block rounded-sm px-0.5 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
@@ -145,7 +146,14 @@ const extras: Extra[] = [
                           role="group"
                           aria-label={skill.label}
                         >
-                          <Image loading="lazy" src={skill.src} alt={skill.label} width={100} height={100} />
+                          <Image
+                            loading="lazy"
+                            src={skill.src}
+                            alt={skill.label}
+                            width={100}
+                            height={100}
+                            class="h-12 w-12 md:h-[100px] md:w-[100px]"
+                          />
                           <SkillTooltip label={skill.label} />
                         </div>
                       ))}
