@@ -2,21 +2,28 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { Icon } from 'astro-icon/components';
-import InlineSvg from '~/components/common/InlineSvg.astro';
-import type { IconName } from '~/components/common/icons';
 
 // Images
 import pokeThumb from '~/assets/images/poke_extra_thumb.webp';
 import orderMunchThumb from '~/assets/images/ordermunch_thumbnail.webp';
 import telemetryThumb from '~/assets/images/telemetry_thumbnail.webp';
 
-// Raster skill icons stay as <Image>; SVG icons render through the sprite.
+// Skill icons used in extras
+import html5 from '~/assets/skills/icons/html5-original.svg';
+import css3 from '~/assets/skills/icons/css3-original.svg';
+import jsIcon from '~/assets/skills/icons/javascript-plain.svg';
+import kotlinIcon from '~/assets/skills/icons/kotlin-original.svg';
+import androidStudio from '~/assets/skills/icons/androidstudio-original.svg';
+import sqliteIcon from '~/assets/skills/icons/sqlite-original.svg';
+import gradleIcon from '~/assets/skills/icons/gradle-original.svg';
+import phpIcon from '~/assets/skills/icons/php-plain.svg';
 import mariadbIcon from '~/assets/skills/icons/mariadb-plain.png';
 import slim4Icon from '~/assets/skills/icons/slim4-plain.jpg';
+import phpstormIcon from '~/assets/skills/icons/phpstorm-plain.svg';
+import filezillaIcon from '~/assets/skills/icons/filezilla-plain.svg';
 
 type Skill = {
-  icon?: IconName;
-  src?: ImageMetadata;
+  src: ImageMetadata;
   label: string;
 };
 
@@ -45,9 +52,9 @@ const extras: Extra[] = [
     liveUrl: 'https://mtlh-frontend-ctec-3905.vercel.app/',
     githubUrl: null, // https://github.com/mtlh/FrontendCTEC3905/
     skills: [
-      { icon: 'html5', label: 'HTML' },
-      { icon: 'css3', label: 'CSS' },
-      { icon: 'javascript', label: 'Javascript' },
+      { src: html5, label: 'HTML' },
+      { src: css3, label: 'CSS' },
+      { src: jsIcon, label: 'Javascript' },
     ],
   },
   {
@@ -61,10 +68,10 @@ const extras: Extra[] = [
     liveUrl: null,
     githubUrl: null, // https://github.com/mtlh/ordermunch/
     skills: [
-      { icon: 'kotlin', label: 'Kotlin' },
-      { icon: 'androidstudio', label: 'Android Studio' },
-      { icon: 'sqlite', label: 'SQLite' },
-      { icon: 'gradle', label: 'Gradle' },
+      { src: kotlinIcon, label: 'Kotlin' },
+      { src: androidStudio, label: 'Android Studio' },
+      { src: sqliteIcon, label: 'SQLite' },
+      { src: gradleIcon, label: 'Gradle' },
     ],
   },
   {
@@ -78,11 +85,11 @@ const extras: Extra[] = [
     liveUrl: null,
     githubUrl: null, // https://github.com/CTEC3110-BAM/Teledexpress
     skills: [
-      { icon: 'php', label: 'PHP' },
+      { src: phpIcon, label: 'PHP' },
       { src: mariadbIcon, label: 'MariaDB' },
       { src: slim4Icon, label: 'SLIM4' },
-      { icon: 'phpstorm', label: 'PHPStorm' },
-      { icon: 'filezilla', label: 'FileZilla' },
+      { src: phpstormIcon, label: 'PHPStorm' },
+      { src: filezillaIcon, label: 'FileZilla' },
     ],
   },
 ];
@@ -116,7 +123,6 @@ const extras: Extra[] = [
                     sizes={item.imageSizes}
                     alt={item.imageAlt}
                     loading="lazy"
-                    decoding="async"
                   />
                   <div class="px-4 pt-4 md:pt-0">
                     {item.githubUrl || item.liveUrl ? (
@@ -139,18 +145,7 @@ const extras: Extra[] = [
                           role="group"
                           aria-label={skill.label}
                         >
-                          {skill.icon ? (
-                            <InlineSvg name={skill.icon} width={100} height={100} />
-                          ) : skill.src ? (
-                            <Image
-                              loading="lazy"
-                              decoding="async"
-                              src={skill.src}
-                              alt={skill.label}
-                              width={100}
-                              height={100}
-                            />
-                          ) : null}
+                          <Image loading="lazy" src={skill.src} alt={skill.label} width={100} height={100} />
                           <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex group-focus:flex">
                             <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">
                               {skill.label}

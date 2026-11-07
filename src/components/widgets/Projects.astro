@@ -1,17 +1,28 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
-import InlineSvg from '~/components/common/InlineSvg.astro';
-import type { IconName } from '~/components/common/icons';
 
-// Static imports for large project images and the raster skill icons.
+// Static imports for large project images and frequently-used skill icons.
 import premThumb from '~/assets/images/prempredictions_thumb.webp';
 import spouraThumb from '~/assets/images/spoura_portfolio.webp';
 import filmfrontThumb from '~/assets/images/filmfront_thumb.webp';
 import umbrisThumb from '~/assets/images/umbrisThumb.webp';
 
+import iconTailwind from '~/assets/skills/icons/tailwindcss-original.svg';
+import iconDjango from '~/assets/skills/icons/django-plain.svg';
+import iconPython from '~/assets/skills/icons/python-original.svg';
+import iconCockroach from '~/assets/skills/icons/cockroachdb-plain.svg';
 import iconHtmx from '~/assets/skills/icons/htmx_icon.webp';
+import iconTypescript from '~/assets/skills/icons/typescript-original.svg';
+import iconReact from '~/assets/skills/icons/react-original.svg';
+import iconNext from '~/assets/skills/icons/nextjs-original.svg';
+import iconSupabase from '~/assets/skills/icons/supabase-plain.svg';
 import iconTurso from '~/assets/skills/icons/turso-plain.png';
+import iconGo from '~/assets/skills/icons/go-plain.svg';
+import iconVite from '~/assets/skills/icons/vite-plain.svg';
+import iconPreact from '~/assets/skills/icons/preact-plain.svg';
+import iconElectron from '~/assets/skills/icons/electron-colour.svg';
+import iconConvex from '~/assets/skills/icons/convex-colour.svg';
 import iconWorkOS from '~/assets/skills/icons/workos.webp';
 import iconTanstackStart from '~/assets/skills/icons/tanstack-start.png';
 import type { ImageMetadata } from 'astro';
@@ -28,8 +39,7 @@ type Project = {
 };
 
 type Skill = {
-  icon?: IconName;
-  src?: ImageMetadata;
+  src: ImageMetadata;
   label: string;
 };
 
@@ -45,10 +55,10 @@ const projects: Project[] = [
     liveIcon: 'tabler:ball-football',
     githubUrl: null, // private for now
     skills: [
-      { icon: 'tailwind', label: 'Tailwind' },
-      { icon: 'django', label: 'Django' },
-      { icon: 'python', label: 'Python' },
-      { icon: 'cockroachdb', label: 'CockroachDB' },
+      { src: iconTailwind, label: 'Tailwind' },
+      { src: iconDjango, label: 'Django' },
+      { src: iconPython, label: 'Python' },
+      { src: iconCockroach, label: 'CockroachDB' },
       { src: iconHtmx, label: 'HTMX' },
     ],
   },
@@ -62,11 +72,11 @@ const projects: Project[] = [
     liveIcon: 'tabler:basket',
     githubUrl: 'https://github.com/mtlh/SpouraPreactGo',
     skills: [
-      { icon: 'tailwind', label: 'Tailwind' },
-      { icon: 'typescript', label: 'TypeScript' },
-      { icon: 'preact', label: 'Preact' },
-      { icon: 'vite', label: 'Vite' },
-      { icon: 'go', label: 'Go' },
+      { src: iconTailwind, label: 'Tailwind' },
+      { src: iconTypescript, label: 'TypeScript' },
+      { src: iconPreact, label: 'Preact' },
+      { src: iconVite, label: 'Vite' },
+      { src: iconGo, label: 'Go' },
       { src: iconTurso, label: 'Turso' },
     ],
   },
@@ -80,11 +90,11 @@ const projects: Project[] = [
     liveIcon: 'tabler:movie',
     githubUrl: 'https://github.com/mtlh/FilmFront',
     skills: [
-      { icon: 'tailwind', label: 'Tailwind' },
-      { icon: 'typescript', label: 'TypeScript' },
-      { icon: 'react', label: 'React' },
-      { icon: 'nextjs', label: 'Nextjs' },
-      { icon: 'supabase', label: 'Supabase' },
+      { src: iconTailwind, label: 'Tailwind' },
+      { src: iconTypescript, label: 'TypeScript' },
+      { src: iconReact, label: 'React' },
+      { src: iconNext, label: 'Nextjs' },
+      { src: iconSupabase, label: 'Supabase' },
     ],
   },
   {
@@ -98,12 +108,12 @@ const projects: Project[] = [
     githubUrl: null, // private for now
     skills: [
       { src: iconTanstackStart, label: 'Tanstack Start' },
-      { icon: 'react', label: 'React' },
-      { icon: 'convex', label: 'Convex' },
+      { src: iconReact, label: 'React' },
+      { src: iconConvex, label: 'Convex' },
       { src: iconWorkOS, label: 'WorkOS' },
-      { icon: 'electron', label: 'Electron' },
-      { icon: 'tailwind', label: 'Tailwind' },
-      { icon: 'typescript', label: 'TypeScript' },
+      { src: iconElectron, label: 'Electron' },
+      { src: iconTailwind, label: 'Tailwind' },
+      { src: iconTypescript, label: 'TypeScript' },
     ],
   },
 ];
@@ -131,7 +141,6 @@ const projects: Project[] = [
               sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
               alt={project.title}
               loading="lazy"
-              decoding="async"
             />
           </div>
           <div class="relative px-4 -mt-16">
@@ -174,18 +183,7 @@ const projects: Project[] = [
                       role="group"
                       aria-label={skill.label}
                     >
-                      {skill.icon ? (
-                        <InlineSvg name={skill.icon} width={48} height={48} />
-                      ) : skill.src ? (
-                        <Image
-                          loading="lazy"
-                          decoding="async"
-                          src={skill.src}
-                          alt={skill.label}
-                          width={48}
-                          height={48}
-                        />
-                      ) : null}
+                      <Image loading="lazy" src={skill.src} alt={skill.label} width={48} height={48} />
                       <div class="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex group-focus:flex">
                         <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">
                           {skill.label}
