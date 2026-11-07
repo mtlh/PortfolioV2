@@ -3,12 +3,12 @@ import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 ---
 
-<section class="hero-section bg-cover bg-no-repeat bg-scroll min-h-svh">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+<section class="hero-section bg-cover bg-no-repeat bg-scroll flex items-center">
+  <div class="w-full max-w-6xl mx-auto px-4 sm:px-6">
     <div class="py-6 md:py-20">
-      <div class="text-center pb-20 md:pb-4 max-w-5xl mx-auto">
+      <div class="text-center max-w-5xl mx-auto">
         <Image
-          class="m-auto rounded-md md:w-[13rem] w-[10rem] md:my-6 my-1"
+          class="mx-auto rounded-md md:w-[13rem] w-[10rem] md:mb-6 mb-1"
           src={import('~/assets/images/hero_dev_thumb.webp')}
           widths={[160, 208, 256]}
           sizes="(min-width: 768px) 208px, 160px"
@@ -51,19 +51,21 @@ import { Image } from 'astro:assets';
 </section>
 
 <style>
+  .hero-section {
+    /* Fill the viewport below the sticky 4rem header so the content sits centred. */
+    min-height: calc(100vh - 4rem);
+    min-height: calc(100svh - 4rem);
+  }
+
   @media (max-height: 600px) and (max-width: 639px) {
     .hero-section > div > div {
       padding-top: 0.75rem;
       padding-bottom: 0.75rem;
     }
 
-    .hero-section .text-center {
-      padding-bottom: 1rem;
-    }
-
     .hero-section img {
       width: 8rem;
-      margin: 0.25rem auto;
+      margin: 0 auto 0.25rem;
     }
 
     .hero-section h1 {
