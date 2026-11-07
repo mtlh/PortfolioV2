@@ -1,85 +1,52 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-
-// Local skill icon imports
-import html5 from '~/assets/skills/icons/html5-original.svg';
-import css3 from '~/assets/skills/icons/css3-original.svg';
-import jsIcon from '~/assets/skills/icons/javascript-plain.svg';
-import tsIcon from '~/assets/skills/icons/typescript-original.svg';
-import reactIcon from '~/assets/skills/icons/react-original.svg';
-import tailwind from '~/assets/skills/icons/tailwindcss-original.svg';
-import bootstrap from '~/assets/skills/icons/bootstrap-original.svg';
-import materialui from '~/assets/skills/icons/materialui-original.svg';
-import astroLight from '~/assets/skills/icons/astro-light.svg';
-import astroDark from '~/assets/skills/icons/astro-dark.svg';
-import sassIcon from '~/assets/skills/icons/sass-original.svg';
-
-import mysql from '~/assets/skills/icons/mysql-original.svg';
-import pythonIcon from '~/assets/skills/icons/python-original.svg';
-import nodejs from '~/assets/skills/icons/nodejs-original.svg';
-import javaIcon from '~/assets/skills/icons/java-original.svg';
-import scalaIcon from '~/assets/skills/icons/scala-original.svg';
-import prismaLight from '~/assets/skills/icons/prisma-light.svg';
-import prismaDark from '~/assets/skills/icons/prisma-dark.svg';
-import firebaseIcon from '~/assets/skills/icons/firebase-plain.svg';
-import nextjs from '~/assets/skills/icons/nextjs-original.svg';
-import csharpIcon from '~/assets/skills/icons/csharp-original.svg';
-import dotnetIcon from '~/assets/skills/icons/dotnetcore-original.svg';
-
-import gitIcon from '~/assets/skills/icons/git-original.svg';
-import markdownIcon from '~/assets/skills/icons/markdown-plain.svg';
-import npmIcon from '~/assets/skills/icons/npm-original-wordmark.svg';
-import webpackIcon from '~/assets/skills/icons/webpack-original.svg';
-import vscodeIcon from '~/assets/skills/icons/vscode-original.svg';
-import visualstudioIcon from '~/assets/skills/icons/visualstudio-plain.svg';
-import canvaIcon from '~/assets/skills/icons/canva-original.svg';
-import nugetIcon from '~/assets/skills/icons/nuget-original.svg';
+import InlineSvg from '~/components/common/InlineSvg.astro';
+import type { IconName } from '~/components/common/icons';
 
 type Skill = {
-  src?: ImageMetadata;
+  icon?: IconName;
   label: string;
   dual?: boolean;
-  srcLight?: ImageMetadata;
-  srcDark?: ImageMetadata;
+  iconLight?: IconName;
+  iconDark?: IconName;
 };
 
 // Centralised skill data for easy editing
 const frontend: Skill[] = [
-  { src: html5, label: 'HTML' },
-  { src: css3, label: 'CSS' },
-  { src: jsIcon, label: 'JavaScript' },
-  { src: tsIcon, label: 'TypeScript' },
-  { src: reactIcon, label: 'React' },
-  { src: tailwind, label: 'Tailwind' },
-  { src: bootstrap, label: 'Bootstrap' },
-  { src: materialui, label: 'MaterialUI' },
-  { dual: true, srcLight: astroLight, srcDark: astroDark, label: 'Astro' },
-  { src: sassIcon, label: 'SASS' },
+  { icon: 'html5', label: 'HTML' },
+  { icon: 'css3', label: 'CSS' },
+  { icon: 'javascript', label: 'JavaScript' },
+  { icon: 'typescript', label: 'TypeScript' },
+  { icon: 'react', label: 'React' },
+  { icon: 'tailwind', label: 'Tailwind' },
+  { icon: 'bootstrap', label: 'Bootstrap' },
+  { icon: 'materialui', label: 'MaterialUI' },
+  { dual: true, iconLight: 'astro-light', iconDark: 'astro-dark', label: 'Astro' },
+  { icon: 'sass', label: 'SASS' },
 ];
 
 const backend: Skill[] = [
-  { src: mysql, label: 'MySQL' },
-  { src: pythonIcon, label: 'Python' },
-  { src: nodejs, label: 'NodeJS' },
-  { src: javaIcon, label: 'Java' },
-  { src: scalaIcon, label: 'Scala' },
-  { dual: true, srcLight: prismaLight, srcDark: prismaDark, label: 'Prisma' },
-  { src: firebaseIcon, label: 'Firebase' },
-  { src: nextjs, label: 'Nextjs' },
-  { src: csharpIcon, label: 'C#' },
-  { src: dotnetIcon, label: '.NET' },
+  { icon: 'mysql', label: 'MySQL' },
+  { icon: 'python', label: 'Python' },
+  { icon: 'nodejs', label: 'NodeJS' },
+  { icon: 'java', label: 'Java' },
+  { icon: 'scala', label: 'Scala' },
+  { dual: true, iconLight: 'prisma-light', iconDark: 'prisma-dark', label: 'Prisma' },
+  { icon: 'firebase', label: 'Firebase' },
+  { icon: 'nextjs', label: 'Nextjs' },
+  { icon: 'csharp', label: 'C#' },
+  { icon: 'dotnet', label: '.NET' },
 ];
 
 const tools: Skill[] = [
-  { src: gitIcon, label: 'Git' },
-  { src: markdownIcon, label: 'Markdown' },
-  { src: npmIcon, label: 'NPM' },
-  { src: webpackIcon, label: 'Webpack' },
-  { src: vscodeIcon, label: 'VS Code' },
-  { src: visualstudioIcon, label: 'Visual Studio' },
-  { src: canvaIcon, label: 'Canva' },
-  { src: nugetIcon, label: 'Nuget' },
+  { icon: 'git', label: 'Git' },
+  { icon: 'markdown', label: 'Markdown' },
+  { icon: 'npm', label: 'NPM' },
+  { icon: 'webpack', label: 'Webpack' },
+  { icon: 'vscode', label: 'VS Code' },
+  { icon: 'visualstudio', label: 'Visual Studio' },
+  { icon: 'canva', label: 'Canva' },
+  { icon: 'nuget', label: 'Nuget' },
 ];
 ---
 
@@ -98,6 +65,7 @@ const tools: Skill[] = [
         <a href="https://github.com/mtlh" target="_blank" class="cursor-pointer">
           <Image
             loading="lazy"
+            decoding="async"
             class="mx-auto rounded-md w-full"
             src="https://ghchart.rshah.org/mtlh"
             alt="Matthew Harvey GitHub chart"
@@ -124,34 +92,13 @@ const tools: Skill[] = [
                   role="group"
                   aria-label={skill.label}
                 >
-                  {skill.dual && skill.srcLight && skill.srcDark ? (
+                  {skill.dual && skill.iconLight && skill.iconDark ? (
                     <>
-                      <Image
-                        src={skill.srcLight}
-                        alt={`${skill.label} Light`}
-                        class="max-h-12 block w-4/5 dark:hidden"
-                        width={100}
-                        height={100}
-                        loading="lazy"
-                      />
-                      <Image
-                        src={skill.srcDark}
-                        alt={`${skill.label} Dark`}
-                        class="max-h-12 w-4/5 hidden dark:block"
-                        width={100}
-                        height={100}
-                        loading="lazy"
-                      />
+                      <InlineSvg name={skill.iconLight} class="max-h-12 block w-4/5 dark:hidden" />
+                      <InlineSvg name={skill.iconDark} class="max-h-12 w-4/5 hidden dark:block" />
                     </>
-                  ) : skill.src ? (
-                    <Image
-                      loading="lazy"
-                      class="md:w-12 md:h-12 w-16 h-16"
-                      src={skill.src}
-                      alt={skill.label}
-                      width={100}
-                      height={100}
-                    />
+                  ) : skill.icon ? (
+                    <InlineSvg name={skill.icon} class="md:w-12 md:h-12 w-16 h-16" />
                   ) : null}
                   <div class="absolute bottom-0 flex-col items-center hidden mb-8 group-hover:flex group-focus:flex z-10">
                     <span class="relative z-10 p-3 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">

@@ -1,0 +1,32 @@
+---
+/**
+ * Page-level SVG sprite. Render once per page that uses <InlineSvg />.
+ *
+ * Each icon is emitted once as a <symbol>; usages reference it with <use>.
+ * Internal ids are namespaced per symbol so gradients/clip paths/masks stay
+ * unique even when different icons reuse generic ids like "a" or "clip0".
+ */
+import { svgIcons } from './icons';
+
+const namespaceIds = (body: string, prefix: string) =>
+  body
+    .replace(/\bid="([^"]+)"/g, (_match, id: string) => `id="${prefix}${id}"`)
+    .replace(/url\(#([^)]+)\)/g, (_match, id: string) => `url(#${prefix}${id})`)
+    .replace(/\b(xlink:href|href)="#([^"]+)"/g, (_match, attr: string, id: string) => `${attr}="#${prefix}${id}"`);
+
+const symbols = Object.entries(svgIcons).map(([name, icon]) => {
+  const id = `icon-${name}`;
+  return `<symbol id="${id}" viewBox="${icon.viewBox}"${icon.rootAttributes}>${namespaceIds(icon.body, `${id}-`)}</symbol>`;
+});
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+  style="position:absolute;width:0;height:0;overflow:hidden"
+>
+  {symbols.map((symbol) => (
+    <Fragment set:html={symbol} />
+  ))}
+</svg>
