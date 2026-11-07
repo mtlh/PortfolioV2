@@ -116,18 +116,13 @@ const tools: Skill[] = [
             </div>
             <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
               {section.items.map((skill) => (
-                <div
-                  class="group relative inline-block rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-                  tabindex="0"
-                  role="group"
-                  aria-label={skill.label}
-                >
+                <SkillTooltip label={skill.label}>
                   {skill.dual && skill.srcLight && skill.srcDark ? (
                     <>
                       <Image
                         src={skill.srcLight}
                         alt={`${skill.label} Light`}
-                        class="max-h-12 block w-4/5 dark:hidden"
+                        class="max-h-16 md:max-h-12 w-auto dark:hidden"
                         width={100}
                         height={100}
                         loading="lazy"
@@ -135,7 +130,7 @@ const tools: Skill[] = [
                       <Image
                         src={skill.srcDark}
                         alt={`${skill.label} Dark`}
-                        class="max-h-12 w-4/5 hidden dark:block"
+                        class="max-h-16 md:max-h-12 w-auto hidden dark:block"
                         width={100}
                         height={100}
                         loading="lazy"
@@ -151,8 +146,7 @@ const tools: Skill[] = [
                       height={100}
                     />
                   ) : null}
-                  <SkillTooltip label={skill.label} />
-                </div>
+                </SkillTooltip>
               ))}
             </div>
           </div>

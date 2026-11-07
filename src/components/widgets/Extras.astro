@@ -140,12 +140,7 @@ const extras: Extra[] = [
                     <p class="text-gray-500 dark:text-gray-400">{item.description}</p>
                     <div class="flex flex-wrap justify-center gap-2 pt-4">
                       {item.skills.map((skill) => (
-                        <div
-                          class="group relative inline-block rounded-sm px-0.5 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-                          tabindex="0"
-                          role="group"
-                          aria-label={skill.label}
-                        >
+                        <SkillTooltip label={skill.label}>
                           <Image
                             loading="lazy"
                             src={skill.src}
@@ -154,8 +149,7 @@ const extras: Extra[] = [
                             height={100}
                             class="h-12 w-12 md:h-[100px] md:w-[100px]"
                           />
-                          <SkillTooltip label={skill.label} />
-                        </div>
+                        </SkillTooltip>
                       ))}
                     </div>
                     <div class="grid grid-cols-1 lg:gap-x-2 mt-6">
