@@ -53,11 +53,11 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
-  // Prefetch links as they enter the viewport for snappier navigations
-  // (works together with <ClientRouter />, which enables prefetch by default).
+  // Prefetch on intent (hover/focus) only. Eagerly fetching every in-viewport
+  // link after load competed with first paint and hydration; hover keeps
+  // navigations feeling instant without the front-loaded network work.
   prefetch: {
-    prefetchAll: true,
-    defaultStrategy: 'viewport',
+    defaultStrategy: 'hover',
   },
 
   // Native Fonts API: self-hosts + subsets + preloads Inter and generates
