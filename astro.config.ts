@@ -53,22 +53,27 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
-  // Prefetch links as they enter the viewport for snappier navigations
-  // (works together with <ClientRouter />, which enables prefetch by default).
+  // Prefetch on intent (hover/focus) only. Eagerly fetching every in-viewport
+  // link after load competed with first paint and hydration; hover keeps
+  // navigations feeling instant without the front-loaded network work.
   prefetch: {
-    prefetchAll: true,
-    defaultStrategy: 'viewport',
+    defaultStrategy: 'hover',
   },
 
   // Native Fonts API: self-hosts + subsets + preloads Inter and generates
   // metric-adjusted fallbacks. Injected via <Font /> in Layout.astro and
   // consumed through the `--font-inter` CSS variable in CustomStyles.astro.
+  //
+  // Only 400-800 are declared: the site uses regular (400), medium (500),
+  // semibold (600), bold (700) and extrabold (800). Shipping the full
+  // 100-900 axis costs ~73 kB; 400-800 is ~39 kB. The Google provider serves
+  // the smaller upstream variable file, still self-hosted at build time.
   fonts: [
     {
-      provider: fontProviders.fontsource(),
+      provider: fontProviders.google(),
       name: 'Inter',
       cssVariable: '--font-inter',
-      weights: ['100 900'],
+      weights: ['400 800'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['sans-serif'],

@@ -18,7 +18,9 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <SvgSprite />
+  <Fragment slot="head">
+    <link rel="preload" as="image" href="/herobackground.webp" type="image/webp" fetchpriority="high" />
+  </Fragment>
   <!-- Hero Widget ******************* -->
   <Hero />
   <Skills />
@@ -28,4 +30,6 @@ const metadata = {
   <LinksElsewhere />
   <Extras />
   <CallToAction />
+  <!-- Page-level SVG sprite: keep last so the hero/document head is parsed first. -->
+  <SvgSprite />
 </Layout>

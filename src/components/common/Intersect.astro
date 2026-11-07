@@ -22,16 +22,40 @@
     private animationCounter = 0;
     private readonly delayBetweenAnimations = 100;
     private onThemeChange = () => this.removeAnimationDelay();
+    private idleCallbackId: number | null = null;
+    private idleTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
     connectedCallback() {
       // The custom-element lifecycle re-runs this on every client-side
       // navigation, so each page (initial load and navigations alike) reveals
       // its sections with the same fade-in as you scroll them into view.
-      this.start();
+      //
+      // Defer that work to an idle period so querying and observing elements
+      // does not compete with first paint. requestIdleCallback is still
+      // missing in Safari, so fall back to a timeout there.
+      const startWhenIdle = () => {
+        this.idleCallbackId = null;
+        this.idleTimeoutId = null;
+        this.start();
+      };
+
+      if (typeof window.requestIdleCallback === 'function') {
+        this.idleCallbackId = window.requestIdleCallback(startWhenIdle, { timeout: 1000 });
+      } else {
+        this.idleTimeoutId = setTimeout(startWhenIdle, 200);
+      }
+
       document.addEventListener('aw:theme-change', this.onThemeChange);
     }
 
     disconnectedCallback() {
+      if (this.idleCallbackId !== null && typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(this.idleCallbackId);
+      }
+      if (this.idleTimeoutId !== null) clearTimeout(this.idleTimeoutId);
+      this.idleCallbackId = null;
+      this.idleTimeoutId = null;
+
       this.observer?.disconnect();
       document.removeEventListener('aw:theme-change', this.onThemeChange);
     }
@@ -47,17 +71,12 @@
       this.observer?.disconnect();
       this.animationCounter = 0;
 
-      const selectors = [
-        '[class*=" intersect:"]',
-        '[class*=":intersect:"]',
-        '[class^="intersect:"]',
-        '[class="intersect"]',
-        '[class*=" intersect "]',
-        '[class^="intersect "]',
-        '[class$=" intersect"]',
-      ];
+      // One substring match covers every variant the site uses — `intersect`,
+      // `intersect-once`, `intersect-quarter`, `intersect:animate-fade` and
+      // prefixed `motion-safe:md:intersect:animate-fade`.
+      const selector = '[class*="intersect"]';
 
-      this.elements = Array.from(document.querySelectorAll<HTMLElement>(selectors.join(',')));
+      this.elements = Array.from(document.querySelectorAll<HTMLElement>(selector));
 
       this.elements.forEach((el) => {
         el.setAttribute('no-intersect', '');
