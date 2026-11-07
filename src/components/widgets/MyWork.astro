@@ -17,6 +17,14 @@ import iconTypescript from '~/assets/skills/icons/typescript-original.svg';
 import iconGraphql from '~/assets/skills/icons/graphql-plain.svg';
 import iconMssql from '~/assets/skills/icons/microsoftsqlserver-plain.svg';
 import iconPostgres from '~/assets/skills/icons/postgresql-original.svg';
+import iconHtml from '~/assets/skills/icons/html5-original.svg';
+import iconCss from '~/assets/skills/icons/css3-original.svg';
+import iconJavascript from '~/assets/skills/icons/javascript-plain.svg';
+import iconPhp from '~/assets/skills/icons/php-plain.svg';
+import iconScala from '~/assets/skills/icons/scala-original.svg';
+import iconJava from '~/assets/skills/icons/java-original.svg';
+import iconSql from '~/assets/skills/icons/mysql-original.svg';
+import iconGit from '~/assets/skills/icons/git-original.svg';
 
 type Skill = {
   src: ImageMetadata;
@@ -41,7 +49,7 @@ type EducationEntry = {
   image: ImageMetadata;
   dates: string;
   award: string;
-  skills: Array<string>;
+  skills: Skill[];
   description: string;
 };
 
@@ -108,7 +116,16 @@ const educationEntries: EducationEntry[] = [
     image: dmu,
     dates: 'September 2020 - June 2024',
     award: '2023 Placement Student Of The Year',
-    skills: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Scala', 'Java', 'SQL', 'Git'],
+    skills: [
+      { src: iconHtml, label: 'HTML' },
+      { src: iconCss, label: 'CSS' },
+      { src: iconJavascript, label: 'JavaScript' },
+      { src: iconPhp, label: 'PHP' },
+      { src: iconScala, label: 'Scala' },
+      { src: iconJava, label: 'Java' },
+      { src: iconSql, label: 'SQL' },
+      { src: iconGit, label: 'Git' },
+    ],
     description:
       'Relevant Modules Include: Object Oriented, Agile Team Development, Data Structures and Algorithms, Web Applications...',
   },
@@ -166,7 +183,6 @@ const educationEntries: EducationEntry[] = [
               <br />
               {entry.skills ? (
                 <div class="flex flex-wrap items-center gap-3 mt-1">
-                  <Icon name="tabler:code" class="w-6 h-6 icon-bold text-gray-900 dark:text-slate-300" />
                   {entry.skills.map((skill) => (
                     <div
                       class="group relative inline-block rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
@@ -238,10 +254,32 @@ const educationEntries: EducationEntry[] = [
                 ) : null}
                 <br />
                 {ed.skills ? (
-                  <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
-                    <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
-                    <p class="inline">{ed.skills.join(', ')}</p>
-                  </span>
+                  <div class="flex flex-wrap items-center gap-3 mt-1">
+                    {ed.skills.map((skill) => (
+                      <div
+                        class="group relative inline-block rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                        tabindex="0"
+                        role="group"
+                        aria-label={skill.label}
+                      >
+                        {/* 100px keeps the same optimized asset URL as Skills/Extras, so these icons add no extra requests. */}
+                        <Image
+                          loading="lazy"
+                          src={skill.src}
+                          alt={skill.label}
+                          width={100}
+                          height={100}
+                          class="w-8 h-8"
+                        />
+                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 flex-col items-center hidden mb-2 group-hover:flex group-focus:flex z-10">
+                          <span class="relative z-10 p-2 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">
+                            {skill.label}
+                          </span>
+                          <div class="w-3 h-3 -mt-1.5 rotate-45 bg-blue-600" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 ) : null}
                 {ed.description ? <p class="py-2 max-w-2xl">{ed.description}</p> : null}
               </div>
