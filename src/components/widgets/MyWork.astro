@@ -266,12 +266,13 @@ const educationEntries: EducationEntry[] = [
                         role="group"
                         aria-label={skill.label}
                       >
+                        {/* 100px keeps the same optimized asset URL as Skills/Extras, so these icons add no extra requests. */}
                         <Image
                           loading="lazy"
                           src={skill.src}
                           alt={skill.label}
-                          width={48}
-                          height={48}
+                          width={100}
+                          height={100}
                           class="w-8 h-8"
                         />
                         <div class="absolute bottom-full left-1/2 -translate-x-1/2 flex-col items-center hidden mb-2 group-hover:flex group-focus:flex z-10">
