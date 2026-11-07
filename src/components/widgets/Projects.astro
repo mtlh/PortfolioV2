@@ -170,15 +170,9 @@ const projects: Project[] = [
                 <p class="mb-4">{project.description}</p>
                 <div class="grid max-w-none grid-cols-6 lg:flex lg:flex-wrap lg:justify-center gap-4 mt-auto">
                   {project.skills.map((skill) => (
-                    <div
-                      class="group relative inline-block rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-                      tabindex="0"
-                      role="group"
-                      aria-label={skill.label}
-                    >
+                    <SkillTooltip label={skill.label}>
                       <Image loading="lazy" src={skill.src} alt={skill.label} width={48} height={48} />
-                      <SkillTooltip label={skill.label} />
-                    </div>
+                    </SkillTooltip>
                   ))}
                 </div>
               </div>
