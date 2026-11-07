@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import SkillTooltip from '~/components/ui/SkillTooltip.astro';
 
 import access from '~/assets/work/access.svg';
 import lcc from '~/assets/work/lcc.svg';
@@ -174,12 +175,7 @@ const educationEntries: EducationEntry[] = [
                       aria-label={skill.label}
                     >
                       <Image loading="lazy" src={skill.src} alt={skill.label} width={48} height={48} class="w-8 h-8" />
-                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 flex-col items-center hidden mb-2 group-hover:flex group-focus:flex z-10">
-                        <span class="relative z-10 p-2 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">
-                          {skill.label}
-                        </span>
-                        <div class="w-3 h-3 -mt-1.5 rotate-45 bg-blue-600" />
-                      </div>
+                      <SkillTooltip label={skill.label} />
                     </div>
                   ))}
                 </div>
