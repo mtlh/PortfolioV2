@@ -24,8 +24,8 @@
       "regression": 10
     },
     "requests": {
-      "max": 52,
-      "regression": 10
+      "max": 56,
+      "regression": 20
     },
     "a11y": {
       "maxViolations": 12,

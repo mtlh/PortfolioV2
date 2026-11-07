@@ -8,13 +8,27 @@ import lcc from '~/assets/work/lcc.svg';
 import serco from '~/assets/work/serco.svg';
 import dmu from '~/assets/work/dmu.svg';
 
+import iconCsharp from '~/assets/skills/icons/csharp-original.svg';
+import iconDotnet from '~/assets/skills/icons/dotnetcore-original.svg';
+import iconTerraform from '~/assets/skills/icons/terraform-original.svg';
+import iconReact from '~/assets/skills/icons/react-original.svg';
+import iconTypescript from '~/assets/skills/icons/typescript-original.svg';
+import iconGraphql from '~/assets/skills/icons/graphql-plain.svg';
+import iconMssql from '~/assets/skills/icons/microsoftsqlserver-plain.svg';
+import iconPostgres from '~/assets/skills/icons/postgresql-original.svg';
+
+type Skill = {
+  src: ImageMetadata;
+  label: string;
+};
+
 type WorkEntry = {
   title: string;
   company: string | null;
   companyUrl: string | null;
   image: ImageMetadata | null;
   dates: string;
-  skills: string | null;
+  skills: Skill[] | null;
   description: string | null;
   descriptionHidden?: boolean;
 };
@@ -37,7 +51,10 @@ const workEntries: WorkEntry[] = [
     companyUrl: null,
     image: null,
     dates: 'March 2025 - Present',
-    skills: 'C#, Terraform',
+    skills: [
+      { src: iconCsharp, label: 'C#' },
+      { src: iconTerraform, label: 'Terraform' },
+    ],
     description: null,
   },
   {
@@ -46,7 +63,13 @@ const workEntries: WorkEntry[] = [
     companyUrl: 'https://www.theaccessgroup.com/en-gb/',
     image: access,
     dates: 'August 2024 - March 2025',
-    skills: 'React, Typescript, GraphQL, C#, SQL Server',
+    skills: [
+      { src: iconReact, label: 'React' },
+      { src: iconTypescript, label: 'TypeScript' },
+      { src: iconGraphql, label: 'GraphQL' },
+      { src: iconCsharp, label: 'C#' },
+      { src: iconMssql, label: 'SQL Server' },
+    ],
     description: null,
     descriptionHidden: true,
   },
@@ -56,7 +79,11 @@ const workEntries: WorkEntry[] = [
     companyUrl: 'https://www.leicestershire.gov.uk/',
     image: lcc,
     dates: 'June 2022 - August 2023',
-    skills: 'C#, .NET, PostgresSQL',
+    skills: [
+      { src: iconCsharp, label: 'C#' },
+      { src: iconDotnet, label: '.NET' },
+      { src: iconPostgres, label: 'PostgreSQL' },
+    ],
     description:
       'Built responsive webservices reducing existing API times by over 60%. Automated scheduled tasks by managing geographical data sourced from the Ordance Survey API. Created and maintained various web forms used by all aspects of the business.',
   },
@@ -137,10 +164,25 @@ const educationEntries: EducationEntry[] = [
               </span>
               <br />
               {entry.skills ? (
-                <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
-                  <Icon name="tabler:code" class="w-6 h-6 icon-bold inline" />
-                  <p class="inline">{entry.skills}</p>
-                </span>
+                <div class="flex flex-wrap items-center gap-3 mt-1">
+                  <Icon name="tabler:code" class="w-6 h-6 icon-bold text-gray-900 dark:text-slate-300" />
+                  {entry.skills.map((skill) => (
+                    <div
+                      class="group relative inline-block rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                      tabindex="0"
+                      role="group"
+                      aria-label={skill.label}
+                    >
+                      <Image loading="lazy" src={skill.src} alt={skill.label} width={48} height={48} class="w-8 h-8" />
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 flex-col items-center hidden mb-2 group-hover:flex group-focus:flex z-10">
+                        <span class="relative z-10 p-2 text-xs leading-none rounded-lg text-white whitespace-nowrap bg-linear-to-r from-blue-500 to-blue-600 shadow-lg">
+                          {skill.label}
+                        </span>
+                        <div class="w-3 h-3 -mt-1.5 rotate-45 bg-blue-600" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : null}
               {entry.description && !entry.descriptionHidden ? <p class="py-2 max-w-2xl">{entry.description}</p> : null}
             </div>
