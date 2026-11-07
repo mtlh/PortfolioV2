@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="heroDevTitle heroDevDesc">
+  <title id="heroDevTitle">Developer with laptop</title>
+  <desc id="heroDevDesc">Flat vector icon of a developer holding a laptop showing code brackets</desc>
+  <!-- Shoulders / shirt -->
+  <path
+    d="M30 212 C30 164 68 126 104 114 L152 114 C188 126 226 164 226 212 C226 224 217 232 204 232 H52 C39 232 30 224 30 212 Z"
+    fill="#7AB5E6"
+    stroke="#111111"
+    stroke-width="12"
+    stroke-linejoin="round"
+  />
+  <!-- Neck -->
+  <path
+    d="M110 96 H146 L140 138 H116 Z"
+    fill="#F4BE8D"
+    stroke="#111111"
+    stroke-width="10"
+    stroke-linejoin="round"
+  />
+  <!-- Collar V -->
+  <path d="M104 114 L123 148" fill="none" stroke="#111111" stroke-width="10" stroke-linecap="round" />
+  <path d="M152 114 L133 148" fill="none" stroke="#111111" stroke-width="10" stroke-linecap="round" />
+  <!-- Head -->
+  <rect
+    x="82"
+    y="30"
+    width="92"
+    height="80"
+    rx="36"
+    fill="#FFE3C0"
+    stroke="#111111"
+    stroke-width="12"
+  />
+  <!-- Hair -->
+  <path
+    d="M80 66 V42 C80 24 94 14 112 14 H144 C162 14 176 24 176 42 V66 C166 62 158 56 152 46 C144 58 128 66 110 66 C99 66 88 67 80 66 Z"
+    fill="#9C6E4E"
+    stroke="#111111"
+    stroke-width="12"
+    stroke-linejoin="round"
+  />
+  <!-- Laptop screen -->
+  <rect
+    x="60"
+    y="150"
+    width="136"
+    height="74"
+    rx="10"
+    fill="#EEF1F4"
+    stroke="#111111"
+    stroke-width="12"
+  />
+  <!-- Laptop side nubs -->
+  <path d="M60 184 H40" fill="none" stroke="#111111" stroke-width="12" stroke-linecap="round" />
+  <path d="M196 184 H216" fill="none" stroke="#111111" stroke-width="12" stroke-linecap="round" />
+  <!-- Laptop base -->
+  <rect
+    x="70"
+    y="220"
+    width="116"
+    height="20"
+    rx="10"
+    fill="#DCE1E6"
+    stroke="#111111"
+    stroke-width="12"
+  />
+  <!-- Code: < / > -->
+  <path
+    d="M106 176 L92 190 L106 204"
+    fill="none"
+    stroke="#111111"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M150 176 L164 190 L150 204"
+    fill="none"
+    stroke="#111111"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <line
+    x1="136"
+    y1="172"
+    x2="120"
+    y2="208"
+    stroke="#111111"
+    stroke-width="10"
+    stroke-linecap="round"
+  />
+</svg>
