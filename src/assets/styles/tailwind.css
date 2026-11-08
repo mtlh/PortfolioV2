@@ -8,6 +8,11 @@
 
 @theme {
   --color-primary: var(--aw-color-primary);
+  /* Primary used for text/icons. Light mode matches --color-primary; dark mode
+     uses a lighter tint so text stays legible on the dark page background
+     (the base primary is only ~2.75:1 there). Kept separate from
+     --color-primary so buttons keep white-on-blue contrast. */
+  --color-primary-soft: var(--aw-color-primary-soft);
   --color-secondary: var(--aw-color-secondary);
   --color-accent: var(--aw-color-accent);
   --color-default: var(--aw-color-text-default);

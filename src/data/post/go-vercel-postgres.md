@@ -20,13 +20,13 @@ metadata:
 
 Feel free to explore the [GitHub repository](https://github.com/mtlh/go-vercel-postgres) for the template project or [live demo](https://go-vercel-postgres.vercel.app/api) for hands-on experience and experimentation.
 
-### Why This Tech?
+## Why This Tech?
 
 - **Go:** Golang is known for being performant and efficent. With other drawing points such as being easy to read and a fast learning curve.
 - **Neon (Postgres):** Any hosted postgres instance will work for this process but I have chosen to host it on Neon since it is free, other options include CockroachDB, Railway, AWS and many more.
 - **Vercel:** Built ontop of AWS services, Vercel is a easy way to build quick applications and trial ideas. They offer a Go runtime where you can directly run functions upon request from the /api routes.
 
-### Walkthrough
+## Walkthrough
 
 Lets look at the /api index route first, since it is a great example of the core endpoint structure you can expand upon. The important points within this file is the handler method is ran
 when a http(s) request is made to that endpoint, with the relevant request data being passed and an instance of the response writer as parameters, with the writer being used to return
@@ -159,9 +159,9 @@ func DBTestHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-### Try it yourself
+## Try it yourself
 
-You will need a postgres instance setup prior to following the steps below. If you wish to use Neon for the free database instance, [click here](https://neon.tech/).
+You will need a postgres instance setup prior to following the steps below. If you wish to use Neon for the free database instance, [visit the Neon website](https://neon.tech/).
 
 ```bash
 # 1. Clone the repo:

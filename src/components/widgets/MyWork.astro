@@ -170,8 +170,8 @@ const educationEntries: EducationEntry[] = [
                 />
               ) : null}
               {entry.company ? (
-                <p class="mb-2 text-lg font-medium text-primary dark:text-primary underline">
-                  <a href={entry.companyUrl} target="_blank">
+                <p class="mb-2 text-lg font-medium text-primary dark:text-primary-soft underline">
+                  <a href={entry.companyUrl} target="_blank" rel="noopener noreferrer">
                     {entry.company}
                   </a>
                 </p>
@@ -230,8 +230,8 @@ const educationEntries: EducationEntry[] = [
                     loading="lazy"
                   />
                 ) : null}
-                <p class="mb-2 text-lg font-medium text-primary dark:text-primary underline">
-                  <a href={ed.institutionUrl} target="_blank">
+                <p class="mb-2 text-lg font-medium text-primary dark:text-primary-soft underline">
+                  <a href={ed.institutionUrl} target="_blank" rel="noopener noreferrer">
                     {ed.institution}
                   </a>
                 </p>
