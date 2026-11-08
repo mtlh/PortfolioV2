@@ -154,6 +154,12 @@ export default defineConfig({
       remarkPlugins: [readingTimeRemarkPlugin],
       rehypePlugins: [responsiveTablesRehypePlugin],
     }),
+    // `github-dark` (Astro's default) colours comments #6a737d, which is only
+    // ~3:1 on its #24292e code background. `github-dark-default` keeps the same
+    // look with a lighter #8b949e comment colour that passes WCAG AA.
+    shikiConfig: {
+      theme: 'github-dark-default',
+    },
   },
 
   vite: {

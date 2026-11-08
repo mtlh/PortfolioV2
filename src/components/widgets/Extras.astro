@@ -114,7 +114,7 @@ const extras: Extra[] = [
                   class={`flex flex-col md:flex-row ${index === 0 ? 'col-span-1 lg:col-span-2 lg:pb-10' : ''} intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade`}
                 >
                   <div class="pr-4 sm:pl-4 hidden md:flex">
-                    <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-primary">
+                    <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold rounded-full bg-slate-100 dark:bg-slate-800 text-primary dark:text-primary-soft">
                       {index + 1}
                     </span>
                   </div>
@@ -131,6 +131,7 @@ const extras: Extra[] = [
                         class="mb-4 text-xl font-semibold font-heading hover:underline cursor-pointer"
                         href={item.githubUrl ?? item.liveUrl}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         {item.title}
                       </a>
@@ -158,6 +159,8 @@ const extras: Extra[] = [
                           class="btn text-white border border-primary bg-primary hover:bg-primary hover:border-primary mb-4"
                           href={item.liveUrl}
                           target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${item.title} live site`}
                         >
                           <Icon name="tabler:external-link" class="w-5 h-5 mr-1 -ml-1.5" /> Live
                         </a>
@@ -167,6 +170,8 @@ const extras: Extra[] = [
                           class="btn text-white border bg-gray-900 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 mb-4"
                           href={item.githubUrl}
                           target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${item.title} on GitHub`}
                         >
                           <Icon name="tabler:brand-github" class="w-5 h-5 mr-1 -ml-1.5" /> GitHub
                         </a>

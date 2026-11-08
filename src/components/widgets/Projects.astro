@@ -120,7 +120,7 @@ const projects: Project[] = [
 <section class="bg-light scroll-mt-20" id="projects">
   <div class="px-4 py-8 mx-auto max-w-6xl lg:px-8 lg:py-10">
     <div class="max-w-xl mb-10 md:mx-auto text-center lg:max-w-2xl md:mb-12">
-      <p class="text-base text-primary dark:text-primary font-semibold tracking-wide uppercase">Projects</p>
+      <p class="text-base text-primary dark:text-primary-soft font-semibold tracking-wide uppercase">Projects</p>
       <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading">What I have made</h2>
     </div>
     <div class="grid items-stretch gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 my-12 antialiased">
@@ -146,6 +146,8 @@ const projects: Project[] = [
                       class="btn text-white border border-primary bg-primary hover:bg-primary hover:border-primary mb-4"
                       href={project.liveUrl}
                       target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${project.title} live site`}
                     >
                       <Icon name={project.liveIcon} class="w-5 h-5 mr-1 -ml-1.5" /> Live
                     </a>
@@ -155,6 +157,8 @@ const projects: Project[] = [
                       class="btn text-white border bg-gray-900 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 mb-4"
                       href={project.githubUrl}
                       target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${project.title} on GitHub`}
                     >
                       <Icon name="tabler:brand-github" class="w-5 h-5 mr-1 -ml-1.5" /> GitHub
                     </a>
