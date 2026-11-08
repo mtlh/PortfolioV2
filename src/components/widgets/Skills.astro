@@ -128,7 +128,7 @@ const tools: Skill[] = [
             <div class="flex items-center mb-4">
               <div class="text-2xl font-bold">{section.title}</div>
             </div>
-            <div class="grid max-w-none sm:grid-cols-4 grid-cols-5 sm:flex-row sm:justify-center gap-4">
+            <div class="grid max-w-none grid-cols-5 gap-4">
               {section.items.map((skill) => (
                 <SkillTooltip label={skill.label}>
                   {skill.dual && skill.srcLight && skill.srcDark ? (
