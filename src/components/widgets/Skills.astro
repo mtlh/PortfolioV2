@@ -10,23 +10,27 @@ import jsIcon from '~/assets/skills/icons/javascript-plain.svg';
 import tsIcon from '~/assets/skills/icons/typescript-original.svg';
 import reactIcon from '~/assets/skills/icons/react-original.svg';
 import tailwind from '~/assets/skills/icons/tailwindcss-original.svg';
-import bootstrap from '~/assets/skills/icons/bootstrap-original.svg';
-import materialui from '~/assets/skills/icons/materialui-original.svg';
+import htmxIcon from '~/assets/skills/icons/htmx_icon.webp';
+import preactIcon from '~/assets/skills/icons/preact-plain.svg';
 import astroLight from '~/assets/skills/icons/astro-light.svg';
 import astroDark from '~/assets/skills/icons/astro-dark.svg';
-import sassIcon from '~/assets/skills/icons/sass-original.svg';
 
-import mysql from '~/assets/skills/icons/mysql-original.svg';
-import pythonIcon from '~/assets/skills/icons/python-original.svg';
-import nodejs from '~/assets/skills/icons/nodejs-original.svg';
-import javaIcon from '~/assets/skills/icons/java-original.svg';
-import scalaIcon from '~/assets/skills/icons/scala-original.svg';
-import prismaLight from '~/assets/skills/icons/prisma-light.svg';
-import prismaDark from '~/assets/skills/icons/prisma-dark.svg';
-import firebaseIcon from '~/assets/skills/icons/firebase-plain.svg';
-import nextjs from '~/assets/skills/icons/nextjs-original.svg';
 import csharpIcon from '~/assets/skills/icons/csharp-original.svg';
 import dotnetIcon from '~/assets/skills/icons/dotnetcore-original.svg';
+import pythonIcon from '~/assets/skills/icons/python-original.svg';
+import djangoIcon from '~/assets/skills/icons/django-plain.svg';
+import goIcon from '~/assets/skills/icons/go-plain.svg';
+import javaIcon from '~/assets/skills/icons/java-original.svg';
+import scalaIcon from '~/assets/skills/icons/scala-original.svg';
+import phpIcon from '~/assets/skills/icons/php-plain.svg';
+import nodejs from '~/assets/skills/icons/nodejs-original.svg';
+import nextjs from '~/assets/skills/icons/nextjs-original.svg';
+import graphqlIcon from '~/assets/skills/icons/graphql-plain.svg';
+import prismaLight from '~/assets/skills/icons/prisma-light.svg';
+import prismaDark from '~/assets/skills/icons/prisma-dark.svg';
+import sqlIcon from '~/assets/skills/icons/mysql-original.svg';
+import postgresIcon from '~/assets/skills/icons/postgresql-original.svg';
+import mssqlIcon from '~/assets/skills/icons/microsoftsqlserver-plain.svg';
 
 import gitIcon from '~/assets/skills/icons/git-original.svg';
 import markdownIcon from '~/assets/skills/icons/markdown-plain.svg';
@@ -34,8 +38,11 @@ import npmIcon from '~/assets/skills/icons/npm-original-wordmark.svg';
 import webpackIcon from '~/assets/skills/icons/webpack-original.svg';
 import vscodeIcon from '~/assets/skills/icons/vscode-original.svg';
 import visualstudioIcon from '~/assets/skills/icons/visualstudio-plain.svg';
-import canvaIcon from '~/assets/skills/icons/canva-original.svg';
 import nugetIcon from '~/assets/skills/icons/nuget-original.svg';
+import viteIcon from '~/assets/skills/icons/vite-plain.svg';
+import terraformIcon from '~/assets/skills/icons/terraform-original.svg';
+import electronIcon from '~/assets/skills/icons/electron-colour.svg';
+import workosIcon from '~/assets/skills/icons/workos.webp';
 
 type Skill = {
   src?: ImageMetadata;
@@ -52,35 +59,42 @@ const frontend: Skill[] = [
   { src: jsIcon, label: 'JavaScript' },
   { src: tsIcon, label: 'TypeScript' },
   { src: reactIcon, label: 'React' },
+  { src: astroLight, srcDark: astroDark, label: 'Astro', dual: true },
   { src: tailwind, label: 'Tailwind' },
-  { src: bootstrap, label: 'Bootstrap' },
-  { src: materialui, label: 'MaterialUI' },
-  { dual: true, srcLight: astroLight, srcDark: astroDark, label: 'Astro' },
-  { src: sassIcon, label: 'SASS' },
+  { src: htmxIcon, label: 'HTMX' },
+  { src: preactIcon, label: 'Preact' },
 ];
 
 const backend: Skill[] = [
-  { src: mysql, label: 'MySQL' },
-  { src: pythonIcon, label: 'Python' },
-  { src: nodejs, label: 'NodeJS' },
-  { src: javaIcon, label: 'Java' },
-  { src: scalaIcon, label: 'Scala' },
-  { dual: true, srcLight: prismaLight, srcDark: prismaDark, label: 'Prisma' },
-  { src: firebaseIcon, label: 'Firebase' },
-  { src: nextjs, label: 'Nextjs' },
   { src: csharpIcon, label: 'C#' },
   { src: dotnetIcon, label: '.NET' },
+  { src: pythonIcon, label: 'Python' },
+  { src: djangoIcon, label: 'Django' },
+  { src: goIcon, label: 'Go' },
+  { src: javaIcon, label: 'Java' },
+  { src: scalaIcon, label: 'Scala' },
+  { src: phpIcon, label: 'PHP' },
+  { src: nodejs, label: 'NodeJS' },
+  { src: nextjs, label: 'Nextjs' },
+  { src: graphqlIcon, label: 'GraphQL' },
+  { dual: true, srcLight: prismaLight, srcDark: prismaDark, label: 'Prisma' },
+  { src: sqlIcon, label: 'SQL' },
+  { src: postgresIcon, label: 'PostgreSQL' },
+  { src: mssqlIcon, label: 'SQL Server' },
 ];
 
 const tools: Skill[] = [
   { src: gitIcon, label: 'Git' },
-  { src: markdownIcon, label: 'Markdown' },
-  { src: npmIcon, label: 'NPM' },
-  { src: webpackIcon, label: 'Webpack' },
+  { src: terraformIcon, label: 'Terraform' },
   { src: vscodeIcon, label: 'VS Code' },
   { src: visualstudioIcon, label: 'Visual Studio' },
-  { src: canvaIcon, label: 'Canva' },
+  { src: npmIcon, label: 'NPM' },
+  { src: webpackIcon, label: 'Webpack' },
   { src: nugetIcon, label: 'Nuget' },
+  { src: markdownIcon, label: 'Markdown' },
+  { src: viteIcon, label: 'Vite' },
+  { src: electronIcon, label: 'Electron' },
+  { src: workosIcon, label: 'WorkOS' },
 ];
 ---
 
