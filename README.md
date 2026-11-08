@@ -5,7 +5,7 @@
 
 <div align="center">
   <a href="https://mtlh.vercel.app">
-    <img src="https://mtlh.vercel.app/_astro/hero_dev_thumb.DnNQNRvF_218a56.webp" alt="Logo" width="120" height="120">
+    <img src="src/assets/images/hero_dev_thumb.webp" alt="Logo" width="120" height="120">
   </a>
   <h1 align="center" style="font-size:2.5rem; font-weight:700; margin: 1rem 0; display:flex; align-items:center; justify-content:center; gap:0.5em;">
   <a href="https://mtlh.vercel.app" target="_blank" style="text-decoration:none;display:inline-flex; align-items:center;">
