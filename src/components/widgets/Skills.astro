@@ -108,13 +108,23 @@ const tools: Skill[] = [
       </div>
       <div class="relative mb-0 m-auto max-w-6xl">
         <a href="https://github.com/mtlh" target="_blank" rel="noopener noreferrer" class="cursor-pointer">
-          <Image
-            loading="lazy"
-            class="mx-auto rounded-md w-full"
+          {/*
+            Plain <img> (not astro:assets <Image>) so the browser requests the
+            live service at runtime. Astro's <Image> downloads remote URLs at
+            build time, which froze the chart into a bundled SVG.
+
+            The intrinsic 663x104 dimensions reserve the correct aspect ratio
+            before the request starts, so lazy loading never shifts the page.
+          */}
+          <img
             src="https://ghchart.rshah.org/mtlh"
             alt="Matthew Harvey GitHub chart"
-            width={900}
-            height={120}
+            width="663"
+            height="104"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            class="mx-auto h-auto rounded-md w-full"
           />
         </a>
       </div>
