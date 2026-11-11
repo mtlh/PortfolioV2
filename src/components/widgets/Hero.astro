@@ -1,21 +1,18 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { Image } from 'astro:assets';
-import heroDevThumb from '~/assets/images/hero_dev_thumb.webp';
+import heroDevSvg from '~/assets/images/hero_dev.svg?url';
 ---
 
 <section class="hero-section bg-cover bg-no-repeat bg-scroll flex items-center">
   <div class="w-full max-w-6xl mx-auto px-4 sm:px-6">
     <div class="py-6 md:py-20">
       <div class="text-center max-w-5xl mx-auto">
-        <Image
+        <img
           class="mx-auto rounded-md w-[10rem] h-auto max-w-full md:w-[13rem] md:mb-6 mb-1"
-          src={heroDevThumb}
+          src={heroDevSvg}
           alt="Dev Thumb Icon"
           width={256}
           height={256}
-          widths={[160, 208, 256]}
-          sizes="(min-width: 768px) 208px, 160px"
           loading="eager"
           fetchpriority="high"
           decoding="async"
