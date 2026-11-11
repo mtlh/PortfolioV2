@@ -31,7 +31,7 @@ export interface Props {
 }
 ---
 
-<aw-header transition:persist="header">
+<aw-header>
   <header
     class="sticky top-0 z-40 mx-auto w-full backdrop-blur-sm hover:dark:bg-gray-900 hover:bg-white transition ease-in-out"
     id="header"
@@ -145,7 +145,7 @@ export interface Props {
       // Close the mobile menu when a nav link is clicked.
       nav?.addEventListener('click', closeMenu);
 
-      // Blur a clicked dropdown link so the persisted header doesn't keep it open.
+      // Blur a clicked dropdown link so the header doesn't keep it open.
       nav?.addEventListener('click', (e) => {
         const link = (e.target as HTMLElement)?.closest<HTMLElement>('.dropdown-menu a');
         if (link) link.blur();

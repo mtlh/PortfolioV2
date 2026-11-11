@@ -1,0 +1,66 @@
+---
+// Registers a single IntersectionObserver that hydrates the real image source
+// for every <DeferredImage> as it reaches the viewport. Inline and
+// dependency-free so it runs before any below-the-fold image is requested.
+// Also re-runs on astro:page-load so it keeps working if <ClientRouter /> is
+// ever re-enabled.
+---
+
+<noscript>
+  <!-- Without JS the placeholder would sit alongside the fallback <img> in the
+       flow, doubling the icon's footprint. Hide only the placeholders. -->
+  <style>
+    img[data-aw-src] {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<script is:inline>
+  (() => {
+    let observer;
+
+    const load = (img) => {
+      // srcset first: setting src before srcset can make the browser start a
+      // throwaway request for the fallback source.
+      const srcset = img.dataset.awSrcset;
+      if (srcset) {
+        img.srcset = srcset;
+        img.removeAttribute('data-aw-srcset');
+      }
+      const src = img.dataset.awSrc;
+      if (src) {
+        img.src = src;
+        img.removeAttribute('data-aw-src');
+      }
+    };
+
+    const start = () => {
+      const images = document.querySelectorAll('img[data-aw-src]');
+      if (!('IntersectionObserver' in window)) {
+        images.forEach(load);
+        return;
+      }
+      if (!observer) {
+        observer = new IntersectionObserver(
+          (entries, obs) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              obs.unobserve(entry.target);
+              load(entry.target);
+            }
+          },
+          { rootMargin: '0px' }
+        );
+      }
+      images.forEach((img) => observer.observe(img));
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+      start();
+    }
+    document.addEventListener('astro:page-load', start);
+  })();
+</script>

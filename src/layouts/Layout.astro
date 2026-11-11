@@ -13,9 +13,13 @@ import Metadata from '~/components/common/Metadata.astro';
 import SiteVerification from '~/components/common/SiteVerification.astro';
 import Analytics from '~/components/common/Analytics.astro';
 import Intersect from '~/components/common/Intersect.astro';
+import DeferredImages from '~/components/common/DeferredImages.astro';
 
-// Comment the line below to disable View Transitions
-import { ClientRouter } from 'astro:transitions';
+// Navigation uses the browser's native cross-document View Transitions API
+// (`@view-transition { navigation: auto }` in tailwind.css) instead of
+// <ClientRouter />. That gives the same cross-fade between static pages without
+// shipping ~14 kB of client-side router JS or a client-rendered navigation
+// pipeline, keeping the first interaction cheap.
 
 import type { MetaData as MetaDataType } from '~/types';
 
@@ -39,13 +43,11 @@ const { language, textDirection } = I18N;
     <SiteVerification />
     <Analytics />
 
-    <!-- Comment the line below to disable View Transitions -->
-    <ClientRouter fallback="swap" />
-
     <slot name="head" />
   </head>
 
   <body class="antialiased text-default bg-page tracking-tight">
+    <DeferredImages />
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
