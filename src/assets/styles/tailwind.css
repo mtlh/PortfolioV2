@@ -1,5 +1,22 @@
 @import 'tailwindcss';
 
+/*
+ * Cross-document View Transitions, handled natively by the browser, replace
+ * Astro's <ClientRouter />. Static pages still cross-fade, but no router JS is
+ * downloaded, parsed or hydrated on first load.
+ */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 @plugin "@tailwindcss/typography";
 
 @variant dark (&:where(.dark, .dark *));
