@@ -3,7 +3,13 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import SkillTooltip from '~/components/ui/SkillTooltip.astro';
 
-// Local skill icon imports
+// Local skill icon imports.
+//
+// Every icon needs an intrinsic size (`width`/`height` on the root <svg>, not
+// just a `viewBox`). Icons below are sized with `h-auto w-auto` + max-h so
+// their boxes keep the real aspect ratio, and that only works when the browser
+// knows the image's intrinsic dimensions. A `viewBox`-only SVG falls back to
+// 150x150 and collapses to a 0x0 box, so the icons disappear entirely.
 import html5 from '~/assets/skills/icons/html5-original.svg';
 import css3 from '~/assets/skills/icons/css3-original.svg';
 import jsIcon from '~/assets/skills/icons/javascript-plain.svg';
