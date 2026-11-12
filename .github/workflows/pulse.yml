@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PULSE_VERSION: "0.1.0"
+  PULSE_VERSION: "0.2.1"
   # Audit the production build from this commit, not the Vercel deployment. The
   # local URL is identical on main and pull requests, which keeps the baseline
   # key (the audited URL) comparable and avoids Vercel preview authentication.
