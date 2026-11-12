@@ -94,6 +94,8 @@ jobs:
         uses: actions/github-script@v7
         env:
           PULSE_FAILED: ${{ steps.audit.outputs.failed }}
+          PULSE_FAILED_COUNT: ${{ steps.audit.outputs['failed-count'] }}
+          PULSE_AUDIT_ERRORS: ${{ steps.audit.outputs['audit-errors'] }}
           PULSE_URL: ${{ env.PULSE_URL }}
           PULSE_SUMMARY: ${{ env.PULSE_SUMMARY }}
         with:
@@ -112,16 +114,19 @@ jobs:
             // The audit runs against the production build served locally.
             summary = summary.replaceAll(process.env.PULSE_URL, 'Production build');
 
-            const failed = process.env.PULSE_FAILED;
-            const status =
-              failed === '0'
-                ? '✅ all checks passed'
-                : `❌ ${failed || 'some'} check${failed === '1' ? '' : 's'} failed`;
+            // `failed` is a boolean since pulse-audit 0.2.0; the counts are separate outputs.
+            const failed = process.env.PULSE_FAILED === 'true';
+            const failedCount = Number(process.env.PULSE_FAILED_COUNT || 0);
+            const auditErrors = Number(process.env.PULSE_AUDIT_ERRORS || 0);
+            const reasons = [
+              failedCount > 0 ? `${failedCount} check${failedCount === 1 ? '' : 's'} failed` : '',
+              auditErrors > 0 ? `${auditErrors} audit error${auditErrors === 1 ? '' : 's'}` : '',
+            ].filter(Boolean);
+            const status = failed ? `❌ ${reasons.join(' · ') || 'checks failed'}` : '✅ all checks passed';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const guidance =
-              failed === '0'
-                ? ''
-                : '\n> Fix the regression above, or update the budget in `.pulse.json` when the new cost is intentional.';
+            const guidance = failed
+              ? '\n> Fix the regression above, or update the budget in `.pulse.json` when the new cost is intentional.'
+              : '';
             const body = [
               marker,
               summary.trimEnd(),
@@ -161,14 +166,14 @@ jobs:
       - name: Save baseline
         # Only a green main run becomes the baseline, so a regression that slips
         # through is never silently adopted as the new "normal".
-        if: github.ref == 'refs/heads/main' && steps.audit.outcome == 'success' && steps.audit.outputs.failed == '0'
+        if: github.ref == 'refs/heads/main' && steps.audit.outcome == 'success' && steps.audit.outputs.failed == 'false'
         uses: actions/cache/save@v4
         with:
           path: .pulse/baseline.json
           key: pulse-baseline-${{ github.sha }}
 
       - name: Fail when budgets regress
-        if: steps.audit.outputs.failed != '' && steps.audit.outputs.failed != '0'
+        if: steps.audit.outputs.failed == 'true'
         run: |
-          echo "::error::Pulse reported ${{ steps.audit.outputs.failed }} failing check(s). See the pull request comment or the pulse-report artifact."
+          echo "::error::Pulse reported ${{ steps.audit.outputs['failed-count'] }} failing check(s) and ${{ steps.audit.outputs['audit-errors'] }} audit error(s). See the pull request comment or the pulse-report artifact."
           exit 1
