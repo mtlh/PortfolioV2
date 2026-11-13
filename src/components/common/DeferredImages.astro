@@ -1,9 +1,15 @@
 ---
 // Registers a single IntersectionObserver that hydrates the real image source
-// for every <DeferredImage> as it reaches the viewport. Inline and
+// for every <DeferredImage> as it approaches the viewport. Inline and
 // dependency-free so it runs before any below-the-fold image is requested.
 // Also re-runs on astro:page-load so it keeps working if <ClientRouter /> is
 // ever re-enabled.
+//
+// The margin starts at 0 and widens to two viewports once the visitor starts
+// scrolling (or if the page opens already scrolled). Keeping the initial load
+// out of the picture protects the hero's LCP and request budget; widening on
+// scroll gives the icons enough lead time to arrive before they are seen, so
+// they no longer pop in late.
 ---
 
 <noscript>
@@ -18,7 +24,13 @@
 
 <script is:inline>
   (() => {
+    // Two viewports of lookahead, so even a quick fling reaches images that are
+    // already hydrated. Only enabled after the visitor scrolls, so it costs
+    // nothing on the initial load.
+    const LOOKAHEAD_MARGIN = '200% 0px';
+
     let observer;
+    let widened = false;
 
     const load = (img) => {
       // srcset first: setting src before srcset can make the browser start a
@@ -35,31 +47,57 @@
       }
     };
 
+    const observe = (rootMargin) => {
+      observer?.disconnect();
+      observer = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            obs.unobserve(entry.target);
+            load(entry.target);
+          }
+        },
+        { rootMargin }
+      );
+      document.querySelectorAll('img[data-aw-src]').forEach((img) => observer.observe(img));
+    };
+
     const start = () => {
       const images = document.querySelectorAll('img[data-aw-src]');
       if (!('IntersectionObserver' in window)) {
         images.forEach(load);
         return;
       }
-      if (!observer) {
-        observer = new IntersectionObserver(
-          (entries, obs) => {
-            for (const entry of entries) {
-              if (!entry.isIntersecting) continue;
-              obs.unobserve(entry.target);
-              load(entry.target);
-            }
-          },
-          { rootMargin: '0px' }
-        );
+      // On a fresh document nothing loads until the image is actually visible;
+      // after the lookahead has kicked in, keep using the wider margin.
+      if (images.length) {
+        observe(widened || document.readyState === 'complete' ? LOOKAHEAD_MARGIN : '0px');
       }
-      images.forEach((img) => observer.observe(img));
+    };
+
+    const widen = () => {
+      if (widened || !document.querySelector('img[data-aw-src]')) return;
+      widened = true;
+      observe(LOOKAHEAD_MARGIN);
+    };
+
+    const widenIfScrolled = () => {
+      if (window.scrollY > 0) widen();
     };
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', start, { once: true });
     } else {
       start();
+    }
+    // Scrolling is the moment the below-the-fold icons start to matter. Also
+    // covers a page opened with the browser's restored scroll position.
+    window.addEventListener('scroll', widen, { once: true, passive: true });
+    window.addEventListener('pageshow', widenIfScrolled);
+    if (document.readyState === 'complete') {
+      setTimeout(widenIfScrolled, 0);
+    } else {
+      window.addEventListener('load', () => setTimeout(widenIfScrolled, 0), { once: true });
     }
     document.addEventListener('astro:page-load', start);
   })();
