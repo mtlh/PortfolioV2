@@ -47,7 +47,7 @@ const extras: Extra[] = [
     description:
       'Pokémon website interacting with PokéAPI, using standard HTML/CSS/JS only. University module – Frontend Web Development.',
     image: pokeThumb,
-    imageAlt: 'Pokécenter',
+    imageAlt: 'Pokécenter Pokémon website homepage',
     imageClass:
       'mx-auto h-80 w-full object-contain object-center rounded-lg md:mx-0 md:h-full md:w-[40%] md:object-cover',
     imageSizes: '(min-width: 768px) 320px, 100vw',
@@ -64,7 +64,7 @@ const extras: Extra[] = [
     description:
       'Café application built using Kotlin and Android Studio with functional admin interface. University module – Mobile App Development.',
     image: orderMunchThumb,
-    imageAlt: 'OrderMunch',
+    imageAlt: 'OrderMunch mobile ordering app',
     imageClass: 'mx-auto h-80 w-40 object-contain object-center rounded-lg md:mx-0 md:object-cover',
     imageSizes: '(min-width: 768px) 160px, 100vw',
     liveUrl: null,
@@ -81,7 +81,7 @@ const extras: Extra[] = [
     description:
       'Website accessing EE web service for phone messaging, featuring 2FA text verification. University module – Secure Web Development.',
     image: telemetryThumb,
-    imageAlt: 'Telemetry',
+    imageAlt: 'Telemetry messaging website',
     imageClass: 'mx-auto h-80 w-40 object-contain object-center rounded-lg md:mx-0 md:object-cover',
     imageSizes: '(min-width: 768px) 160px, 100vw',
     liveUrl: null,
@@ -122,16 +122,19 @@ const extras: Extra[] = [
                   />
                   <div class="px-4 pt-4 md:pt-0">
                     {item.githubUrl || item.liveUrl ? (
-                      <a
-                        class="mb-4 text-xl font-semibold font-heading hover:underline cursor-pointer"
-                        href={item.githubUrl ?? item.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {item.title}
-                      </a>
+                      <h3 class="mb-4 text-xl font-semibold font-heading">
+                        <a
+                          class="hover:underline cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                          href={item.githubUrl ?? item.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.title}
+                          <span class="sr-only"> (opens in a new tab)</span>
+                        </a>
+                      </h3>
                     ) : (
-                      <div class="mb-4 text-xl font-semibold font-heading">{item.title}</div>
+                      <h3 class="mb-4 text-xl font-semibold font-heading">{item.title}</h3>
                     )}
                     <p class="text-gray-500 dark:text-gray-400">{item.description}</p>
                     <div class="flex w-full flex-nowrap items-center justify-center gap-2 pt-4">
@@ -155,9 +158,9 @@ const extras: Extra[] = [
                           href={item.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`${item.title} live site`}
+                          aria-label={`${item.title} live site (opens in a new tab)`}
                         >
-                          <Icon name="tabler:external-link" class="w-5 h-5 mr-1 -ml-1.5" /> Live
+                          <Icon name="tabler:external-link" class="w-5 h-5 mr-1 -ml-1.5" aria-hidden="true" /> Live
                         </a>
                       ) : null}
                       {item.githubUrl ? (
@@ -166,16 +169,15 @@ const extras: Extra[] = [
                           href={item.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`${item.title} on GitHub`}
+                          aria-label={`${item.title} on GitHub (opens in a new tab)`}
                         >
-                          <Icon name="tabler:brand-github" class="w-5 h-5 mr-1 -ml-1.5" /> GitHub
+                          <Icon name="tabler:brand-github" class="w-5 h-5 mr-1 -ml-1.5" aria-hidden="true" /> GitHub
                         </a>
                       ) : (
-                        <div
-                          class="inline-flex w-full items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-600 dark:bg-slate-800 dark:text-slate-300 mb-4"
-                          aria-label="GitHub repository is private"
-                        >
-                          <Icon name="tabler:lock" class="w-4 h-4 mr-1.5" /> Private
+                        <div class="inline-flex w-full items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-600 dark:bg-slate-800 dark:text-slate-300 mb-4">
+                          <Icon name="tabler:lock" class="w-4 h-4 mr-1.5" aria-hidden="true" />
+                          <span class="sr-only">GitHub repository for {item.title} is private</span>
+                          <span aria-hidden="true">Private</span>
                         </div>
                       )}
                     </div>

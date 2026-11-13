@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const {
-  label = 'Toggle between Dark and Light mode',
+  label = 'Dark mode',
   class:
     className = 'text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center',
   iconClass = 'w-6 h-6',
@@ -21,8 +21,15 @@ const {
 
 {!(UI.theme && UI.theme.endsWith(':only')) && (
   <aw-theme-toggle>
-    <button type="button" class={className} aria-label={label} data-aw-toggle-color-scheme>
-      <Icon name={iconName} class={iconClass} />
+    <button
+      type="button"
+      class={className}
+      aria-label={label}
+      aria-pressed="false"
+      title="Toggle dark mode"
+      data-aw-toggle-color-scheme
+    >
+      <Icon name={iconName} class={iconClass} aria-hidden="true" />
     </button>
   </aw-theme-toggle>
 )}
@@ -34,15 +41,27 @@ const {
 </style>
 
 <script>
+  // There may be more than one toggle on the page (mobile + desktop), so keep
+  // every instance's pressed state in sync with the document theme.
+  const syncThemeToggles = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll<HTMLElement>('[data-aw-toggle-color-scheme]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(isDark));
+    });
+  };
+
   class AwThemeToggle extends HTMLElement {
     connectedCallback() {
       this.querySelector('[data-aw-toggle-color-scheme]')?.addEventListener('click', () => {
         const isDark = document.documentElement.classList.toggle('dark');
         localStorage.theme = isDark ? 'dark' : 'light';
+        syncThemeToggles();
         // Let the reveal-on-scroll controller drop its stagger delay so the
         // theme change doesn't flicker mid-animation (see REF #643).
         document.dispatchEvent(new CustomEvent('aw:theme-change'));
       });
+
+      syncThemeToggles();
     }
   }
 

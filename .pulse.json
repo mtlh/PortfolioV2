@@ -28,7 +28,7 @@
       "regression": 20
     },
     "a11y": {
-      "maxViolations": 12,
+      "maxViolations": 0,
       "maxNew": 0
     }
   },

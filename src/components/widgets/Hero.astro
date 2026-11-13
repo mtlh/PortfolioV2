@@ -10,7 +10,7 @@ import heroDevSvg from '~/assets/images/hero_dev.svg?url';
         <img
           class="mx-auto rounded-md w-[10rem] h-auto max-w-full md:w-[13rem] md:mb-6 mb-1"
           src={heroDevSvg}
-          alt="Dev Thumb Icon"
+          alt="Illustration of a developer with a laptop"
           width={256}
           height={256}
           loading="eager"
@@ -21,7 +21,7 @@ import heroDevSvg from '~/assets/images/hero_dev.svg?url';
           Matthew Harvey
         </h1>
         <h2 class="text-3xl md:text-[2.50rem] font-bold leading-tighter tracking-tighter mb-4 font-heading">
-          <span class="bg-clip-text text-transparent bg-linear-to-r from-primary to-primary sm:whitespace-nowrap">
+          <span class="bg-clip-text text-transparent bg-linear-to-r from-secondary to-secondary sm:whitespace-nowrap">
             Software Engineer
           </span>
         </h2>
@@ -34,7 +34,8 @@ import heroDevSvg from '~/assets/images/hero_dev.svg?url';
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Connect <Icon name="tabler:brand-linkedin" class="w-6 h-6 ml-1" />
+                Connect <Icon name="tabler:brand-linkedin" class="w-6 h-6 ml-1" aria-hidden="true" />
+                <span class="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
             <div class="flex w-full sm:w-auto">
@@ -42,7 +43,7 @@ import heroDevSvg from '~/assets/images/hero_dev.svg?url';
                 class="btn text-white border border-primary bg-primary hover:bg-primary hover:border-primary hover:scale-105 hover:shadow-lg sm:mb-0 w-full transition-transform"
                 href="#projects"
               >
-                View Projects &DownArrow;
+                View Projects <span aria-hidden="true">&darr;</span>
               </a>
             </div>
           </div>
@@ -82,6 +83,15 @@ import heroDevSvg from '~/assets/images/hero_dev.svg?url';
 
     .hero-section .flex.flex-nowrap {
       gap: 0.5rem;
+    }
+  }
+
+  /* Windows High Contrast / forced-colors drops background images, which would
+     leave gradient-clipped text invisible. Fall back to a system text colour. */
+  @media (forced-colors: active) {
+    .hero-section h2 span {
+      background-image: none;
+      color: CanvasText;
     }
   }
 </style>

@@ -21,11 +21,16 @@ export const responsiveTablesRehypePlugin: RehypePlugin = () => {
       const child = tree.children[i];
 
       if (child.type === 'element' && child.tagName === 'table') {
+        // A scroll container must be reachable and named so keyboard-only
+        // users can scroll a wide table (WCAG 2.1.1 / 4.1.2).
         tree.children[i] = {
           type: 'element',
           tagName: 'div',
           properties: {
             style: 'overflow:auto',
+            tabindex: '0',
+            role: 'region',
+            'aria-label': 'Table, scroll horizontally to see more',
           },
           children: [child],
         };

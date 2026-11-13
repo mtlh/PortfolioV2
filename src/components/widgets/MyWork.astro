@@ -152,6 +152,7 @@ const educationEntries: EducationEntry[] = [
                   class={
                     i === 0 ? 'w-6 h-6 text-slate-200 icon-bold' : 'w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold'
                   }
+                  aria-hidden="true"
                 />
               </div>
             </div>
@@ -159,7 +160,7 @@ const educationEntries: EducationEntry[] = [
           </div>
           <div class="pt-1 pb-8 grid grid-flow-col w-full xl:grid-cols-4 items-start xl:items-center">
             <div class="col-span-4 xl:col-span-3 min-w-full">
-              <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{entry.title}</p>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{entry.title}</h3>
               {entry.image ? (
                 <DeferredImage
                   class="visible xl:hidden w-60"
@@ -172,13 +173,14 @@ const educationEntries: EducationEntry[] = [
                 <p class="mb-2 text-lg font-medium text-primary dark:text-primary-soft underline">
                   <a href={entry.companyUrl} target="_blank" rel="noopener noreferrer">
                     {entry.company}
+                    <span class="sr-only"> (opens in a new tab)</span>
                   </a>
                 </p>
               ) : null}
-              <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
-                <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
-                <p class="inline">{entry.dates}</p>
-              </span>
+              <p class="inline text-lg font-medium text-gray-900 dark:text-slate-300 my-1">
+                <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" aria-hidden="true" />
+                <span class="inline">{entry.dates}</span>
+              </p>
               <br />
               {entry.skills ? (
                 <div class="flex flex-wrap items-center gap-3 mt-1">
@@ -211,14 +213,18 @@ const educationEntries: EducationEntry[] = [
             <div class="flex flex-col items-center mr-4">
               <div>
                 <div class="flex items-center justify-center w-10 h-10 rounded-full border-blue-500 border-2">
-                  <Icon name="tabler:arrow-up" class="w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold" />
+                  <Icon
+                    name="tabler:arrow-up"
+                    class="w-6 h-6 text-gray-600 dark:text-slate-200 icon-bold"
+                    aria-hidden="true"
+                  />
                 </div>
               </div>
               <div class="w-px h-full bg-gray-300 dark:bg-slate-500" />
             </div>
             <div class="pt-1 pb-8 grid grid-flow-col w-full xl:grid-cols-4 items-start xl:items-center">
               <div class="col-span-4 xl:col-span-3 min-w-full">
-                <p class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{ed.title}</p>
+                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{ed.title}</h3>
                 {ed.image ? (
                   <DeferredImage
                     class="visible xl:hidden w-60"
@@ -230,18 +236,19 @@ const educationEntries: EducationEntry[] = [
                 <p class="mb-2 text-lg font-medium text-primary dark:text-primary-soft underline">
                   <a href={ed.institutionUrl} target="_blank" rel="noopener noreferrer">
                     {ed.institution}
+                    <span class="sr-only"> (opens in a new tab)</span>
                   </a>
                 </p>
-                <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300">
-                  <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" />
-                  <p class="inline">{ed.dates}</p>
-                </span>
+                <p class="inline text-lg font-medium text-gray-900 dark:text-slate-300">
+                  <Icon name="tabler:calendar-time" class="w-6 h-6 icon-bold inline" aria-hidden="true" />
+                  <span class="inline">{ed.dates}</span>
+                </p>
                 <br />
                 {ed.award ? (
-                  <span class="inline text-lg font-medium text-gray-900 dark:text-slate-300">
-                    <Icon name="tabler:award" class="w-6 h-6 icon-bold inline" />
-                    <p class="inline">{ed.award}</p>
-                  </span>
+                  <p class="inline text-lg font-medium text-gray-900 dark:text-slate-300">
+                    <Icon name="tabler:award" class="w-6 h-6 icon-bold inline" aria-hidden="true" />
+                    <span class="inline">{ed.award}</span>
+                  </p>
                 ) : null}
                 <br />
                 {ed.skills ? (

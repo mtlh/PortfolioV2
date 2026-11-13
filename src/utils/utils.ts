@@ -9,6 +9,10 @@ export const formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(I18N?.lang
 
 export const getFormattedDate = (date: Date): string => (date ? formatter.format(date) : '');
 
+// `<time datetime>` needs a machine-readable value; `String(date)` produces a
+// locale-dependent string that assistive tech and crawlers cannot parse.
+export const getISODate = (date: Date): string => (date ? date.toISOString().slice(0, 10) : '');
+
 export const trim = (str = '', ch?: string) => {
   let start = 0,
     end = str.length || 0;
