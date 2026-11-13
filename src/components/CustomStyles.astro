@@ -35,13 +35,19 @@
     --aw-color-text-heading: rgb(0 0 0);
     --aw-color-text-default: rgb(16 16 16);
     --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-text-page: rgb(16 16 16);
     --aw-color-bg-page: rgb(255 255 255);
     --aw-color-bg-page-secondary: rgb(244 244 246);
 
     --aw-color-bg-page-dark: rgb(0, 0, 0);
+    --aw-color-focus: rgb(1 97 239);
+
+    /* Let native controls (scrollbars, autofill, date pickers) match the theme. */
+    color-scheme: light;
 
     ::selection {
       background-color: lavender;
+      color: black;
     }
   }
 
@@ -58,8 +64,13 @@
     --aw-color-text-heading: rgb(247, 248, 248);
     --aw-color-text-default: rgb(229 236 246);
     --aw-color-text-muted: rgb(229 236 246 / 66%);
+    --aw-color-text-page: rgb(229 236 246);
     --aw-color-bg-page: rgb(24, 34, 49);
     --aw-color-bg-page-secondary: rgb(30, 41, 59);
+
+    --aw-color-focus: rgb(147 197 253);
+
+    color-scheme: dark;
 
     ::selection {
       background-color: black;

@@ -4,7 +4,7 @@ import SocialLinks from '../common/SocialLinks.astro';
 import type { Widget } from '~/types';
 import { APP_BLOG } from 'astrowind:config';
 import { findLatestPosts } from '~/utils/blog';
-import { getHomePermalink } from '~/utils/permalinks';
+import { getBlogPermalink, getHomePermalink } from '~/utils/permalinks';
 
 export interface Props extends Widget {
   title?: string;
@@ -22,10 +22,12 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
 <footer class="border-t border-gray-200 dark:border-slate-800">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 gap-y-4 sm:gap-8 py-6">
-      <div class="text-gray-800 dark:text-gray-300 mb-2 text-md">
-        <a href="/" class="underline">
-          Home
-        </a>
+      <nav aria-labelledby="footer-site-heading" class="text-gray-800 dark:text-gray-300 mb-2 text-md">
+        <h2 id="footer-site-heading">
+          <a href={getHomePermalink()} class="underline">
+            Home
+          </a>
+        </h2>
         <ul class="py-2 text-sm">
           <li class="mb-2">
             <a
@@ -52,11 +54,13 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
             </a>
           </li>
         </ul>
-      </div>
-      <div class="text-gray-800 dark:text-gray-300 mb-2 text-md">
-        <a href="/blog" class="underline">
-          Blog
-        </a>
+      </nav>
+      <nav aria-labelledby="footer-blog-heading" class="text-gray-800 dark:text-gray-300 mb-2 text-md">
+        <h2 id="footer-blog-heading">
+          <a href={getBlogPermalink()} class="underline">
+            Blog
+          </a>
+        </h2>
         <ul class="py-2 text-sm">
           {posts.map((post) => (
             <li class="mb-2">
@@ -69,8 +73,9 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
             </li>
           ))}
         </ul>
-      </div>
+      </nav>
       <div class="text-gray-800 dark:text-gray-300 mb-1 sm:col-span-2 md:col-span-1">
+        <h2 class="sr-only">Social and theme</h2>
         <div class="flex items-center gap-2 mb-4 sm:justify-end md:justify-start">
           <SocialLinks />
           <ToggleTheme />

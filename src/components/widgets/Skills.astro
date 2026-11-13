@@ -113,7 +113,13 @@ const tools: Skill[] = [
         <h2 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading">What I Know</h2>
       </div>
       <div class="relative mb-0 m-auto max-w-6xl">
-        <a href="https://github.com/mtlh" target="_blank" rel="noopener noreferrer" class="cursor-pointer">
+        <a
+          href="https://github.com/mtlh"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cursor-pointer rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          aria-label="Matthew Harvey's GitHub contribution chart on GitHub (opens in a new tab)"
+        >
           {/*
             Plain <img> (not astro:assets <Image>) so the browser requests the
             live service at runtime. Astro's <Image> downloads remote URLs at
@@ -129,7 +135,7 @@ const tools: Skill[] = [
           <img
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             data-aw-src="https://ghchart.rshah.org/mtlh"
-            alt="Matthew Harvey GitHub chart"
+            alt=""
             width="663"
             height="104"
             loading="lazy"
@@ -140,7 +146,7 @@ const tools: Skill[] = [
           <noscript>
             <img
               src="https://ghchart.rshah.org/mtlh"
-              alt="Matthew Harvey GitHub chart"
+              alt=""
               width="663"
               height="104"
               loading="lazy"
@@ -158,7 +164,7 @@ const tools: Skill[] = [
         ].map((section) => (
           <div class="relative flex h-full flex-col p-6 bg-white dark:bg-slate-900 rounded shadow-xl hover:shadow-lg transition dark:border dark:border-slate-800 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
             <div class="flex items-center mb-4">
-              <div class="text-2xl font-bold">{section.title}</div>
+              <h3 class="text-2xl font-bold">{section.title}</h3>
             </div>
             <div class="grid max-w-none grid-cols-5 gap-4">
               {section.items.map((skill) => (
@@ -167,14 +173,14 @@ const tools: Skill[] = [
                     <>
                       <DeferredImage
                         src={skill.srcLight}
-                        alt={`${skill.label} Light`}
+                        alt={skill.label}
                         class="max-h-16 max-w-full h-auto w-auto object-contain dark:hidden md:max-h-12"
                         width={100}
                         height={100}
                       />
                       <DeferredImage
                         src={skill.srcDark}
-                        alt={`${skill.label} Dark`}
+                        alt={skill.label}
                         class="max-h-16 max-w-full h-auto w-auto object-contain hidden dark:block md:max-h-12"
                         width={100}
                         height={100}

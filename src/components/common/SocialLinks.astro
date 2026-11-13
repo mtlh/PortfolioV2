@@ -9,22 +9,22 @@ const { class: className } = Astro.props;
 
 const socialLinks = [
   {
-    ariaLabel: 'LinkedIn profile',
+    ariaLabel: "Matthew Harvey's LinkedIn profile (opens in a new tab)",
     href: 'https://www.linkedin.com/in/mtlh/',
     icon: 'tabler:brand-linkedin',
   },
   {
-    ariaLabel: 'GitHub profile',
+    ariaLabel: "Matthew Harvey's GitHub profile (opens in a new tab)",
     href: 'https://github.com/mtlh/',
     icon: 'tabler:brand-github',
   },
   {
-    ariaLabel: 'Email',
+    ariaLabel: 'Email Matthew Harvey',
     href: 'mailto:matthewtlharvey@gmail.com',
     icon: 'tabler:mail-forward',
   },
   {
-    ariaLabel: 'CV',
+    ariaLabel: "Download Matthew Harvey's CV (PDF)",
     href: '/MatthewHarveyCV.pdf',
     icon: 'tabler:file-info',
     isExternal: false,
@@ -43,7 +43,7 @@ const socialLinks = [
         target={link.isExternal !== false ? '_blank' : undefined}
         rel={link.isExternal !== false ? 'noopener noreferrer' : undefined}
       >
-        <Icon name={link.icon} class="w-5 h-5" />
+        <Icon name={link.icon} class="w-5 h-5" aria-hidden="true" />
       </a>
     </li>
   ))}

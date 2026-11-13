@@ -1,29 +1,38 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+// Shared field styling: dark text on a light field, a 3:1+ border for the
+// control boundary, AA-contrast placeholder text, and a visible focus ring
+// instead of relying on a subtle colour change alone.
+const fieldClass =
+  'appearance-none block w-full bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-600 dark:placeholder:text-slate-400 border border-gray-500 dark:border-slate-500 rounded py-3 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900 focus:bg-white focus:text-gray-900 focus:border-gray-600 dark:focus:bg-slate-700 dark:focus:text-white dark:focus:border-primary';
 ---
 
 <section
   id="contact"
   class="bg-light mx-auto text-center p-6 rounded-md dark:shadow-none dark:border dark:border-slate-600 scroll-mt-20"
+  aria-labelledby="contact-heading"
 >
   <div class="max-w-screen-md mx-auto py-8 md:pb-20">
     <div class="text-center mb-10">
-      <p class="text-primary dark:text-primary-soft font-semibold tracking-wide uppercase" id="contacttitle">
-        Contact
-      </p>
-      <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900 dark:text-gray-400">
+      <p class="text-primary dark:text-primary-soft font-semibold tracking-wide uppercase">Contact</p>
+      <h2
+        id="contact-heading"
+        class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900 dark:text-gray-400"
+      >
         Get In Touch
-      </h3>
+      </h2>
     </div>
     <form
       class="w-full max-w-3xl mx-auto text-center px-6 pt-6 pb-2 rounded-md shadow-xl dark:shadow-none bg-page"
       action="https://formspree.io/f/mpznepgy"
       method="POST"
+      aria-labelledby="contact-heading"
     >
       <div class="flex flex-wrap -mx-3">
         <div class="w-full md:w-1/2 p-3">
           <label
-            class="block uppercase tracking-wide text-gray-500 dark:text-gray-400 text-xs font-bold mb-2"
+            class="block uppercase tracking-wide text-gray-600 dark:text-gray-400 text-xs font-bold mb-2"
             for="grid-first-name"
           >
             First Name
@@ -31,15 +40,16 @@ import { Icon } from 'astro-icon/components';
           <input
             name="firstname"
             required
-            class="appearance-none block w-full bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-200 border border-gray-200 dark:border-slate-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:text-gray-900 focus:border-gray-500 dark:focus:bg-slate-700 dark:focus:text-white dark:focus:border-primary"
+            class={fieldClass}
             id="grid-first-name"
             type="text"
+            autocomplete="given-name"
             placeholder="Matthew"
           />
         </div>
         <div class="w-full md:w-1/2 p-3">
           <label
-            class="block uppercase tracking-wide text-gray-500 dark:text-gray-400 text-xs font-bold mb-2"
+            class="block uppercase tracking-wide text-gray-600 dark:text-gray-400 text-xs font-bold mb-2"
             for="grid-last-name"
           >
             Last Name
@@ -47,9 +57,10 @@ import { Icon } from 'astro-icon/components';
           <input
             name="surname"
             required
-            class="appearance-none block w-full bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-200 border border-gray-200 dark:border-slate-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:text-gray-900 focus:border-gray-500 dark:focus:bg-slate-700 dark:focus:text-white dark:focus:border-primary"
+            class={fieldClass}
             id="grid-last-name"
             type="text"
+            autocomplete="family-name"
             placeholder="Harvey"
           />
         </div>
@@ -57,7 +68,7 @@ import { Icon } from 'astro-icon/components';
       <div class="flex flex-wrap -mx-3">
         <div class="w-full p-3">
           <label
-            class="block uppercase tracking-wide text-gray-500 dark:text-gray-400 text-xs font-bold mb-2"
+            class="block uppercase tracking-wide text-gray-600 dark:text-gray-400 text-xs font-bold mb-2"
             for="grid-email"
           >
             Email Address
@@ -65,9 +76,10 @@ import { Icon } from 'astro-icon/components';
           <input
             name="email"
             required
-            class="appearance-none block w-full bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-200 border border-gray-200 dark:border-slate-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:text-gray-900 focus:border-gray-500 dark:focus:bg-slate-700 dark:focus:text-white dark:focus:border-primary"
+            class={fieldClass}
             id="grid-email"
             type="email"
+            autocomplete="email"
             placeholder="you@email.com"
           />
         </div>
@@ -75,7 +87,7 @@ import { Icon } from 'astro-icon/components';
       <div class="flex flex-wrap -mx-3 mb-4">
         <div class="w-full px-3">
           <label
-            class="block uppercase tracking-wide text-gray-500 dark:text-gray-400 text-xs font-bold mb-2"
+            class="block uppercase tracking-wide text-gray-600 dark:text-gray-400 text-xs font-bold mb-2"
             for="grid-message"
           >
             Your Message
@@ -86,13 +98,13 @@ import { Icon } from 'astro-icon/components';
             placeholder="Example message"
             required
             rows="10"
-            class="appearance-none block w-full bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-gray-200 border border-gray-200 dark:border-slate-600 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:text-gray-900 focus:border-gray-500 dark:focus:bg-slate-700 dark:focus:text-white dark:focus:border-primary"
+            class={fieldClass}
           ></textarea>
         </div>
         <div class="grid justify-items-stretch w-full px-3">
           <div class="md:flex items-end text-right justify-self-end">
-            <button class="btn text-white bg-primary hover:bg-primary mb-4 sm:mb-0" type="submit">
-              <Icon name="tabler:arrow-right" class="w-5 h-5 mr-1 -ml-1.5" /> Submit
+            <button type="submit" class="btn text-white bg-primary hover:bg-primary mb-4 sm:mb-0">
+              <Icon name="tabler:arrow-right" class="w-5 h-5 mr-1 -ml-1.5" aria-hidden="true" /> Submit
             </button>
           </div>
         </div>

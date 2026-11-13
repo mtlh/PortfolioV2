@@ -38,7 +38,11 @@ export interface Props {
   >
     <div class="py-2 px-3 mx-auto w-full md:flex md:justify-between max-w-6xl md:px-4">
       <div class="flex justify-between">
-        <a class="flex items-center" href={getHomePermalink()}>
+        <a
+          class="flex items-center rounded focus-visible:ring-2 focus-visible:ring-primary"
+          href={getHomePermalink()}
+          aria-label="MTLH — Matthew Harvey's portfolio, home"
+        >
           <Logo />
         </a>
         <div class="flex items-center md:hidden">
@@ -48,6 +52,7 @@ export interface Props {
         </div>
       </div>
       <nav
+        id="primary-navigation"
         class="items-center w-full md:w-auto hidden md:flex text-muted dark:text-slate-200 h-screen md:h-auto"
         aria-label="Main navigation"
       >
@@ -107,6 +112,7 @@ export interface Props {
     private onScroll?: () => void;
     private mql?: MediaQueryList;
     private onMqlChange?: () => void;
+    private onKeyDown?: (event: KeyboardEvent) => void;
     private onPageLoad = () => {
       this.updateActiveLinks();
       this.closeOpenDropdown();
@@ -145,6 +151,15 @@ export interface Props {
       // Close the mobile menu when a nav link is clicked.
       nav?.addEventListener('click', closeMenu);
 
+      // Escape closes the menu and returns focus to the toggle, so keyboard
+      // users are never stranded in a menu that has disappeared.
+      this.onKeyDown = (event) => {
+        if (event.key !== 'Escape' || !toggle?.classList.contains('expanded')) return;
+        closeMenu();
+        toggle.focus();
+      };
+      document.addEventListener('keydown', this.onKeyDown);
+
       // Blur a clicked dropdown link so the header doesn't keep it open.
       nav?.addEventListener('click', (e) => {
         const link = (e.target as HTMLElement)?.closest<HTMLElement>('.dropdown-menu a');
@@ -179,6 +194,7 @@ export interface Props {
 
     disconnectedCallback() {
       if (this.onScroll) document.removeEventListener('scroll', this.onScroll);
+      if (this.onKeyDown) document.removeEventListener('keydown', this.onKeyDown);
       if (this.mql && this.onMqlChange) this.mql.removeEventListener('change', this.onMqlChange);
       document.removeEventListener('astro:page-load', this.onPageLoad);
     }
@@ -192,7 +208,13 @@ export interface Props {
       const norm = (p: string) => '/' + p.replace(/^\/+|\/+$/g, '');
       const current = norm(window.location.pathname);
       this.querySelectorAll<HTMLAnchorElement>('nav a[href]').forEach((a) => {
-        a.classList.toggle('aw-link-active', norm(new URL(a.href).pathname) === current);
+        const url = new URL(a.href);
+        const active = norm(url.pathname) === current && !url.hash;
+        a.classList.toggle('aw-link-active', active);
+        // Section links (`/#skills`) share the current pathname, so only mark
+        // a link as the current page when it has no hash fragment.
+        if (active) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
       });
     }
   }

@@ -7,19 +7,17 @@ interface Props {
 const { label, class: className = '' } = Astro.props;
 ---
 
-<div
-  class:list={[
-    'group relative inline-block w-fit justify-self-center rounded-sm text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary',
-    className,
-  ]}
-  tabindex="0"
-  role="group"
-  aria-label={label}
->
+{/*
+  The label is purely a visual cue: every skill image already carries the same
+  text as its `alt`. The wrapper is not focusable and the tooltip is hidden
+  from assistive technology so a screen reader user is not given dozens of
+  redundant tab stops and duplicate announcements.
+*/}
+<div class:list={['group relative inline-block w-fit justify-self-center rounded-sm', className]}>
   <slot />
   <span
-    class="pointer-events-none absolute bottom-0 right-0 z-20 hidden translate-x-1/2 translate-y-1/2 whitespace-nowrap rounded-md bg-linear-to-r from-blue-500 to-blue-600 px-2 py-1 text-xs leading-none text-white shadow-lg group-hover:block group-focus:block"
-    role="tooltip"
+    class="pointer-events-none absolute bottom-0 right-0 z-20 hidden translate-x-1/2 translate-y-1/2 whitespace-nowrap rounded-md bg-linear-to-r from-blue-600 to-blue-700 px-2 py-1 text-xs leading-none text-white shadow-lg group-hover:block group-focus-within:block"
+    aria-hidden="true"
   >
     {label}
   </span>
