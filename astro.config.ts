@@ -53,12 +53,15 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
-  // Prefetch on intent (hover/focus) only. Eagerly fetching every in-viewport
-  // link after load competed with first paint and hydration; hover keeps
-  // navigations feeling instant without the front-loaded network work.
-  prefetch: {
-    defaultStrategy: 'hover',
-  },
+  // Prefetching is off: Astro serialises every strategy it supports (tap,
+  // hover, viewport, load — ~2.4 kB on every page) and only acts on links
+  // carrying `data-astro-prefetch`, or on all links when `prefetchAll` is set.
+  // Nothing internal opts in here (the CV link is an explicit opt-out), so the
+  // script was downloading and parsing 2.4 kB per page to prefetch nothing.
+  // To turn intent-prefetching on later, use
+  //   prefetch: { prefetchAll: true, defaultStrategy: 'hover' }
+  // and budget for the script it adds back.
+  prefetch: false,
 
   // Native Fonts API: self-hosts + subsets + preloads Inter and generates
   // metric-adjusted fallbacks. Injected via <Font /> in Layout.astro and
@@ -121,7 +124,11 @@ export default defineConfig({
       },
       Image: false,
       JavaScript: true,
-      SVG: false,
+      // SVGs are the icons behind every skill and project card (raw devicon
+      // exports carry editor metadata and redundant precision). SVGO strips
+      // that without touching the geometry, cutting the icon payload roughly
+      // 40% (e.g. hero_dev.svg 11.9 kB -> 9.2 kB).
+      SVG: true,
       Logger: 1,
     }),
 
